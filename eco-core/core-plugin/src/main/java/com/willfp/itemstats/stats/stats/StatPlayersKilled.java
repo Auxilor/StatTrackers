@@ -5,9 +5,11 @@ import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
 public class StatPlayersKilled extends Stat {
@@ -17,15 +19,27 @@ public class StatPlayersKilled extends Stat {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void statListener(@NotNull final EntityDeathByEntityEvent event) {
-        if (!(event.getKiller() instanceof Player)) {
+        Player player = null;
+
+        if (event.getKiller() instanceof Player) {
+            player = (Player) event.getKiller();
+        } else if (event.getKiller() instanceof Projectile) {
+            ProjectileSource shooter = ((Projectile) event.getKiller()).getShooter();
+            if (shooter == null) {
+                return;
+            }
+            if (shooter instanceof Player) {
+                player = (Player) shooter;
+            }
+        }
+
+        if (player == null) {
             return;
         }
 
         if (!(event.getVictim() instanceof Player)) {
             return;
         }
-
-        Player player = (Player) event.getKiller();
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 

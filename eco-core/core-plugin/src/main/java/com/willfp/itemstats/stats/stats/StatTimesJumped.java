@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.util.Set;
 import java.util.UUID;
 
+@SuppressWarnings("deprecation")
 public class StatTimesJumped extends Stat {
     private static final Set<UUID> PREVIOUS_PLAYERS_ON_GROUND = Sets.newHashSet();
     private static final DecimalFormat FORMAT = new DecimalFormat("0.00");

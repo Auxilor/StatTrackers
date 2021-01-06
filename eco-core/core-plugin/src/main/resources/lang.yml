@@ -13,37 +13,49 @@ delimiter: ": "
 stat:
   damage_dealt:
     name: "Damage dealt"
-    color: "&d"
+    color: "&b"
   arrows_shot:
     name: "Arrows shot"
-    color: "&d"
+    color: "&b"
   blocks_broken:
     name: "Blocks broken"
-    color: "&d"
+    color: "&b"
   damage_blocked:
     name: "Damage blocked"
-    color: "&d"
+    color: "&b"
   damage_taken:
     name: "Damage taken while wearing"
-    color: "&d"
+    color: "&b"
   distance_flown:
     name: "Distance Flown"
-    color: "&d"
+    color: "&b"
   distance_sneaked:
     name: "Distance sneaked"
-    color: "&d"
+    color: "&b"
   distance_sprinted:
     name: "Distance sprinted"
-    color: "&d"
+    color: "&b"
   item_damage:
     name: "Total damage"
-    color: "&d"
+    color: "&b"
   mobs_killed:
     name: "Mobs killed"
-    color: "&d"
+    color: "&b"
   players_killed:
     name: "Players killed"
-    color: "&d"
+    color: "&b"
   times_jumped:
     name: "Times jumped while wearing"
-    color: "&d"
+    color: "&b"
+  experience_absorbed:
+    name: "Experience gained while wearing"
+    color: "&b"
+  bosses_killed:
+    name: "Bosses killed"
+    color: "&b"
+  distance_travelled:
+    name: "Distance Travelled"
+    color: "&b"
+  headshots:
+    name: "Headshots"
+    color: "&b"

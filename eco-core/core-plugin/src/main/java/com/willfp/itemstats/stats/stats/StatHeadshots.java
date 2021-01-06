@@ -9,41 +9,38 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-public class StatMobsKilled extends Stat {
-    public StatMobsKilled() {
-        super("mobs_killed");
+public class StatHeadshots extends Stat {
+    public StatHeadshots() {
+        super("headshots");
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void statListener(@NotNull final EntityDeathByEntityEvent event) {
-        Player player = null;
-
-        if (event.getKiller() instanceof Player) {
-            player = (Player) event.getKiller();
-        } else if (event.getKiller() instanceof Projectile) {
-            ProjectileSource shooter = ((Projectile) event.getKiller()).getShooter();
-            if (shooter == null) {
-                return;
-            }
-            if (shooter instanceof Player) {
-                player = (Player) shooter;
-            }
+        if (!(event.getKiller() instanceof Projectile)) {
+            return;
         }
+
+        Projectile projectile = (Projectile) event.getKiller();
+
+        if (!(projectile.getShooter() instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) projectile.getShooter();
 
         if (player == null) {
             return;
         }
 
-        ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-        if (itemStack == null) {
+        if (projectile.getLocation().getY() < event.getVictim().getLocation().getY() + event.getVictim().getEyeHeight() - 0.22) {
             return;
         }
 
-        if (itemStack.getType() == Material.AIR) {
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
+
+        if (itemStack.getType() != Material.BOW && itemStack.getType() != Material.CROSSBOW) {
             return;
         }
 

@@ -4,6 +4,8 @@ import com.willfp.eco.util.events.entitydeathbyentity.EntityDeathByEntityEvent;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import org.bukkit.Material;
+import org.bukkit.entity.Boss;
+import org.bukkit.entity.Illusioner;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -12,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-public class StatMobsKilled extends Stat {
-    public StatMobsKilled() {
-        super("mobs_killed");
+public class StatBossesKilled extends Stat {
+    public StatBossesKilled() {
+        super("bosses_killed");
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -34,6 +36,10 @@ public class StatMobsKilled extends Stat {
         }
 
         if (player == null) {
+            return;
+        }
+
+        if (!(event.getVictim() instanceof Boss || event.getVictim() instanceof Illusioner)) {
             return;
         }
 

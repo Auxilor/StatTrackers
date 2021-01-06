@@ -13,10 +13,14 @@ import com.willfp.itemstats.stats.stats.StatDamageTaken;
 import com.willfp.itemstats.stats.stats.StatDistanceFlown;
 import com.willfp.itemstats.stats.stats.StatDistanceSneaked;
 import com.willfp.itemstats.stats.stats.StatDistanceSprinted;
+import com.willfp.itemstats.stats.stats.StatDistanceTravelled;
+import com.willfp.itemstats.stats.stats.StatExperienceAbsorbed;
+import com.willfp.itemstats.stats.stats.StatHeadshots;
 import com.willfp.itemstats.stats.stats.StatItemDamage;
 import com.willfp.itemstats.stats.stats.StatMobsKilled;
 import com.willfp.itemstats.stats.stats.StatPlayersKilled;
 import com.willfp.itemstats.stats.stats.StatTimesJumped;
+import com.willfp.itemstats.stats.stats.StatBossesKilled;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
@@ -45,6 +49,10 @@ public class Stats {
     public static final Stat MOBS_KILLED = new StatMobsKilled();
     public static final Stat PLAYERS_KILLED = new StatPlayersKilled();
     public static final Stat TIMES_JUMPED = new StatTimesJumped();
+    public static final Stat EXPERIENCE_ABSORBED = new StatExperienceAbsorbed();
+    public static final Stat BOSSES_KILLED = new StatBossesKilled();
+    public static final Stat DISTANCE_TRAVELLED = new StatDistanceTravelled();
+    public static final Stat HEADSHOTS = new StatHeadshots();
 
     /**
      * Get all registered {@link Stat}s.
