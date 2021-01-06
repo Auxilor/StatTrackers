@@ -5,7 +5,7 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <!-- Talismans don't need javadoc. -->
+    <!-- Stats don't need javadoc. -->
     <suppress files="[\\/]stats[\\/]stats[\\/]" checks="MissingJavadocMethod"/>
     <suppress files="[\\/]stats[\\/]stats[\\/]" checks="JavadocVariable"/>
 

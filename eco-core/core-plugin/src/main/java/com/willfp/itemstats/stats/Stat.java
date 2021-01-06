@@ -57,8 +57,8 @@ public abstract class Stat implements Listener {
      * This can be overridden but may lead to unexpected behavior.
      */
     public void update() {
-        description = Configs.LANG.getString("stat." + this.getKey().getKey() + ".name");
-        color = Configs.LANG.getString("stat." + this.getKey().getKey() + ".color");
+        description = Configs.CONFIG.getString("stat." + this.getKey().getKey() + ".name");
+        color = Configs.CONFIG.getString("stat." + this.getKey().getKey() + ".color");
 
         postUpdate();
     }

@@ -44,12 +44,7 @@ public class CommandIstatsdebug extends AbstractCommand {
         this.getPlugin().getLog().info("Running Version: " + this.getPlugin().getDescription().getVersion());
         this.getPlugin().getLog().info("");
 
-        this.getPlugin().getLog().info("Loaded Extensions: " + this.getPlugin().getExtensionLoader().getLoadedExtensions().stream()
-                .map(extension -> extension.getName() + " v" + extension.getVersion())
-                .collect(Collectors.joining()));
-        this.getPlugin().getLog().info("");
-
-        this.getPlugin().getLog().info("Talismans.values(): " + Stats.values().toString());
+        this.getPlugin().getLog().info("Stats.values(): " + Stats.values().toString());
         this.getPlugin().getLog().info("");
 
         this.getPlugin().getLog().info("Installed Plugins: " + Arrays.stream(Bukkit.getPluginManager().getPlugins()).map(Plugin::getName).collect(Collectors.toList()).toString());
