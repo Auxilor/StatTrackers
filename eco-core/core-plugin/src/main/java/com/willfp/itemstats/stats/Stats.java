@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @UtilityClass
 @SuppressWarnings({"unused", "checkstyle:JavadocVariable"})
@@ -32,17 +31,6 @@ public class Stats {
      */
     public static List<Stat> values() {
         return ImmutableList.copyOf(BY_KEY.values());
-    }
-
-    /**
-     * Get {@link Stat} matching config name.
-     *
-     * @param configName The config name to search for.
-     * @return The matching {@link Stat}, or null if not found.
-     */
-    public static Stat getByConfig(@NotNull final String configName) {
-        Optional<Stat> matching = values().stream().filter(stat -> stat.getConfigName().equalsIgnoreCase(configName)).findFirst();
-        return matching.orElse(null);
     }
 
     /**

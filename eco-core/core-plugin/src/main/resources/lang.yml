@@ -9,3 +9,6 @@ messages:
   set-active-stat: "Set the item to display the stat!"
 
 description-color: "&8"
+
+stat:
+  damage_dealt: "Damage Dealt"

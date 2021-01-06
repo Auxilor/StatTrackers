@@ -8,7 +8,6 @@ import com.willfp.itemstats.commands.CommandActivestat;
 import com.willfp.itemstats.commands.CommandIstatsdebug;
 import com.willfp.itemstats.commands.CommandIstatsreload;
 import com.willfp.itemstats.commands.TabCompleterActivestat;
-import com.willfp.itemstats.config.ItemStatsConfigs;
 import com.willfp.itemstats.display.packets.PacketSetCreativeSlot;
 import com.willfp.itemstats.display.packets.PacketSetSlot;
 import com.willfp.itemstats.display.packets.PacketWindowItems;
@@ -126,7 +125,6 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
     @Override
     public List<Class<?>> getUpdatableClasses() {
         return Arrays.asList(
-                ItemStatsConfigs.class,
                 Stats.class,
                 TabCompleterActivestat.class
         );
