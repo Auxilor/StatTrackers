@@ -1,6 +1,7 @@
 package com.willfp.itemstats.commands;
 
 import com.willfp.eco.util.command.AbstractCommand;
+import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.itemstats.stats.Stat;
@@ -22,6 +23,11 @@ public class CommandActivestat extends AbstractCommand {
      */
     public CommandActivestat(@NotNull final AbstractEcoPlugin plugin) {
         super(plugin, "activestat", "itemstats.activestat", true);
+    }
+
+    @Override
+    public AbstractTabCompleter getTab() {
+        return new TabCompleterActivestat();
     }
 
     @Override
