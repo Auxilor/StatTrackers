@@ -6,7 +6,6 @@ import com.willfp.itemstats.stats.util.StatChecks;
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -64,7 +63,8 @@ public class ItemStatsDisplay {
 
         revertDisplay(item);
 
-        SkullMeta meta = (SkullMeta) item.getItemMeta();
+        ItemMeta meta = item.getItemMeta();
+
         if (meta == null) {
             return item;
         }
@@ -85,7 +85,7 @@ public class ItemStatsDisplay {
             return item;
         }
 
-        itemLore.add(stat.getDescription() + ": " + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
+        itemLore.add(PREFIX + "§f" + stat.getDescription() + ": " + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
         meta.setLore(itemLore);
         item.setItemMeta(meta);
 

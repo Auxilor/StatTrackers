@@ -4,11 +4,10 @@ import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
+import com.willfp.itemstats.commands.CommandActivestat;
 import com.willfp.itemstats.commands.CommandIstatsdebug;
 import com.willfp.itemstats.commands.CommandIstatsreload;
 import com.willfp.itemstats.config.ItemStatsConfigs;
-import com.willfp.itemstats.display.packets.PacketChat;
-import com.willfp.itemstats.display.packets.PacketOpenWindowMerchant;
 import com.willfp.itemstats.display.packets.PacketSetCreativeSlot;
 import com.willfp.itemstats.display.packets.PacketSetSlot;
 import com.willfp.itemstats.display.packets.PacketWindowItems;
@@ -94,7 +93,8 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
     public List<AbstractCommand> getCommands() {
         return Arrays.asList(
                 new CommandIstatsdebug(this),
-                new CommandIstatsreload(this)
+                new CommandIstatsreload(this),
+                new CommandActivestat(this)
         );
     }
 
@@ -106,8 +106,6 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
     @Override
     public List<AbstractPacketAdapter> getPacketAdapters() {
         return Arrays.asList(
-                new PacketChat(this),
-                new PacketOpenWindowMerchant(this),
                 new PacketSetCreativeSlot(this),
                 new PacketSetSlot(this),
                 new PacketWindowItems(this)

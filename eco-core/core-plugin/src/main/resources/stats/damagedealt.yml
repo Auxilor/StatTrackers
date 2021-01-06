@@ -1,0 +1,5 @@
+description: "Damage Dealt"
+
+general-config:
+  targets:
+    - netherite_sword

@@ -48,6 +48,7 @@ public class StatChecks {
 
         if (!container.has(stat.getKey(), PersistentDataType.DOUBLE)) {
             setStatOnItem(item, stat, 0);
+            return getStatOnItem(item, stat);
         }
 
         item.setItemMeta(meta);
@@ -77,9 +78,7 @@ public class StatChecks {
 
         PersistentDataContainer container = meta.getPersistentDataContainer();
 
-        if (!container.has(stat.getKey(), PersistentDataType.DOUBLE)) {
-            container.set(stat.getKey(), PersistentDataType.DOUBLE, value);
-        }
+        container.set(stat.getKey(), PersistentDataType.DOUBLE, value);
 
         item.setItemMeta(meta);
     }
