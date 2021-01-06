@@ -16,7 +16,7 @@ public class StatDamageDealt extends Stat {
         super("damage_dealt");
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onDamage(@NotNull final EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) {
             return;
