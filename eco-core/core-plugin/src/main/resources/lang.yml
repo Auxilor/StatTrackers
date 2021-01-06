@@ -3,5 +3,9 @@ messages:
   no-permission: "&cYou don't have permission to do this!"
   not-player: "&cThis command must be run by a player"
   reloaded: "Reloaded!"
+  must-hold-item: "&cYou must be holding an item!"
+  removed-stat: "Set item to not display a stat"
+  invalid-stat: "&cCould not find stat maching name!"
+  set-active-stat: "Set the item to display the stat!"
 
 description-color: "&8"

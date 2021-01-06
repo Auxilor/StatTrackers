@@ -5,6 +5,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
+import com.willfp.itemstats.stats.stats.StatDamageDealt;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +23,7 @@ public class Stats {
 
     private static final BiMap<NamespacedKey, Stat> BY_KEY = HashBiMap.create();
 
+    public static final Stat DAMAGE_DEALT = new StatDamageDealt();
 
     /**
      * Get all registered {@link Stat}s.
