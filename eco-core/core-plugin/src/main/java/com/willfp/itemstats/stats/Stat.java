@@ -29,6 +29,12 @@ public abstract class Stat implements Listener {
     private String description;
 
     /**
+     * The color of the stat.
+     */
+    @Getter
+    private String color;
+
+    /**
      * Create a new Stat.
      *
      * @param key           The key name of the stat.
@@ -51,7 +57,8 @@ public abstract class Stat implements Listener {
      * This can be overridden but may lead to unexpected behavior.
      */
     public void update() {
-        description = Configs.LANG.getString("stat." + this.getKey().getKey());
+        description = Configs.LANG.getString("stat." + this.getKey().getKey() + ".description");
+        color = Configs.LANG.getString("stat." + this.getKey().getKey() + ".color");
 
         postUpdate();
     }

@@ -1,6 +1,7 @@
 package com.willfp.itemstats.display;
 
 import com.willfp.eco.util.StringUtils;
+import com.willfp.eco.util.config.Configs;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import lombok.experimental.UtilityClass;
@@ -85,7 +86,7 @@ public class ItemStatsDisplay {
             return item;
         }
 
-        itemLore.add(PREFIX + "§f" + stat.getDescription() + ": " + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
+        itemLore.add(PREFIX + "§f" + stat.getColor() + stat.getDescription() + Configs.LANG.getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
         meta.setLore(itemLore);
         item.setItemMeta(meta);
 

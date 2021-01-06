@@ -5,7 +5,18 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
+import com.willfp.itemstats.stats.stats.StatArrowsShot;
+import com.willfp.itemstats.stats.stats.StatBlocksBroken;
+import com.willfp.itemstats.stats.stats.StatDamageBlocked;
 import com.willfp.itemstats.stats.stats.StatDamageDealt;
+import com.willfp.itemstats.stats.stats.StatDamageTaken;
+import com.willfp.itemstats.stats.stats.StatDistanceFlown;
+import com.willfp.itemstats.stats.stats.StatDistanceSneaked;
+import com.willfp.itemstats.stats.stats.StatDistanceSprinted;
+import com.willfp.itemstats.stats.stats.StatItemDamage;
+import com.willfp.itemstats.stats.stats.StatMobsKilled;
+import com.willfp.itemstats.stats.stats.StatPlayersKilled;
+import com.willfp.itemstats.stats.stats.StatTimesJumped;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +34,17 @@ public class Stats {
     private static final BiMap<NamespacedKey, Stat> BY_KEY = HashBiMap.create();
 
     public static final Stat DAMAGE_DEALT = new StatDamageDealt();
+    public static final Stat ARROWS_SHOT = new StatArrowsShot();
+    public static final Stat BLOCKS_BROKEN = new StatBlocksBroken();
+    public static final Stat DAMAGE_BLOCKED = new StatDamageBlocked();
+    public static final Stat DAMAGE_TAKEN = new StatDamageTaken();
+    public static final Stat DISTANCE_FLOWN = new StatDistanceFlown();
+    public static final Stat DISTANCE_SNEAKED = new StatDistanceSneaked();
+    public static final Stat DISTANCE_SPRINTED = new StatDistanceSprinted();
+    public static final Stat ITEM_DAMAGE = new StatItemDamage();
+    public static final Stat MOBS_KILLED = new StatMobsKilled();
+    public static final Stat PLAYERS_KILLED = new StatPlayersKilled();
+    public static final Stat TIMES_JUMPED = new StatTimesJumped();
 
     /**
      * Get all registered {@link Stat}s.

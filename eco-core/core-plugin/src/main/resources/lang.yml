@@ -8,7 +8,42 @@ messages:
   invalid-stat: "&cCould not find stat maching name!"
   set-active-stat: "Set the item to display the stat!"
 
-description-color: "&8"
+delimiter: ": "
 
 stat:
-  damage_dealt: "Damage Dealt"
+  damage_dealt:
+    name: "Damage dealt"
+    color: "&d"
+  arrows_shot:
+    name: "Arrows shot"
+    color: "&d"
+  blocks_broken:
+    name: "Blocks broken"
+    color: "&d"
+  damage_blocked:
+    name: "Damage blocked"
+    color: "&d"
+  damage_taken:
+    name: "Damage taken while wearing"
+    color: "&d"
+  distance_flown:
+    name: "Distance Flown"
+    color: "&d"
+  distance_sneaked:
+    name: "Distance sneaked"
+    color: "&d"
+  distance_sprinted:
+    name: "Distance sprinted"
+    color: "&d"
+  item_damage:
+    name: "Total damage"
+    color: "&d"
+  mobs_killed:
+    name: "Mobs killed"
+    color: "&d"
+  players_killed:
+    name: "Players killed"
+    color: "&d"
+  times_jumped:
+    name: "Times jumped while wearing"
+    color: "&d"

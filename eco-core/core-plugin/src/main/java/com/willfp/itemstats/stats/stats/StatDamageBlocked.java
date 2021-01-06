@@ -4,52 +4,46 @@ import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-public class StatDamageDealt extends Stat {
-    public StatDamageDealt() {
-        super("damage_dealt");
+public class StatDamageBlocked extends Stat {
+    public StatDamageBlocked() {
+        super("damage_blocked");
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onDamage(@NotNull final EntityDamageByEntityEvent event) {
-        Player player = null;
-
-        if (event.getDamager() instanceof Player) {
-            player = (Player) event.getDamager();
-        } else if (event.getDamager() instanceof Projectile) {
-            ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
-            if (shooter == null) {
-                return;
-            }
-            if (shooter instanceof Player) {
-                player = (Player) shooter;
-            }
-        }
-
-        if (player == null) {
+    public void statListener(@NotNull final EntityDamageByEntityEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
             return;
         }
+
+        Player player = (Player) event.getEntity();
 
         if (!(event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || event.getCause() == EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK)) {
             return;
         }
 
-        ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-        if (itemStack == null) {
+        if (!player.isBlocking()) {
             return;
         }
 
-        if (itemStack.getType() == Material.AIR) {
-            return;
+        ItemStack mainHand = player.getInventory().getItemInMainHand();
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+        ItemStack itemStack;
+
+        if (mainHand.getType() == Material.SHIELD) {
+            itemStack = mainHand;
+        } else {
+            if (offHand.getType() == Material.SHIELD) {
+                itemStack = offHand;
+            } else {
+                return;
+            }
         }
 
         double value = StatChecks.getStatOnItem(itemStack, this);

@@ -18,7 +18,7 @@ public class StatChecks {
     /**
      * Instance of ItemStats.
      */
-    private final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
 
     /**
      * The key for storing the currently displayed stat.
