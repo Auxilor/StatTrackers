@@ -1,13 +1,14 @@
 package com.willfp.itemstats.stats.stats;
 
-import com.willfp.eco.util.events.entitydeathbyentity.EntityDeathByEntityEvent;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,12 +18,12 @@ public class StatHeadshots extends Stat {
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void statListener(@NotNull final EntityDeathByEntityEvent event) {
-        if (!(event.getKiller() instanceof Projectile)) {
+    public void statListener(@NotNull final EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Projectile)) {
             return;
         }
 
-        Projectile projectile = (Projectile) event.getKiller();
+        Projectile projectile = (Projectile) event.getDamager();
 
         if (!(projectile.getShooter() instanceof Player)) {
             return;
@@ -34,7 +35,13 @@ public class StatHeadshots extends Stat {
             return;
         }
 
-        if (projectile.getLocation().getY() < event.getVictim().getLocation().getY() + event.getVictim().getEyeHeight() - 0.22) {
+        if (!(event.getEntity() instanceof LivingEntity)) {
+            return;
+        }
+
+        LivingEntity victim = (LivingEntity) event.getEntity();
+
+        if (projectile.getLocation().getY() < victim.getLocation().getY() + victim.getEyeHeight() - 0.22) {
             return;
         }
 
