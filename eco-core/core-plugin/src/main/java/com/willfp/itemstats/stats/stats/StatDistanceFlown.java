@@ -19,9 +19,10 @@ public class StatDistanceFlown extends Stat {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void statListener(@NotNull final PlayerMoveEvent event) {
+
         Player player = event.getPlayer();
 
-        if (!player.isFlying()) {
+        if (!player.isGliding()) {
             return;
         }
 
