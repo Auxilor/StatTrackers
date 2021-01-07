@@ -38,6 +38,7 @@ public class TabCompleterActivestat extends AbstractTabCompleter {
     public static void reload() {
         STAT_NAMES.clear();
         STAT_NAMES.addAll(Stats.values().stream().map(Stat::getKey).map(NamespacedKey::getKey).collect(Collectors.toList()));
+        STAT_NAMES.add("none");
     }
 
     /**

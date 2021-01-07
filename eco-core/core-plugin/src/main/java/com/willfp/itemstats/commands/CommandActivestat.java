@@ -43,11 +43,19 @@ public class CommandActivestat extends AbstractCommand {
         }
 
         if (args.isEmpty()) {
+            StatChecks.setActiveStat(itemStack, null);
             sender.sendMessage(Configs.LANG.getMessage("removed-stat"));
             return;
         }
 
         String keyName = args.get(0);
+
+        if (keyName.equals("none")) {
+            sender.sendMessage(Configs.LANG.getMessage("removed-stat"));
+            StatChecks.setActiveStat(itemStack, null);
+            return;
+        }
+
         Stat stat = Stats.getByKey(this.getPlugin().getNamespacedKeyFactory().create(keyName));
 
         if (stat == null) {
