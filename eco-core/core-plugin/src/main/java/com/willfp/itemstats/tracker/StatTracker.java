@@ -61,6 +61,8 @@ public class StatTracker {
      * Update the tracker's crafting recipe.
      */
     public void update() {
+        enabled = Configs.CONFIG.getBool("stat." + stat.getKey().getKey() + ".enabled");
+
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("stat_tracker");
 
         ItemStack out = new ItemStack(Material.COMPASS);
@@ -85,7 +87,10 @@ public class StatTracker {
                 recipe.setIngredient(ingredientChar, Material.valueOf(recipeStrings.get(i).toUpperCase()));
             }
 
+            this.recipe = recipe;
             Bukkit.getServer().addRecipe(recipe);
         }
+
+        Bukkit.getLogger().info(Bukkit.getServer().getRecipe(key) + "");
     }
 }

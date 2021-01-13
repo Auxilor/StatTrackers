@@ -7,6 +7,21 @@ stat:
   damage_dealt:
     name: "Damage dealt"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - iron_sword
+      - iron_sword
+      - iron_sword
+
+      - iron_sword
+      - compass
+      - iron_sword
+
+      - iron_sword
+      - iron_sword
+      - iron_sword
+
+
   arrows_shot:
     name: "Arrows shot"
     color: "&b"
