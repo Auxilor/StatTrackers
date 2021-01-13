@@ -7,6 +7,8 @@ import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import com.willfp.itemstats.tracker.util.TrackerUtils;
 import lombok.experimental.UtilityClass;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
@@ -105,6 +107,9 @@ public class ItemStatsDisplay {
                 string = PREFIX + string;
                 lore.set(i, string);
             }
+
+            meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
             meta.setLore(lore);
             item.setItemMeta(meta);

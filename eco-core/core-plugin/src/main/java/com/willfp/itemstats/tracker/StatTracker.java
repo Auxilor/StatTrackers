@@ -73,10 +73,10 @@ public class StatTracker {
         out.setItemMeta(outMeta);
         this.itemStack = out;
 
-        Bukkit.getServer().removeRecipe(key);
+        Bukkit.getServer().removeRecipe(stat.getKey());
 
         if (this.isEnabled()) {
-            ShapedRecipe recipe = new ShapedRecipe(key, itemStack);
+            ShapedRecipe recipe = new ShapedRecipe(stat.getKey(), itemStack);
 
             List<String> recipeStrings = Configs.CONFIG.getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
 
@@ -90,7 +90,5 @@ public class StatTracker {
             this.recipe = recipe;
             Bukkit.getServer().addRecipe(recipe);
         }
-
-        Bukkit.getLogger().info(Bukkit.getServer().getRecipe(key) + "");
     }
 }
