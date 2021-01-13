@@ -97,7 +97,7 @@ public class ItemStatsDisplay {
                 return item;
             }
 
-            meta.setDisplayName(trackerStat.getColor() + trackerStat.getDescription() + " " + Configs.LANG.getString("tracker"));
+            meta.setDisplayName(Configs.LANG.getString("tracker"));
             List<String> lore = Configs.LANG.getStrings("tracker-description");
 
             for (int i = 0; i < lore.size(); i++) {

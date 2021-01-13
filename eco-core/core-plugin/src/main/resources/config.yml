@@ -21,49 +21,257 @@ stat:
       - iron_sword
       - iron_sword
 
-
   arrows_shot:
     name: "Arrows shot"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - arrow
+      - air
+
+      - arrow
+      - compass
+      - arrow
+
+      - air
+      - arrow
+      - air
+
   blocks_broken:
     name: "Blocks broken"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - iron_pickaxe
+      - iron_pickaxe
+      - iron_pickaxe
+
+      - iron_pickaxe
+      - compass
+      - iron_pickaxe
+
+      - iron_pickaxe
+      - iron_pickaxe
+      - iron_pickaxe
+
   damage_blocked:
     name: "Damage blocked"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - shield
+      - air
+
+      - shield
+      - compass
+      - shield
+
+      - air
+      - shield
+      - air
+
   damage_taken:
     name: "Damage taken while wearing"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - iron_helmet
+      - air
+
+      - iron_chestplate
+      - compass
+      - iron_leggings
+
+      - air
+      - iron_boots
+      - air
+
   distance_flown:
     name: "Distance Flown"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - phantom_membrane
+      - air
+
+      - phantom_membrane
+      - compass
+      - phantom_membrane
+
+      - air
+      - phantom_membrane
+      - air
+
   distance_sneaked:
     name: "Distance sneaked"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - leather_boots
+      - air
+
+      - leather_boots
+      - compass
+      - leather_boots
+
+      - air
+      - leather_boots
+      - air
+
   distance_sprinted:
     name: "Distance sprinted"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - golden_boots
+      - air
+
+      - golden_boots
+      - compass
+      - golden_boots
+
+      - air
+      - golden_boots
+      - air
+
   item_damage:
     name: "Total damage"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - air
+      - air
+
+      - anvil
+      - compass
+      - anvil
+
+      - air
+      - air
+      - air
+
   mobs_killed:
     name: "Mobs killed"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - rotten_flesh
+      - air
+
+      - bone
+      - compass
+      - string
+
+      - air
+      - gunpowder
+      - air
+
   players_killed:
     name: "Players killed"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - diamond_sword
+      - diamond_sword
+      - diamond_sword
+
+      - diamond_sword
+      - compass
+      - diamond_sword
+
+      - diamond_sword
+      - diamond_sword
+      - diamond_sword
+
   times_jumped:
     name: "Times jumped while wearing"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - slime_ball
+      - air
+
+      - slime_ball
+      - compass
+      - slime_ball
+
+      - air
+      - slime_ball
+      - air
+
   experience_absorbed:
     name: "Experience gained while wearing"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - emerald
+      - air
+
+      - emerald
+      - compass
+      - emerald
+
+      - air
+      - emerald
+      - air
+
   bosses_killed:
     name: "Bosses killed"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - air
+      - air
+
+      - dragon_head
+      - compass
+      - dragon_head
+
+      - air
+      - air
+      - air
+
   distance_travelled:
     name: "Distance Travelled"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - paper
+      - air
+
+      - paper
+      - compass
+      - paper
+
+      - air
+      - paper
+      - air
+
   headshots:
     name: "Headshots"
     color: "&b"
+    enabled: true
+    tracker-recipe:
+      - air
+      - bow
+      - air
+
+      - bow
+      - compass
+      - bow
+
+      - air
+      - bow
+      - air

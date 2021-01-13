@@ -49,5 +49,7 @@ public class TrackerListener extends PluginDependent implements Listener {
         StatChecks.setActiveStat(current, tracked);
 
         event.getWhoClicked().setItemOnCursor(null);
+
+        event.setCancelled(true);
     }
 }
