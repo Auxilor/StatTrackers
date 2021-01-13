@@ -7,6 +7,10 @@ messages:
   removed-stat: "Set item to not display a stat"
   invalid-stat: "&cCould not find stat maching name!"
   set-active-stat: "Set the item to display the stat!"
+  needs-player: "&cYou must specify a player"
+  invalid-player: "&cInvalid player!"
+  needs-stat: "&cYou must specify a stat"
+  give-success: "Gave &a%stat% Tracker&r to &a%recipient%"
 
 delimiter: ": "
 tracker: "&eTracker"
