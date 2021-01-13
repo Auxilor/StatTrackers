@@ -1,6 +1,5 @@
 package com.willfp.itemstats.commands;
 
-import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.command.AbstractTabCompleter;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
@@ -9,6 +8,7 @@ import com.willfp.itemstats.stats.Stats;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,21 +18,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class TabCompleterActivestat extends AbstractTabCompleter {
+public class TabcompleterIstatsgive extends AbstractTabCompleter {
     /**
      * The cached enchantment names.
      */
     private static final List<String> STAT_NAMES = Stats.values().stream().map(Stat::getKey).map(NamespacedKey::getKey).collect(Collectors.toList());
 
     /**
-     * Instantiate a new tab-completer for /enchantinfo.
+     * Instantiate a new tab-completer for /istatsgive.
      */
-    public TabCompleterActivestat() {
-        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("activestat")).getExecutor());
+    public TabcompleterIstatsgive() {
+        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("istatsgive")).getExecutor());
     }
 
     /**
-     * Called on /ecoreload.
+     * Called on reload.
      */
     @ConfigUpdater
     public static void reload() {
@@ -58,17 +58,18 @@ public class TabCompleterActivestat extends AbstractTabCompleter {
             return STAT_NAMES;
         }
 
-        StringUtil.copyPartialMatches(String.join(" ", args), STAT_NAMES, completions);
-
-        if (args.size() > 1) { // Remove all previous words from the candidate of completions
-            ArrayList<String> finishedArgs = new ArrayList<>(args);
-            finishedArgs.remove(args.size() - 1);
-
-            String prefix = String.join(" ", finishedArgs);
-            completions = completions.stream().map(statName -> StringUtils.removePrefix(statName, prefix).trim()).collect(Collectors.toList());
+        if (args.size() == 1) {
+            StringUtil.copyPartialMatches(args.get(0), Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), completions);
+            return completions;
         }
 
-        Collections.sort(completions);
-        return completions;
+        if (args.size() == 2) {
+            StringUtil.copyPartialMatches(args.get(1), STAT_NAMES, completions);
+
+            Collections.sort(completions);
+            return completions;
+        }
+
+        return new ArrayList<>(0);
     }
 }

@@ -27,7 +27,7 @@ public class CommandActivestat extends AbstractCommand {
 
     @Override
     public AbstractTabCompleter getTab() {
-        return new TabCompleterActivestat();
+        return new TabcompleterActivestat();
     }
 
     @Override

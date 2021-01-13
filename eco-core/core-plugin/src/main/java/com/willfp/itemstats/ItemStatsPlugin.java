@@ -6,8 +6,10 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
 import com.willfp.itemstats.commands.CommandActivestat;
 import com.willfp.itemstats.commands.CommandIstatsdebug;
+import com.willfp.itemstats.commands.CommandIstatsgive;
 import com.willfp.itemstats.commands.CommandIstatsreload;
-import com.willfp.itemstats.commands.TabCompleterActivestat;
+import com.willfp.itemstats.commands.TabcompleterActivestat;
+import com.willfp.itemstats.commands.TabcompleterIstatsgive;
 import com.willfp.itemstats.display.packets.PacketSetCreativeSlot;
 import com.willfp.itemstats.display.packets.PacketSetSlot;
 import com.willfp.itemstats.display.packets.PacketWindowItems;
@@ -95,7 +97,8 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
         return Arrays.asList(
                 new CommandIstatsdebug(this),
                 new CommandIstatsreload(this),
-                new CommandActivestat(this)
+                new CommandActivestat(this),
+                new CommandIstatsgive(this)
         );
     }
 
@@ -129,7 +132,8 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
     public List<Class<?>> getUpdatableClasses() {
         return Arrays.asList(
                 Stats.class,
-                TabCompleterActivestat.class
+                TabcompleterActivestat.class,
+                TabcompleterIstatsgive.class
         );
     }
 }

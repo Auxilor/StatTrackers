@@ -31,6 +31,9 @@ commands:
   activestat:
     description: Sets the active stat on an item
     permission: itemstats.activestat
+  istatsgive:
+    description: Gives a player a stat tracker
+    permission: itemstats.give
 
 permissions:
   itemstats.*:
@@ -49,4 +52,7 @@ permissions:
     default: op
   itemstats.activestat:
     description: Allows the use of /activestat to set the stat displayed on an item
+    default: true
+  itemstats.give:
+    description: Allows the use of /istatsgive to give a player a stat tracker
     default: true
