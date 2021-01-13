@@ -101,7 +101,7 @@ public class ItemStatsDisplay {
             List<String> lore = Configs.LANG.getStrings("tracker-description");
 
             for (int i = 0; i < lore.size(); i++) {
-                String string = lore.get(1);
+                String string = lore.get(i);
                 string = StringUtils.translate(string);
                 string = string.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription());
                 string = PREFIX + string;
