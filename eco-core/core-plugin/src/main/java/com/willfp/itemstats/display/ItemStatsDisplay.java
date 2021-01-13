@@ -2,8 +2,10 @@ package com.willfp.itemstats.display;
 
 import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.config.Configs;
+import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
+import com.willfp.itemstats.tracker.util.TrackerUtils;
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -14,6 +16,11 @@ import java.util.List;
 
 @UtilityClass
 public class ItemStatsDisplay {
+    /**
+     * Instance of ItemStats to create keys.
+     */
+    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+
     /**
      * The prefix for all stat lines to have in lore.
      */
@@ -83,6 +90,25 @@ public class ItemStatsDisplay {
         Stat stat = StatChecks.getActiveStat(item);
 
         if (stat == null) {
+            Stat trackerStat = TrackerUtils.getTrackedStat(item);
+            if (trackerStat == null) {
+                return item;
+            }
+
+            meta.setDisplayName(trackerStat.getColor() + trackerStat.getDescription() + " " + Configs.LANG.getString("tracker"));
+            List<String> lore = Configs.LANG.getStrings("tracker-description");
+
+            for (int i = 0; i < lore.size(); i++) {
+                String string = lore.get(1);
+                string = StringUtils.translate(string);
+                string = string.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription());
+                string = PREFIX + string;
+                lore.set(i, string);
+            }
+
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+
             return item;
         }
 

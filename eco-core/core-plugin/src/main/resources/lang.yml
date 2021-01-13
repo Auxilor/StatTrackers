@@ -9,4 +9,8 @@ messages:
   set-active-stat: "Set the item to display the stat!"
 
 delimiter: ": "
-
+tracker: "Tracker"
+tracker-description:
+  - "&8Drop this onto an item"
+  - "&8To display the stat:"
+  - "&a%stat%"

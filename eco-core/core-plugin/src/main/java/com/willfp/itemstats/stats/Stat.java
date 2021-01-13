@@ -3,6 +3,7 @@ package com.willfp.itemstats.stats;
 import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.optional.Prerequisite;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.itemstats.tracker.StatTracker;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.NamespacedKey;
@@ -35,6 +36,12 @@ public abstract class Stat implements Listener {
     private String color;
 
     /**
+     * The stat tracker item.
+     */
+    @Getter
+    private final StatTracker tracker;
+
+    /**
      * Create a new Stat.
      *
      * @param key           The key name of the stat.
@@ -43,6 +50,7 @@ public abstract class Stat implements Listener {
     protected Stat(@NotNull final String key,
                    @NotNull final Prerequisite... prerequisites) {
         this.key = this.getPlugin().getNamespacedKeyFactory().create(key);
+        this.tracker = new StatTracker(this);
 
         if (!Prerequisite.areMet(prerequisites)) {
             return;
@@ -59,6 +67,8 @@ public abstract class Stat implements Listener {
     public void update() {
         description = Configs.CONFIG.getString("stat." + this.getKey().getKey() + ".name");
         color = Configs.CONFIG.getString("stat." + this.getKey().getKey() + ".color");
+
+        tracker.update();
 
         postUpdate();
     }

@@ -12,6 +12,7 @@ import com.willfp.itemstats.display.packets.PacketSetCreativeSlot;
 import com.willfp.itemstats.display.packets.PacketSetSlot;
 import com.willfp.itemstats.display.packets.PacketWindowItems;
 import com.willfp.itemstats.stats.Stats;
+import com.willfp.itemstats.tracker.TrackerListener;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
@@ -119,7 +120,9 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
      */
     @Override
     public List<Listener> getListeners() {
-        return new ArrayList<>();
+        return Arrays.asList(
+                new TrackerListener(this)
+        );
     }
 
     @Override
