@@ -28,7 +28,7 @@
 [![Title](https://i.imgur.com/yTJ5sFk.png)]()
 [![Features](https://i.imgur.com/KkIbknf.png)]()
 [![Docs](https://i.imgur.com/0460Lv0.png)](https://auxilor.gitbook.io/itemstats/)
-[![Compatibility](https://i.imgur.com/fqRVf7n.png)]()
+[![Compatibility](https://i.imgur.com/oRdt6W7.png)]()
 
 ## License
 *Click here to read [the entire license](https://github.com/Auxilor/ItemStats/blob/master/LICENSE.md).*
