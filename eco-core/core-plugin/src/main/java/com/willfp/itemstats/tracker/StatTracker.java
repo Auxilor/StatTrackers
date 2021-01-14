@@ -7,7 +7,6 @@ import com.willfp.eco.util.recipes.parts.EmptyRecipePart;
 import com.willfp.eco.util.recipes.parts.SimpleRecipePart;
 import com.willfp.itemstats.stats.Stat;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -92,8 +91,6 @@ public class StatTracker {
 
             this.recipe = builder.build();
             this.recipe.register();
-
-            Bukkit.getLogger().info(this.recipe.toString());
         }
     }
 }
