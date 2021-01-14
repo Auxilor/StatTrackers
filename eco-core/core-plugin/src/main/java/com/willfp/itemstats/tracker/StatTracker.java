@@ -3,8 +3,7 @@ package com.willfp.itemstats.tracker;
 import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipes.EcoShapedRecipe;
-import com.willfp.eco.util.recipes.parts.EmptyRecipePart;
-import com.willfp.eco.util.recipes.parts.SimpleRecipePart;
+import com.willfp.eco.util.recipes.lookup.RecipePartUtils;
 import com.willfp.itemstats.stats.Stat;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -81,12 +80,7 @@ public class StatTracker {
             List<String> recipeStrings = Configs.CONFIG.getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
 
             for (int i = 0; i < 9; i++) {
-                Material material = Material.valueOf(recipeStrings.get(i).toUpperCase());
-                if (material == Material.AIR) {
-                    builder.setRecipePart(i, new EmptyRecipePart());
-                } else {
-                    builder.setRecipePart(i, new SimpleRecipePart(material));
-                }
+                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
             }
 
             this.recipe = builder.build();
