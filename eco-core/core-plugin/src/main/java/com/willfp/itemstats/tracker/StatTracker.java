@@ -2,13 +2,13 @@ package com.willfp.itemstats.tracker;
 
 import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.util.recipes.EcoShapedRecipe;
+import com.willfp.eco.util.recipes.parts.SimpleRecipePart;
 import com.willfp.itemstats.stats.Stat;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -39,7 +39,7 @@ public class StatTracker {
      * The crafting recipe to make the tracker.
      */
     @Getter
-    private ShapedRecipe recipe;
+    private EcoShapedRecipe recipe;
 
     /**
      * If the recipe is enabled.
@@ -73,22 +73,18 @@ public class StatTracker {
         out.setItemMeta(outMeta);
         this.itemStack = out;
 
-        Bukkit.getServer().removeRecipe(stat.getKey());
-
         if (this.isEnabled()) {
-            ShapedRecipe recipe = new ShapedRecipe(stat.getKey(), itemStack);
+            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), stat.getKey().getKey())
+                    .setOutput(out);
 
             List<String> recipeStrings = Configs.CONFIG.getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
 
-            recipe.shape("012", "345", "678");
-
             for (int i = 0; i < 9; i++) {
-                char ingredientChar = String.valueOf(i).toCharArray()[0];
-                recipe.setIngredient(ingredientChar, Material.valueOf(recipeStrings.get(i).toUpperCase()));
+                builder.setRecipePart(i, new SimpleRecipePart(Material.valueOf(recipeStrings.get(i).toUpperCase())));
             }
 
-            this.recipe = recipe;
-            Bukkit.getServer().addRecipe(recipe);
+            this.recipe = builder.build();
+            this.recipe.register();
         }
     }
 }
