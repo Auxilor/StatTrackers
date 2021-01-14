@@ -1,9 +1,9 @@
 package com.willfp.itemstats.tracker;
 
+import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
 import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.eco.util.recipes.EcoShapedRecipe;
-import com.willfp.eco.util.recipes.lookup.RecipePartUtils;
+import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.itemstats.stats.Stat;
 import lombok.Getter;
 import org.bukkit.Material;
