@@ -1,8 +1,8 @@
 package com.willfp.itemstats.display;
 
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.itemstats.ItemStatsPlugin;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.util.StatChecks;
 import com.willfp.itemstats.tracker.util.TrackerUtils;
@@ -21,7 +21,7 @@ public class ItemStatsDisplay {
     /**
      * Instance of ItemStats to create keys.
      */
-    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final AbstractEcoPlugin PLUGIN = ItemStatsPlugin.getInstance();
 
     /**
      * The prefix for all stat lines to have in lore.
@@ -97,8 +97,8 @@ public class ItemStatsDisplay {
                 return item;
             }
 
-            meta.setDisplayName(Configs.LANG.getString("tracker"));
-            List<String> lore = Configs.LANG.getStrings("tracker-description");
+            meta.setDisplayName(PLUGIN.getLangYml().getString("tracker"));
+            List<String> lore = PLUGIN.getLangYml().getStrings("tracker-description");
 
             for (int i = 0; i < lore.size(); i++) {
                 String string = lore.get(i);
@@ -117,7 +117,7 @@ public class ItemStatsDisplay {
             return item;
         }
 
-        itemLore.add(PREFIX + "§f" + stat.getColor() + stat.getDescription() + Configs.LANG.getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
+        itemLore.add(PREFIX + "§f" + stat.getColor() + stat.getDescription() + PLUGIN.getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
         meta.setLore(itemLore);
         item.setItemMeta(meta);
 

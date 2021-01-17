@@ -2,7 +2,6 @@ package com.willfp.itemstats.commands;
 
 import com.willfp.eco.util.command.AbstractCommand;
 import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.Stats;
@@ -38,20 +37,20 @@ public class CommandActivestat extends AbstractCommand {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 
         if (itemStack == null || itemStack.getType() == Material.AIR) {
-            player.sendMessage(Configs.LANG.getMessage("must-hold-item"));
+            player.sendMessage(this.getPlugin().getLangYml().getMessage("must-hold-item"));
             return;
         }
 
         if (args.isEmpty()) {
             StatChecks.setActiveStat(itemStack, null);
-            sender.sendMessage(Configs.LANG.getMessage("removed-stat"));
+            sender.sendMessage(this.getPlugin().getLangYml().getMessage("removed-stat"));
             return;
         }
 
         String keyName = args.get(0);
 
         if (keyName.equals("none")) {
-            sender.sendMessage(Configs.LANG.getMessage("removed-stat"));
+            sender.sendMessage(this.getPlugin().getLangYml().getMessage("removed-stat"));
             StatChecks.setActiveStat(itemStack, null);
             return;
         }
@@ -59,12 +58,12 @@ public class CommandActivestat extends AbstractCommand {
         Stat stat = Stats.getByKey(this.getPlugin().getNamespacedKeyFactory().create(keyName));
 
         if (stat == null) {
-            sender.sendMessage(Configs.LANG.getMessage("invalid-stat"));
+            sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-stat"));
             return;
         }
 
         StatChecks.setActiveStat(itemStack, stat);
 
-        player.sendMessage(Configs.LANG.getMessage("set-active-stat"));
+        player.sendMessage(this.getPlugin().getLangYml().getMessage("set-active-stat"));
     }
 }

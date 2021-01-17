@@ -15,6 +15,7 @@ import com.willfp.itemstats.display.packets.PacketSetSlot;
 import com.willfp.itemstats.display.packets.PacketWindowItems;
 import com.willfp.itemstats.stats.Stats;
 import com.willfp.itemstats.tracker.TrackerListener;
+import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
@@ -25,10 +26,17 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class ItemStatsPlugin extends AbstractEcoPlugin {
     /**
+     * Instance of the plugin.
+     */
+    @Getter
+    private static ItemStatsPlugin instance;
+
+    /**
      * Internal constructor called by bukkit on plugin load.
      */
     public ItemStatsPlugin() {
         super("ItemStats", 87537, 9914, "com.willfp.itemstats.proxy", "&d");
+        instance = this;
     }
 
     /**

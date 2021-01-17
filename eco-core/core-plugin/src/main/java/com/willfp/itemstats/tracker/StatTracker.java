@@ -1,9 +1,9 @@
 package com.willfp.itemstats.tracker;
 
-import com.willfp.eco.common.recipes.lookup.RecipePartUtils;
-import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
+import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.itemstats.ItemStatsPlugin;
 import com.willfp.itemstats.stats.Stat;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -21,7 +21,7 @@ public class StatTracker {
      * Instance of ItemStats to create keys for.
      */
     @Getter
-    private final AbstractEcoPlugin plugin = AbstractEcoPlugin.getInstance();
+    private final AbstractEcoPlugin plugin = ItemStatsPlugin.getInstance();
 
     /**
      * The stat to track.
@@ -61,7 +61,7 @@ public class StatTracker {
      * Update the tracker's crafting recipe.
      */
     public void update() {
-        enabled = Configs.CONFIG.getBool("stat." + stat.getKey().getKey() + ".enabled");
+        enabled = this.getPlugin().getConfigYml().getBool("stat." + stat.getKey().getKey() + ".enabled");
 
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("stat_tracker");
 
@@ -77,7 +77,7 @@ public class StatTracker {
             EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), stat.getKey().getKey())
                     .setOutput(out);
 
-            List<String> recipeStrings = Configs.CONFIG.getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
+            List<String> recipeStrings = plugin.getConfigYml().getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
 
             for (int i = 0; i < 9; i++) {
                 builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));

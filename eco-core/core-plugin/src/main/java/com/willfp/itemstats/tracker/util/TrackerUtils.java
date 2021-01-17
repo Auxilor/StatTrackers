@@ -1,6 +1,7 @@
 package com.willfp.itemstats.tracker.util;
 
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.itemstats.ItemStatsPlugin;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.Stats;
 import lombok.experimental.UtilityClass;
@@ -15,7 +16,7 @@ public class TrackerUtils {
     /**
      * Instance of ItemStats to create keys.
      */
-    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final AbstractEcoPlugin PLUGIN = ItemStatsPlugin.getInstance();
 
     /**
      * Get tracked stat on item.

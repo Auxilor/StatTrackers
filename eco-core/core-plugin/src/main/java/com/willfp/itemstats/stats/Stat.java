@@ -1,8 +1,8 @@
 package com.willfp.itemstats.stats;
 
-import com.willfp.eco.util.config.Configs;
 import com.willfp.eco.util.optional.Prerequisite;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.itemstats.ItemStatsPlugin;
 import com.willfp.itemstats.tracker.StatTracker;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public abstract class Stat implements Listener {
      * Instance of ItemStats for stats to be able to access.
      */
     @Getter(AccessLevel.PROTECTED)
-    private final AbstractEcoPlugin plugin = AbstractEcoPlugin.getInstance();
+    private final AbstractEcoPlugin plugin = ItemStatsPlugin.getInstance();
 
     /**
      * The key to store stats in meta.
@@ -65,8 +65,8 @@ public abstract class Stat implements Listener {
      * This can be overridden but may lead to unexpected behavior.
      */
     public void update() {
-        description = Configs.CONFIG.getString("stat." + this.getKey().getKey() + ".name");
-        color = Configs.CONFIG.getString("stat." + this.getKey().getKey() + ".color");
+        description = this.getPlugin().getConfigYml().getString("stat." + this.getKey().getKey() + ".name");
+        color = this.getPlugin().getConfigYml().getString("stat." + this.getKey().getKey() + ".color");
 
         tracker.update();
 

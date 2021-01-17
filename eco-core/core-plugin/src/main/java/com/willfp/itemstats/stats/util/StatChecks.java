@@ -2,6 +2,7 @@ package com.willfp.itemstats.stats.util;
 
 
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.itemstats.ItemStatsPlugin;
 import com.willfp.itemstats.stats.Stat;
 import com.willfp.itemstats.stats.Stats;
 import lombok.experimental.UtilityClass;
@@ -18,7 +19,7 @@ public class StatChecks {
     /**
      * Instance of ItemStats.
      */
-    private static final AbstractEcoPlugin PLUGIN = AbstractEcoPlugin.getInstance();
+    private static final AbstractEcoPlugin PLUGIN = ItemStatsPlugin.getInstance();
 
     /**
      * The key for storing the currently displayed stat.
