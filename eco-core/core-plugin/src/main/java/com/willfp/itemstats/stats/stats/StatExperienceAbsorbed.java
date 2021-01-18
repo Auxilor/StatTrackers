@@ -32,6 +32,10 @@ public class StatExperienceAbsorbed extends Stat {
                 continue;
             }
 
+            if (itemStack.getType().getMaxStackSize() > 1) {
+                return;
+            }
+
             double value = StatChecks.getStatOnItem(itemStack, this);
             value += event.getAmount();
             StatChecks.setStatOnItem(itemStack, this, value);

@@ -45,6 +45,10 @@ public class StatDistanceSprinted extends Stat {
             return;
         }
 
+        if (itemStack.getType().getMaxStackSize() > 1) {
+            return;
+        }
+
         double value = StatChecks.getStatOnItem(itemStack, this);
         value += distance;
         StatChecks.setStatOnItem(itemStack, this, value);

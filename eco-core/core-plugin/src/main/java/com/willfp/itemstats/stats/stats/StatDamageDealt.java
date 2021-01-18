@@ -52,6 +52,10 @@ public class StatDamageDealt extends Stat {
             return;
         }
 
+        if (itemStack.getType().getMaxStackSize() > 1) {
+            return;
+        }
+
         double value = StatChecks.getStatOnItem(itemStack, this);
         value += event.getDamage();
         StatChecks.setStatOnItem(itemStack, this, value);

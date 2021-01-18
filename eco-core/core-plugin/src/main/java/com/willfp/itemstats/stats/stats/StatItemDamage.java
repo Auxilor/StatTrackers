@@ -17,6 +17,10 @@ public class StatItemDamage extends Stat {
     public void statListener(@NotNull final PlayerItemDamageEvent event) {
         ItemStack itemStack = event.getItem();
 
+        if (itemStack.getType().getMaxStackSize() > 1) {
+            return;
+        }
+
         double value = StatChecks.getStatOnItem(itemStack, this);
         value += event.getDamage();
         StatChecks.setStatOnItem(itemStack, this, value);

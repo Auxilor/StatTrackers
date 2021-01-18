@@ -33,6 +33,10 @@ public class StatArrowsShot extends Stat {
             return;
         }
 
+        if (itemStack.getType().getMaxStackSize() > 1) {
+            return;
+        }
+
         double value = StatChecks.getStatOnItem(itemStack, this);
         value += 1;
         StatChecks.setStatOnItem(itemStack, this, value);
