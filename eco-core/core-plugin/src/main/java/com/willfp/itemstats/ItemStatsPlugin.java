@@ -1,6 +1,8 @@
 package com.willfp.itemstats;
 
 import com.willfp.eco.util.command.AbstractCommand;
+import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.display.DisplayModule;
 import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
@@ -10,9 +12,7 @@ import com.willfp.itemstats.commands.CommandIstatsgive;
 import com.willfp.itemstats.commands.CommandIstatsreload;
 import com.willfp.itemstats.commands.TabcompleterActivestat;
 import com.willfp.itemstats.commands.TabcompleterIstatsgive;
-import com.willfp.itemstats.display.packets.PacketSetCreativeSlot;
-import com.willfp.itemstats.display.packets.PacketSetSlot;
-import com.willfp.itemstats.display.packets.PacketWindowItems;
+import com.willfp.itemstats.display.ItemStatsDisplay;
 import com.willfp.itemstats.stats.Stats;
 import com.willfp.itemstats.tracker.TrackerListener;
 import lombok.Getter;
@@ -44,6 +44,8 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
+        Display.registerDisplayModule(new DisplayModule(ItemStatsDisplay::displayStat, 400, this.getPluginName()));
+        Display.registerRevertModule(ItemStatsDisplay::revertDisplay);
         this.getLog().info(Stats.values().size() + " Stats Loaded");
     }
 
@@ -117,11 +119,7 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
      */
     @Override
     public List<AbstractPacketAdapter> getPacketAdapters() {
-        return Arrays.asList(
-                new PacketSetCreativeSlot(this),
-                new PacketSetSlot(this),
-                new PacketWindowItems(this)
-        );
+        return new ArrayList<>();
     }
 
     /**
