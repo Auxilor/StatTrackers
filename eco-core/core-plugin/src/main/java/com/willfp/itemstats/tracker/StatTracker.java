@@ -4,6 +4,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.EcoShapedRecipe;
 import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
 import com.willfp.itemstats.ItemStatsPlugin;
+import com.willfp.itemstats.display.ItemStatsDisplay;
 import com.willfp.itemstats.stats.Stat;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -71,6 +72,7 @@ public class StatTracker {
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, stat.getKey().getKey());
         out.setItemMeta(outMeta);
+        out = ItemStatsDisplay.displayStat(out);
         this.itemStack = out;
 
         if (this.isEnabled()) {
