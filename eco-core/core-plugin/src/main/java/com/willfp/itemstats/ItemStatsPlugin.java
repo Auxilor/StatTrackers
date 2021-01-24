@@ -35,7 +35,7 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
      * Internal constructor called by bukkit on plugin load.
      */
     public ItemStatsPlugin() {
-        super("ItemStats", 87537, 9914, "com.willfp.itemstats.proxy", "&d");
+        super("ItemStats", 88247, 9914, "com.willfp.itemstats.proxy", "&d");
         instance = this;
     }
 
