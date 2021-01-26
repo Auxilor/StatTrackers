@@ -46,6 +46,10 @@ public class TrackerListener extends PluginDependent implements Listener {
             return;
         }
 
+        if (current.getType().getMaxStackSize() > 1) {
+            return;
+        }
+
         StatChecks.setActiveStat(current, tracked);
 
         event.getWhoClicked().setItemOnCursor(null);
