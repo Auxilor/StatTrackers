@@ -19,7 +19,7 @@ public class CommandIstatsgive extends AbstractCommand {
      * @param plugin The plugin for the commands to listen for.
      */
     public CommandIstatsgive(@NotNull final AbstractEcoPlugin plugin) {
-        super(plugin, "istatsgive", "itemstats.give", true);
+        super(plugin, "istatsgive", "itemstats.give", false);
     }
 
     @Override
