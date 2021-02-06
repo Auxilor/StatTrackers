@@ -7,10 +7,12 @@ import com.google.common.collect.ImmutableList;
 import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.itemstats.stats.stats.StatArrowsShot;
 import com.willfp.itemstats.stats.stats.StatBlocksBroken;
+import com.willfp.itemstats.stats.stats.StatCriticalsDealt;
 import com.willfp.itemstats.stats.stats.StatDamageBlocked;
 import com.willfp.itemstats.stats.stats.StatDamageDealt;
 import com.willfp.itemstats.stats.stats.StatDamageTaken;
 import com.willfp.itemstats.stats.stats.StatDistanceFlown;
+import com.willfp.itemstats.stats.stats.StatDistanceJumped;
 import com.willfp.itemstats.stats.stats.StatDistanceSneaked;
 import com.willfp.itemstats.stats.stats.StatDistanceSprinted;
 import com.willfp.itemstats.stats.stats.StatDistanceTravelled;
@@ -53,6 +55,8 @@ public class Stats {
     public static final Stat BOSSES_KILLED = new StatBossesKilled();
     public static final Stat DISTANCE_TRAVELLED = new StatDistanceTravelled();
     public static final Stat HEADSHOTS = new StatHeadshots();
+    public static final Stat DISTANCE_JUMPED = new StatDistanceJumped();
+    public static final Stat CRITICALS_DEALT = new StatCriticalsDealt();
 
     /**
      * Get all registered {@link Stat}s.

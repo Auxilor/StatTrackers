@@ -21,6 +21,23 @@ stat:
       - iron_sword
       - iron_sword
 
+  criticals_dealt:
+    name: "Criticals dealt"
+    color: "&b"
+    enabled: true
+    tracker-recipe:
+      - iron_sword
+      - obsidian
+      - iron_sword
+
+      - obsidian
+      - compass
+      - obsidian
+
+      - iron_sword
+      - obsidian
+      - iron_sword
+
   arrows_shot:
     name: "Arrows shot"
     color: "&b"
@@ -122,6 +139,23 @@ stat:
       - air
       - leather_boots
       - air
+
+  distance_jumped:
+    name: "Distance jumped"
+    color: "&b"
+    enabled: true
+    tracker-recipe:
+      - slime_ball
+      - leather_boots
+      - slime_ball
+
+      - leather_boots
+      - compass
+      - leather_boots
+
+      - slime_ball
+      - leather_boots
+      - slime_ball
 
   distance_sprinted:
     name: "Distance sprinted"
