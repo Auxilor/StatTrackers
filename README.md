@@ -16,7 +16,7 @@
     <a href="https://bstats.org/plugin/bukkit/ItemStats" alt="bstats players">
         <img src="https://img.shields.io/bstats/players/9865?color=ff935e&style=for-the-badge"/>
     </a>
-    <a href="https://auxilor.gitbook.io/itemstats/" alt="Docs (gitbook)">
+    <a href="https://talismans.willfp.com/" alt="Docs (gitbook)">
         <img src="https://img.shields.io/badge/docs-gitbook-ff935e?style=for-the-badge&logo=appveyor"/>
     </a>
     <a href="https://discord.gg/ZcwpSsE/" alt="Discord">
@@ -27,7 +27,7 @@
 
 [![Title](https://i.imgur.com/yTJ5sFk.png)]()
 [![Features](https://i.imgur.com/KkIbknf.png)]()
-[![Docs](https://i.imgur.com/0460Lv0.png)](https://auxilor.gitbook.io/itemstats/)
+[![Docs](https://i.imgur.com/0460Lv0.png)](https://talismans.willfp.com/)
 [![Compatibility](https://i.imgur.com/oRdt6W7.png)]()
 
 ## License
