@@ -7,7 +7,6 @@ import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
 import com.willfp.itemstats.commands.CommandActivestat;
-import com.willfp.itemstats.commands.CommandIstatsdebug;
 import com.willfp.itemstats.commands.CommandIstatsgive;
 import com.willfp.itemstats.commands.CommandIstatsreload;
 import com.willfp.itemstats.commands.TabcompleterActivestat;
@@ -105,7 +104,6 @@ public class ItemStatsPlugin extends AbstractEcoPlugin {
     @Override
     public List<AbstractCommand> getCommands() {
         return Arrays.asList(
-                new CommandIstatsdebug(this),
                 new CommandIstatsreload(this),
                 new CommandActivestat(this),
                 new CommandIstatsgive(this)

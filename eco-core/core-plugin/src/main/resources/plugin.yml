@@ -26,9 +26,6 @@ commands:
   istatsreload:
     description: Reloads config
     permission: itemstats.reload
-  istatsdebug:
-    description: Debug information
-    permission: itemstats.istatsdebug
   activestat:
     description: Sets the active stat on an item
     permission: itemstats.activestat
@@ -42,14 +39,10 @@ permissions:
     default: op
     children:
       itemstats.reload: true
-      itemstats.istatsdebug: true
       itemstats.activestat: true
 
   itemstats.reload:
     description: Allows reloading the config
-    default: op
-  itemstats.istatsdebug:
-    description: Allows the use of /istatsdebug to print verbose debug information to console
     default: op
   itemstats.activestat:
     description: Allows the use of /activestat to set the stat displayed on an item
