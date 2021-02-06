@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+@SuppressWarnings("deprecation")
 public class StatDistanceJumped extends Stat {
     public StatDistanceJumped() {
         super("distance_jumped");

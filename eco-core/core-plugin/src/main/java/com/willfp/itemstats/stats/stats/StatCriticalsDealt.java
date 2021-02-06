@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class StatCriticalsDealt extends Stat {
     public StatCriticalsDealt() {
         super("criticals_dealt");
