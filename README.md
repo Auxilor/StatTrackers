@@ -25,9 +25,9 @@
 </p>
 
 
-[![Title](https://i.imgur.com/yTJ5sFk.png)]()
+[![Title](https://i.imgur.com/bXRHwsu.png)]()
 [![Features](https://i.imgur.com/KkIbknf.png)]()
-[![Docs](https://i.imgur.com/0460Lv0.png)](https://stattrackers.willfp.com/)
+[![Docs](https://i.imgur.com/X3zwjGs.png)](https://stattrackers.willfp.com/)
 [![Compatibility](https://i.imgur.com/oRdt6W7.png)]()
 
 ## License
