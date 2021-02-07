@@ -4,7 +4,7 @@
   <br>
 </h1>
 
-<h4 align="center">Source code for ItemStats, a premium spigot plugin.</h4>
+<h4 align="center">Source code for StatTrackers, a premium spigot plugin.</h4>
 
 <p align="center">
     <a href="https://www.spigotmc.org/resources/itemstats.79573/">
