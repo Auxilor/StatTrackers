@@ -1,4 +1,4 @@
-rootProject.name = 'ItemStats'
+rootProject.name = 'StatTrackers'
 
 // Core
 include ':eco-core'
