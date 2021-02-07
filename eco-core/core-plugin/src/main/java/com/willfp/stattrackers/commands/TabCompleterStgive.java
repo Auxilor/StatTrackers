@@ -28,7 +28,7 @@ public class TabCompleterStgive extends AbstractTabCompleter {
      * Instantiate a new tab-completer for /istatsgive.
      */
     public TabCompleterStgive() {
-        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("istatsgive")).getExecutor());
+        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("stgive")).getExecutor());
     }
 
     /**
