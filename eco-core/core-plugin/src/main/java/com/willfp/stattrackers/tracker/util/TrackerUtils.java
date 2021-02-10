@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import sun.security.util.LegacyAlgorithmConstraints;
 
 @UtilityClass
 public class TrackerUtils {

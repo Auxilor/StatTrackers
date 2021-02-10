@@ -10,7 +10,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
+@SuppressWarnings({"DeprecatedIsStillUsed", "deprecation"})
 public abstract class Stat implements Listener {
     /**
      * Instance of StatTrackers for stats to be able to access.
