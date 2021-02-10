@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"deprecation", "DeprecatedIsStillUsed"})
 @UtilityClass
 public class StatChecks {
     /**
@@ -25,6 +26,14 @@ public class StatChecks {
      * The key for storing the currently displayed stat.
      */
     private static final NamespacedKey ACTIVE_KEY = PLUGIN.getNamespacedKeyFactory().create("active");
+
+    /**
+     * The key for storing the currently displayed stat.
+     * <p>
+     * For legacy support.
+     */
+    @Deprecated
+    private static final NamespacedKey LEGACY_ACTIVE_KEY = new NamespacedKey("itemstats", "active");
 
     /**
      * What stat value is present on an item?
@@ -47,12 +56,18 @@ public class StatChecks {
 
         PersistentDataContainer container = meta.getPersistentDataContainer();
 
+        if (container.has(stat.getLegacyKey(), PersistentDataType.DOUBLE)) {
+            double value = container.get(stat.getLegacyKey(), PersistentDataType.DOUBLE);
+            container.remove(stat.getLegacyKey());
+            item.setItemMeta(meta);
+            setStatOnItem(item, stat, value);
+            return getStatOnItem(item, stat);
+        }
+
         if (!container.has(stat.getKey(), PersistentDataType.DOUBLE)) {
             setStatOnItem(item, stat, 0);
             return getStatOnItem(item, stat);
         }
-
-        item.setItemMeta(meta);
 
         return container.get(stat.getKey(), PersistentDataType.DOUBLE);
     }
@@ -135,7 +150,10 @@ public class StatChecks {
         String active = container.get(ACTIVE_KEY, PersistentDataType.STRING);
 
         if (active == null || active.equals("null")) {
-            return null;
+            active = container.get(LEGACY_ACTIVE_KEY, PersistentDataType.STRING);
+            if (active == null || active.equals("null")) {
+                return null;
+            }
         }
 
         return Stats.getByKey(PLUGIN.getNamespacedKeyFactory().create(active.split(":")[1]));

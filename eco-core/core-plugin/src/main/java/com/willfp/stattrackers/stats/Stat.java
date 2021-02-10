@@ -10,6 +10,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 public abstract class Stat implements Listener {
     /**
      * Instance of StatTrackers for stats to be able to access.
@@ -22,6 +23,13 @@ public abstract class Stat implements Listener {
      */
     @Getter
     private final NamespacedKey key;
+
+    /**
+     * The legacy key to store stats in meta.
+     */
+    @Getter
+    @Deprecated
+    private final NamespacedKey legacyKey;
 
     /**
      * The description of the stat.
@@ -51,6 +59,7 @@ public abstract class Stat implements Listener {
                    @NotNull final Prerequisite... prerequisites) {
         this.key = this.getPlugin().getNamespacedKeyFactory().create(key);
         this.tracker = new StatTracker(this);
+        this.legacyKey = new NamespacedKey("itemstats", key);
 
         if (!Prerequisite.areMet(prerequisites)) {
             return;
