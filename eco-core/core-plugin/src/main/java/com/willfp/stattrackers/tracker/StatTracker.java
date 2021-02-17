@@ -1,10 +1,10 @@
 package com.willfp.stattrackers.tracker;
 
+import com.willfp.eco.util.display.Display;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.eco.util.recipe.EcoShapedRecipe;
-import com.willfp.eco.util.recipe.lookup.RecipePartUtils;
+import com.willfp.eco.util.recipe.RecipeParts;
+import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.stattrackers.StatTrackersPlugin;
-import com.willfp.stattrackers.display.StatTrackersDisplay;
 import com.willfp.stattrackers.stats.Stat;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -72,7 +72,7 @@ public class StatTracker {
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, stat.getKey().getKey());
         out.setItemMeta(outMeta);
-        out = StatTrackersDisplay.displayStat(out);
+        Display.display(out);
         this.itemStack = out;
 
         if (this.isEnabled()) {
@@ -82,7 +82,7 @@ public class StatTracker {
             List<String> recipeStrings = plugin.getConfigYml().getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipePartUtils.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
             }
 
             this.recipe = builder.build();

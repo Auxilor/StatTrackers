@@ -1,83 +1,37 @@
 package com.willfp.stattrackers.display;
 
 import com.willfp.eco.util.StringUtils;
+import com.willfp.eco.util.display.Display;
+import com.willfp.eco.util.display.DisplayModule;
+import com.willfp.eco.util.display.DisplayPriority;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
 import com.willfp.stattrackers.tracker.util.TrackerUtils;
-import lombok.experimental.UtilityClass;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@UtilityClass
-public class StatTrackersDisplay {
+public class StatTrackersDisplay extends DisplayModule {
     /**
-     * Instance of StatTrackers.
-     */
-    private static final AbstractEcoPlugin PLUGIN = StatTrackersPlugin.getInstance();
-
-    /**
-     * The prefix for all stat lines to have in lore.
-     */
-    public static final String PREFIX = "§y";
-
-    /**
-     * Revert display.
+     * Create new stat trackers display.
      *
-     * @param item The item to revert.
-     * @return The item, updated.
+     * @param plugin Instance of StatTrackers.
      */
-    public static ItemStack revertDisplay(@Nullable final ItemStack item) {
-        if (item == null || item.getItemMeta() == null) {
-            return item;
-        }
-
-        ItemMeta meta = item.getItemMeta();
-        List<String> itemLore;
-
-        if (meta.hasLore()) {
-            itemLore = meta.getLore();
-        } else {
-            itemLore = new ArrayList<>();
-        }
-
-        if (itemLore == null) {
-            itemLore = new ArrayList<>();
-        }
-
-        itemLore.removeIf(s -> s.startsWith(PREFIX));
-
-        meta.setLore(itemLore);
-        item.setItemMeta(meta);
-
-        return item;
+    public StatTrackersDisplay(@NotNull final AbstractEcoPlugin plugin) {
+        super(plugin, DisplayPriority.HIGHEST);
     }
 
-    /**
-     * Show stat in item lore.
-     *
-     * @param item The item to update.
-     * @return The item, updated.
-     */
-    public static ItemStack displayStat(@Nullable final ItemStack item) {
-        if (item == null || item.getItemMeta() == null) {
-            return item;
-        }
+    @Override
+    protected void display(@NotNull final ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
 
-        revertDisplay(item);
-
-        ItemMeta meta = item.getItemMeta();
-
-        if (meta == null) {
-            return item;
-        }
+        assert meta != null;
 
         List<String> itemLore = new ArrayList<>();
 
@@ -89,22 +43,22 @@ public class StatTrackersDisplay {
             itemLore = new ArrayList<>();
         }
 
-        Stat stat = StatChecks.getActiveStat(item);
+        Stat stat = StatChecks.getActiveStat(itemStack);
 
         if (stat == null) {
-            Stat trackerStat = TrackerUtils.getTrackedStat(item);
+            Stat trackerStat = TrackerUtils.getTrackedStat(itemStack);
             if (trackerStat == null) {
-                return item;
+                return;
             }
 
-            meta.setDisplayName(PLUGIN.getLangYml().getString("tracker"));
-            List<String> lore = PLUGIN.getLangYml().getStrings("tracker-description");
+            meta.setDisplayName(this.getPlugin().getLangYml().getString("tracker"));
+            List<String> lore = this.getPlugin().getLangYml().getStrings("tracker-description");
 
             for (int i = 0; i < lore.size(); i++) {
                 String string = lore.get(i);
                 string = StringUtils.translate(string);
                 string = string.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription());
-                string = PREFIX + string;
+                string = Display.PREFIX + string;
                 lore.set(i, string);
             }
 
@@ -112,15 +66,18 @@ public class StatTrackersDisplay {
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
             meta.setLore(lore);
-            item.setItemMeta(meta);
+            itemStack.setItemMeta(meta);
 
-            return item;
+            return;
         }
 
-        itemLore.add(PREFIX + "§f" + stat.getColor() + stat.getDescription() + PLUGIN.getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(item, stat)));
+        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(itemStack, stat)));
         meta.setLore(itemLore);
-        item.setItemMeta(meta);
+        itemStack.setItemMeta(meta);
+    }
 
-        return item;
+    @Override
+    protected void revert(@NotNull final ItemStack itemStack) {
+
     }
 }

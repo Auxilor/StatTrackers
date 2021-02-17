@@ -1,7 +1,6 @@
 package com.willfp.stattrackers;
 
 import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.display.Display;
 import com.willfp.eco.util.display.DisplayModule;
 import com.willfp.eco.util.integrations.IntegrationLoader;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
@@ -17,6 +16,7 @@ import com.willfp.stattrackers.tracker.TrackerListener;
 import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,8 +43,6 @@ public class StatTrackersPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
-        Display.registerDisplayModule(new DisplayModule(StatTrackersDisplay::displayStat, 400, this.getPluginName()));
-        Display.registerRevertModule(StatTrackersDisplay::revertDisplay);
         this.getLog().info(Stats.values().size() + " Stats Loaded");
     }
 
@@ -139,5 +137,11 @@ public class StatTrackersPlugin extends AbstractEcoPlugin {
                 TabCompleterActivestat.class,
                 TabCompleterStgive.class
         );
+    }
+
+    @Override
+    @Nullable
+    protected DisplayModule createDisplayModule() {
+        return new StatTrackersDisplay(this);
     }
 }
