@@ -8,6 +8,7 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
 import com.willfp.stattrackers.tracker.util.TrackerUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -52,14 +53,11 @@ public class StatTrackersDisplay extends DisplayModule {
             }
 
             meta.setDisplayName(this.getPlugin().getLangYml().getString("tracker"));
-            List<String> lore = this.getPlugin().getLangYml().getStrings("tracker-description");
+            List<String> lore = new ArrayList<>();
 
-            for (int i = 0; i < lore.size(); i++) {
-                String string = lore.get(i);
-                string = StringUtils.translate(string);
-                string = string.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription());
-                string = Display.PREFIX + string;
-                lore.set(i, string);
+            Bukkit.getLogger().info("---------");
+            for (String s : this.getPlugin().getLangYml().getStrings("tracker-description")) {
+                lore.add(Display.PREFIX + StringUtils.translate(s.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription())));
             }
 
             meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);

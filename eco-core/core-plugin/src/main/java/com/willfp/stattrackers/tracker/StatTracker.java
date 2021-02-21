@@ -1,5 +1,6 @@
 package com.willfp.stattrackers.tracker;
 
+import com.willfp.eco.util.StringUtils;
 import com.willfp.eco.util.display.Display;
 import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.eco.util.recipe.RecipeParts;
@@ -15,6 +16,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatTracker {
@@ -71,8 +73,10 @@ public class StatTracker {
         assert outMeta != null;
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, stat.getKey().getKey());
+        List<String> lore = new ArrayList<>(this.getPlugin().getLangYml().getStrings("tracker-description"));
+        lore.replaceAll(string -> Display.PREFIX + StringUtils.translate(string));
+        outMeta.setLore(lore);
         out.setItemMeta(outMeta);
-        Display.display(out);
         this.itemStack = out;
 
         if (this.isEnabled()) {
