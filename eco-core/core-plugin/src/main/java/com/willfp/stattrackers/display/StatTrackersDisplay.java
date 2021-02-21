@@ -55,7 +55,6 @@ public class StatTrackersDisplay extends DisplayModule {
             meta.setDisplayName(this.getPlugin().getLangYml().getString("tracker"));
             List<String> lore = new ArrayList<>();
 
-            Bukkit.getLogger().info("---------");
             for (String s : this.getPlugin().getLangYml().getStrings("tracker-description")) {
                 lore.add(Display.PREFIX + StringUtils.translate(s.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription())));
             }
