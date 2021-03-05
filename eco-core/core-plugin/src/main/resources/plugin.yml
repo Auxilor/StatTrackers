@@ -46,7 +46,7 @@ permissions:
     default: op
   stattrackers.activestat:
     description: Allows the use of /activestat to set the stat displayed on an item
-    default: true
+    default: op
   stattrackers.give:
     description: Allows the use of /stgive to give a player a stat tracker
-    default: true
+    default: op
