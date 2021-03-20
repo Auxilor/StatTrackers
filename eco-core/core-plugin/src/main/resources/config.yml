@@ -3,6 +3,8 @@
 # by Auxilor
 #
 
+reset-on-apply: false # Reset stat on apply
+
 stat:
   damage_dealt:
     name: "Damage dealt"
