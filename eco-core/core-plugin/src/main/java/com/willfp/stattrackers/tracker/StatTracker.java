@@ -64,7 +64,7 @@ public class StatTracker {
      * Update the tracker's crafting recipe.
      */
     public void update() {
-        enabled = this.getPlugin().getConfigYml().getBool("stat." + stat.getKey().getKey() + ".enabled");
+        enabled = this.getPlugin().getConfigYml().getBool("stat." + stat.getKey().getKey() + ".crafting-enabled");
 
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("stat_tracker");
 
