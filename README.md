@@ -26,7 +26,7 @@
 
 
 [![Title](https://i.imgur.com/bXRHwsu.png)]()
-[![Features](https://i.imgur.com/KkIbknf.png)]()
+[![Features](https://i.imgur.com/ABEuBMe.png)]()
 [![Docs](https://i.imgur.com/X3zwjGs.png)](https://stattrackers.willfp.com/)
 [![Compatibility](https://i.imgur.com/oRdt6W7.png)]()
 
