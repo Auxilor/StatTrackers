@@ -125,13 +125,13 @@ public class StatChecks {
             container.set(ACTIVE_KEY, PersistentDataType.STRING, "null");
         }
 
+        item.setItemMeta(meta);
+
         if (PLUGIN.getConfigYml().getBool("reset-on-apply")) {
             if (stat != null) {
                 setStatOnItem(item, stat, 0);
             }
         }
-
-        item.setItemMeta(meta);
     }
 
     /**
