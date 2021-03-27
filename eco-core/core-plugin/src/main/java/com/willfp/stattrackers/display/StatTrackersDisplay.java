@@ -63,13 +63,11 @@ public class StatTrackersDisplay extends DisplayModule {
             meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-            meta.setLore(lore);
-            itemStack.setItemMeta(meta);
-
-            return;
+            itemLore.addAll(0, lore);
+        } else {
+            itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(itemStack, stat)));
         }
 
-        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(itemStack, stat)));
         meta.setLore(itemLore);
         itemStack.setItemMeta(meta);
     }
