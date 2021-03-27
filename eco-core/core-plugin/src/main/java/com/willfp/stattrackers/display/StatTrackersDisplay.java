@@ -62,6 +62,8 @@ public class StatTrackersDisplay extends DisplayModule {
             meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
+            lore.addAll(itemLore);
+
             meta.setLore(lore);
             itemStack.setItemMeta(meta);
 
