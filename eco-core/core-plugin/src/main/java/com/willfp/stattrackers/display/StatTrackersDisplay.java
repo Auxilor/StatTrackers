@@ -8,12 +8,12 @@ import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
 import com.willfp.stattrackers.tracker.util.TrackerUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,8 @@ public class StatTrackersDisplay extends DisplayModule {
     }
 
     @Override
-    protected void display(@NotNull final ItemStack itemStack) {
+    protected void display(@NotNull final ItemStack itemStack,
+                           @Nullable final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
 
         assert meta != null;
@@ -71,10 +72,5 @@ public class StatTrackersDisplay extends DisplayModule {
         itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(itemStack, stat)));
         meta.setLore(itemLore);
         itemStack.setItemMeta(meta);
-    }
-
-    @Override
-    protected void revert(@NotNull final ItemStack itemStack) {
-
     }
 }
