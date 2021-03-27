@@ -13,11 +13,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class StatTrackersDisplay extends DisplayModule {
     /**
      * Create new stat trackers display.
@@ -29,8 +29,7 @@ public class StatTrackersDisplay extends DisplayModule {
     }
 
     @Override
-    protected void display(@NotNull final ItemStack itemStack,
-                           @Nullable final Object... args) {
+    protected void display(@NotNull ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
 
         assert meta != null;
