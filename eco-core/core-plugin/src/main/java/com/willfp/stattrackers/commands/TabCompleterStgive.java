@@ -1,8 +1,8 @@
 package com.willfp.stattrackers.commands;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.command.AbstractTabCompleter;
+import com.willfp.eco.core.config.ConfigUpdater;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import org.bukkit.Bukkit;
@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TabCompleterStgive extends AbstractTabCompleter {
@@ -26,9 +25,10 @@ public class TabCompleterStgive extends AbstractTabCompleter {
 
     /**
      * Instantiate a new tab-completer for /istatsgive.
+     * @param command The command.
      */
-    public TabCompleterStgive() {
-        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("stgive")).getExecutor());
+    public TabCompleterStgive(@NotNull final AbstractCommand command) {
+        super(command);
     }
 
     /**

@@ -1,12 +1,12 @@
 package com.willfp.stattrackers.stats;
 
-
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
+import com.willfp.eco.core.config.ConfigUpdater;
 import com.willfp.stattrackers.stats.stats.StatArrowsShot;
 import com.willfp.stattrackers.stats.stats.StatBlocksBroken;
+import com.willfp.stattrackers.stats.stats.StatBossesKilled;
 import com.willfp.stattrackers.stats.stats.StatCriticalsDealt;
 import com.willfp.stattrackers.stats.stats.StatDamageBlocked;
 import com.willfp.stattrackers.stats.stats.StatDamageDealt;
@@ -22,7 +22,6 @@ import com.willfp.stattrackers.stats.stats.StatItemDamage;
 import com.willfp.stattrackers.stats.stats.StatMobsKilled;
 import com.willfp.stattrackers.stats.stats.StatPlayersKilled;
 import com.willfp.stattrackers.stats.stats.StatTimesJumped;
-import com.willfp.stattrackers.stats.stats.StatBossesKilled;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;

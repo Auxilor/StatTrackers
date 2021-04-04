@@ -1,7 +1,6 @@
 package com.willfp.stattrackers.stats.util;
 
-
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
 import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
@@ -20,7 +19,7 @@ public class StatChecks {
     /**
      * Instance of StatTrackers.
      */
-    private static final AbstractEcoPlugin PLUGIN = StatTrackersPlugin.getInstance();
+    private static final EcoPlugin PLUGIN = StatTrackersPlugin.getInstance();
 
     /**
      * The key for storing the currently displayed stat.

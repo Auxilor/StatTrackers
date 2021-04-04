@@ -1,10 +1,10 @@
 package com.willfp.stattrackers.display;
 
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.display.Display;
+import com.willfp.eco.core.display.DisplayModule;
+import com.willfp.eco.core.display.DisplayPriority;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.display.Display;
-import com.willfp.eco.util.display.DisplayModule;
-import com.willfp.eco.util.display.DisplayPriority;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
 import com.willfp.stattrackers.tracker.util.TrackerUtils;
@@ -24,12 +24,13 @@ public class StatTrackersDisplay extends DisplayModule {
      *
      * @param plugin Instance of StatTrackers.
      */
-    public StatTrackersDisplay(@NotNull final AbstractEcoPlugin plugin) {
+    public StatTrackersDisplay(@NotNull final EcoPlugin plugin) {
         super(plugin, DisplayPriority.HIGHEST);
     }
 
     @Override
-    protected void display(@NotNull ItemStack itemStack) {
+    protected void display(@NotNull final ItemStack itemStack,
+                           @NotNull final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
 
         assert meta != null;

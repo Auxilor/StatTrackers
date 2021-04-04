@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats;
 
-import com.willfp.eco.util.optional.Prerequisite;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.Prerequisite;
 import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.tracker.StatTracker;
 import lombok.AccessLevel;
@@ -16,7 +16,7 @@ public abstract class Stat implements Listener {
      * Instance of StatTrackers for stats to be able to access.
      */
     @Getter(AccessLevel.PROTECTED)
-    private final AbstractEcoPlugin plugin = StatTrackersPlugin.getInstance();
+    private final EcoPlugin plugin = StatTrackersPlugin.getInstance();
 
     /**
      * The key to store stats in meta.

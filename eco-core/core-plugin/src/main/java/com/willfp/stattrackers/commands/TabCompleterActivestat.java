@@ -1,12 +1,11 @@
 package com.willfp.stattrackers.commands;
 
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.command.AbstractTabCompleter;
+import com.willfp.eco.core.config.ConfigUpdater;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.config.updating.annotations.ConfigUpdater;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -15,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TabCompleterActivestat extends AbstractTabCompleter {
@@ -26,9 +24,11 @@ public class TabCompleterActivestat extends AbstractTabCompleter {
 
     /**
      * Instantiate a new tab-completer for /enchantinfo.
+     *
+     * @param command The command.
      */
-    public TabCompleterActivestat() {
-        super((AbstractCommand) Objects.requireNonNull(Bukkit.getPluginCommand("activestat")).getExecutor());
+    public TabCompleterActivestat(@NotNull final AbstractCommand command) {
+        super(command);
     }
 
     /**

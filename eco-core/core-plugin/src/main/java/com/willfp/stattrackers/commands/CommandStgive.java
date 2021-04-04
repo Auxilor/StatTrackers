@@ -1,8 +1,8 @@
 package com.willfp.stattrackers.commands;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.command.AbstractTabCompleter;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import org.bukkit.Bukkit;
@@ -18,13 +18,13 @@ public class CommandStgive extends AbstractCommand {
      *
      * @param plugin The plugin for the commands to listen for.
      */
-    public CommandStgive(@NotNull final AbstractEcoPlugin plugin) {
+    public CommandStgive(@NotNull final EcoPlugin plugin) {
         super(plugin, "stgive", "stattrackers.give", false);
     }
 
     @Override
     public AbstractTabCompleter getTab() {
-        return new TabCompleterStgive();
+        return new TabCompleterStgive(this);
     }
 
     @Override
