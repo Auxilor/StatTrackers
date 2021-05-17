@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class StatTrackersDisplay extends DisplayModule {
     /**
      * Create new stat trackers display.
@@ -35,6 +34,54 @@ public class StatTrackersDisplay extends DisplayModule {
 
         assert meta != null;
 
+        if (!displayItemMeta(meta)) {
+            displayTrackerMeta(meta);
+        }
+
+        itemStack.setItemMeta(meta);
+    }
+
+    private void displayTrackerMeta(@NotNull final ItemMeta meta) {
+        Stat stat = TrackerUtils.getTrackedStat(meta);
+
+        if (stat == null) {
+            return;
+        }
+
+        meta.setDisplayName(this.getPlugin().getLangYml().getString("tracker"));
+        List<String> lore = new ArrayList<>();
+
+        for (String s : this.getPlugin().getLangYml().getStrings("tracker-description")) {
+            lore.add(Display.PREFIX + StringUtils.translate(s.replace("%stat%", stat.getColor() + stat.getDescription())));
+        }
+
+        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        List<String> itemLore = getLore(meta);
+
+        lore.addAll(itemLore);
+
+        meta.setLore(lore);
+    }
+
+    private boolean displayItemMeta(@NotNull final ItemMeta meta) {
+        Stat stat = StatChecks.getActiveStat(meta);
+
+        if (stat == null) {
+            return false;
+        }
+
+        List<String> itemLore = getLore(meta);
+
+        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") +
+                StringUtils.internalToString(StatChecks.getStatOnItemMeta(meta, stat)));
+        meta.setLore(itemLore);
+
+        return true;
+    }
+
+    private List<String> getLore(@NotNull final ItemMeta meta) {
         List<String> itemLore = new ArrayList<>();
 
         if (meta.hasLore()) {
@@ -45,34 +92,6 @@ public class StatTrackersDisplay extends DisplayModule {
             itemLore = new ArrayList<>();
         }
 
-        Stat stat = StatChecks.getActiveStat(itemStack);
-
-        if (stat == null) {
-            Stat trackerStat = TrackerUtils.getTrackedStat(itemStack);
-            if (trackerStat == null) {
-                return;
-            }
-
-            meta.setDisplayName(this.getPlugin().getLangYml().getString("tracker"));
-            List<String> lore = new ArrayList<>();
-
-            for (String s : this.getPlugin().getLangYml().getStrings("tracker-description")) {
-                lore.add(Display.PREFIX + StringUtils.translate(s.replace("%stat%", trackerStat.getColor() + trackerStat.getDescription())));
-            }
-
-            meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-
-            lore.addAll(itemLore);
-
-            meta.setLore(lore);
-            itemStack.setItemMeta(meta);
-
-            return;
-        }
-
-        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") + StringUtils.internalToString(StatChecks.getStatOnItem(itemStack, stat)));
-        meta.setLore(itemLore);
-        itemStack.setItemMeta(meta);
+        return itemLore;
     }
 }

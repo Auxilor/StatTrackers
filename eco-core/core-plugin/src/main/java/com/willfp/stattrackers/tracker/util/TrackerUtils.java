@@ -39,6 +39,17 @@ public class TrackerUtils {
             return null;
         }
 
+        return getTrackedStat(meta);
+    }
+
+    /**
+     * Get tracked stat on item.
+     *
+     * @param meta The item to check.
+     * @return The found stat, or null.
+     */
+    @Nullable
+    public static Stat getTrackedStat(@NotNull final ItemMeta meta) {
         if (meta.getPersistentDataContainer().has(PLUGIN.getNamespacedKeyFactory().create("stat_tracker"), PersistentDataType.STRING)) {
             String statKeyName = meta.getPersistentDataContainer().get(PLUGIN.getNamespacedKeyFactory().create("stat_tracker"), PersistentDataType.STRING);
             if (statKeyName == null) {

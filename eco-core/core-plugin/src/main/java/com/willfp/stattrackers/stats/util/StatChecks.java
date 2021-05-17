@@ -72,6 +72,26 @@ public class StatChecks {
     }
 
     /**
+     * What stat value is present on an item?
+     * <p>
+     * Only for display use.
+     *
+     * @param meta The item to query.
+     * @param stat The stat to query.
+     * @return The value, or 0 if not found.
+     */
+    public static double getStatOnItemMeta(@Nullable final ItemMeta meta,
+                                           @NotNull final Stat stat) {
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+
+        if (!container.has(stat.getKey(), PersistentDataType.DOUBLE)) {
+            return 0;
+        }
+
+        return container.get(stat.getKey(), PersistentDataType.DOUBLE);
+    }
+
+    /**
      * Set a stat on an item.
      *
      * @param item  The item to modify.
@@ -150,6 +170,16 @@ public class StatChecks {
             return null;
         }
 
+        return getActiveStat(meta);
+    }
+
+    /**
+     * Get active stat on an item.
+     *
+     * @param meta The item to query.
+     * @return The found stat, or null if none active.
+     */
+    public static Stat getActiveStat(@Nullable final ItemMeta meta) {
         PersistentDataContainer container = meta.getPersistentDataContainer();
 
         String active = container.get(ACTIVE_KEY, PersistentDataType.STRING);
