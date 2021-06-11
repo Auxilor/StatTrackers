@@ -1,10 +1,10 @@
 package com.willfp.stattrackers;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.display.DisplayModule;
-import com.willfp.eco.util.integrations.IntegrationLoader;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.eco.util.protocollib.AbstractPacketAdapter;
+import com.willfp.eco.core.AbstractPacketAdapter;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.display.DisplayModule;
+import com.willfp.eco.core.integrations.IntegrationLoader;
 import com.willfp.stattrackers.commands.CommandActivestat;
 import com.willfp.stattrackers.commands.CommandStgive;
 import com.willfp.stattrackers.commands.CommandStreload;
@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class StatTrackersPlugin extends AbstractEcoPlugin {
+public class StatTrackersPlugin extends EcoPlugin {
     /**
      * Instance of the plugin.
      */
@@ -43,7 +43,7 @@ public class StatTrackersPlugin extends AbstractEcoPlugin {
      */
     @Override
     public void enable() {
-        this.getLog().info(Stats.values().size() + " Stats Loaded");
+        this.getLogger().info(Stats.values().size() + " Stats Loaded");
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.willfp.stattrackers.stats.stats;
 
-import com.willfp.eco.util.events.entitydeathbyentity.EntityDeathByEntityEvent;
+import com.willfp.eco.core.events.EntityDeathByEntityEvent;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
 import org.bukkit.Material;

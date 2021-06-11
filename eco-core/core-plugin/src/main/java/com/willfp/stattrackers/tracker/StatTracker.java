@@ -1,10 +1,10 @@
 package com.willfp.stattrackers.tracker;
 
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.display.Display;
+import com.willfp.eco.core.items.Items;
+import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe;
 import com.willfp.eco.util.StringUtils;
-import com.willfp.eco.util.display.Display;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
-import com.willfp.eco.util.recipe.RecipeParts;
-import com.willfp.eco.util.recipe.recipes.EcoShapedRecipe;
 import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class StatTracker {
      * Instance of StatTrackers to create keys for.
      */
     @Getter
-    private final AbstractEcoPlugin plugin = StatTrackersPlugin.getInstance();
+    private final EcoPlugin plugin = StatTrackersPlugin.getInstance();
 
     /**
      * The stat to track.
@@ -42,7 +42,7 @@ public class StatTracker {
      * The crafting recipe to make the tracker.
      */
     @Getter
-    private EcoShapedRecipe recipe;
+    private ShapedCraftingRecipe recipe;
 
     /**
      * If the recipe is enabled.
@@ -80,13 +80,13 @@ public class StatTracker {
         this.itemStack = out;
 
         if (this.isEnabled()) {
-            EcoShapedRecipe.Builder builder = EcoShapedRecipe.builder(this.getPlugin(), stat.getKey().getKey())
+            ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), stat.getKey().getKey())
                     .setOutput(out);
 
             List<String> recipeStrings = plugin.getConfigYml().getStrings("stat." + stat.getKey().getKey() + ".tracker-recipe");
 
             for (int i = 0; i < 9; i++) {
-                builder.setRecipePart(i, RecipeParts.lookup(recipeStrings.get(i)));
+                builder.setRecipePart(i, Items.lookup(recipeStrings.get(i)));
             }
 
             this.recipe = builder.build();

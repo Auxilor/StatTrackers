@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.tracker;
 
-import com.willfp.eco.util.internal.PluginDependent;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.PluginDependent;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
 import com.willfp.stattrackers.tracker.util.TrackerUtils;
@@ -18,7 +18,7 @@ public class TrackerListener extends PluginDependent implements Listener {
      *
      * @param plugin The plugin to listen for.
      */
-    public TrackerListener(@NotNull final AbstractEcoPlugin plugin) {
+    public TrackerListener(@NotNull final EcoPlugin plugin) {
         super(plugin);
     }
 

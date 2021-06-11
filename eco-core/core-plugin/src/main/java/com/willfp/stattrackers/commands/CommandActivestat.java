@@ -1,8 +1,8 @@
 package com.willfp.stattrackers.commands;
 
-import com.willfp.eco.util.command.AbstractCommand;
-import com.willfp.eco.util.command.AbstractTabCompleter;
-import com.willfp.eco.util.plugin.AbstractEcoPlugin;
+import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.command.AbstractCommand;
+import com.willfp.eco.core.command.AbstractTabCompleter;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import com.willfp.stattrackers.stats.util.StatChecks;
@@ -20,13 +20,13 @@ public class CommandActivestat extends AbstractCommand {
      *
      * @param plugin The plugin for the commands to listen for.
      */
-    public CommandActivestat(@NotNull final AbstractEcoPlugin plugin) {
+    public CommandActivestat(@NotNull final EcoPlugin plugin) {
         super(plugin, "activestat", "stattrackers.activestat", true);
     }
 
     @Override
     public AbstractTabCompleter getTab() {
-        return new TabCompleterActivestat();
+        return new TabCompleterActivestat(this);
     }
 
     @Override
