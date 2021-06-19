@@ -1,34 +1,14 @@
-<h1 align="center">
-  <br>
-  <img src=https://i.imgur.com/f2tyPyi.png" alt="StatTrackers logo" width="256">
-  <br>
-</h1>
+# Getting Started
 
-<h4 align="center">Source code for StatTrackers, a premium spigot plugin.</h4>
+## What is StatTrackers? <a id="what-is-ecoenchants"></a>
 
-<p align="center">
-    <a href="https://www.spigotmc.org/resources/stattrackers.79573/">
-        <img alt="spigot" src="https://img.shields.io/badge/spigot-stattrackers-ff935e?style=for-the-badge"/>
-    </a>
-    <a href="https://bstats.org/plugin/bukkit/StatTrackers" alt="bstats servers">
-        <img src="https://img.shields.io/bstats/servers/10261?color=ff935e&style=for-the-badge"/>
-    </a>
-    <a href="https://bstats.org/plugin/bukkit/StatTrackers" alt="bstats players">
-        <img src="https://img.shields.io/bstats/players/10261?color=ff935e&style=for-the-badge"/>
-    </a>
-    <a href="https://stattrackers.willfp.com/" alt="Docs (gitbook)">
-        <img src="https://img.shields.io/badge/docs-gitbook-ff935e?style=for-the-badge&logo=appveyor"/>
-    </a>
-    <a href="https://discord.gg/ZcwpSsE/" alt="Discord">
-        <img src="https://img.shields.io/discord/452518336627081236?label=discord&style=for-the-badge&color=ff935e"/>
-    </a>
-</p>
+StatTrackers tracks stats related to specific items and lets you see them in item lore. Show off your progress and how much you use your items - incentivize players to stay online and 1-up you.
 
+Install eco first: [https://www.spigotmc.org/resources/eco.87955/](https://www.spigotmc.org/resources/eco.87955/)
 
-[![Title](https://i.imgur.com/bXRHwsu.png)]()
-[![Features](https://i.imgur.com/ABEuBMe.png)]()
-[![Docs](https://i.imgur.com/X3zwjGs.png)](https://stattrackers.willfp.com/)
-[![Compatibility](https://i.imgur.com/oRdt6W7.png)]()
+## How do I use the plugin?
 
-## License
-*Click here to read [the entire license](https://github.com/Auxilor/StatTrackers/blob/master/LICENSE.md).*
+You can set the stat active in item lore by using `/activestat`
+
+Change it at any time, or prevent players from changing the shown stat with the permission `stattrackers.activestat`
+
