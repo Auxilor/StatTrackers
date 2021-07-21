@@ -12,7 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class TrackerListener extends PluginDependent implements Listener {
+public class TrackerListener extends PluginDependent<EcoPlugin> implements Listener {
     /**
      * Create new listeners for dragging trackers onto items.
      *

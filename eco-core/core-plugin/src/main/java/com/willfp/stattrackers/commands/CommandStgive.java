@@ -1,18 +1,16 @@
 package com.willfp.stattrackers.commands;
 
 import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.command.AbstractCommand;
-import com.willfp.eco.core.command.AbstractTabCompleter;
+import com.willfp.eco.core.command.CommandHandler;
+import com.willfp.eco.core.command.TabCompleteHandler;
+import com.willfp.eco.core.command.impl.PluginCommand;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class CommandStgive extends AbstractCommand {
+public class CommandStgive extends PluginCommand {
     /**
      * Instantiate a new /stgive command handler.
      *
@@ -23,42 +21,42 @@ public class CommandStgive extends AbstractCommand {
     }
 
     @Override
-    public AbstractTabCompleter getTab() {
-        return new TabCompleterStgive(this);
+    public TabCompleteHandler getTabCompleter() {
+        return new TabCompleterStgive();
     }
 
     @Override
-    public void onExecute(@NotNull final CommandSender sender,
-                          @NotNull final List<String> args) {
+    public CommandHandler getHandler() {
+        return (sender, args) -> {
+            if (args.isEmpty()) {
+                sender.sendMessage(this.getPlugin().getLangYml().getMessage("needs-player"));
+                return;
+            }
 
-        if (args.isEmpty()) {
-            sender.sendMessage(this.getPlugin().getLangYml().getMessage("needs-player"));
-            return;
-        }
+            if (args.size() == 1) {
+                sender.sendMessage(this.getPlugin().getLangYml().getMessage("needs-stat"));
+                return;
+            }
 
-        if (args.size() == 1) {
-            sender.sendMessage(this.getPlugin().getLangYml().getMessage("needs-stat"));
-            return;
-        }
+            String recieverName = args.get(0);
+            Player reciever = Bukkit.getPlayer(recieverName);
 
-        String recieverName = args.get(0);
-        Player reciever = Bukkit.getPlayer(recieverName);
+            if (reciever == null) {
+                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-player"));
+                return;
+            }
 
-        if (reciever == null) {
-            sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-player"));
-            return;
-        }
+            String statName = args.get(1);
+            Stat stat = Stats.getByKey(this.getPlugin().getNamespacedKeyFactory().create(statName));
+            if (stat == null) {
+                sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-stat"));
+                return;
+            }
 
-        String statName = args.get(1);
-        Stat stat = Stats.getByKey(this.getPlugin().getNamespacedKeyFactory().create(statName));
-        if (stat == null) {
-            sender.sendMessage(this.getPlugin().getLangYml().getMessage("invalid-stat"));
-            return;
-        }
-
-        String message = this.getPlugin().getLangYml().getMessage("give-success");
-        message = message.replace("%stat%", stat.getColor() + stat.getDescription()).replace("%recipient%", reciever.getName());
-        sender.sendMessage(message);
-        reciever.getInventory().addItem(stat.getTracker().getItemStack());
+            String message = this.getPlugin().getLangYml().getMessage("give-success");
+            message = message.replace("%stat%", stat.getColor() + stat.getDescription()).replace("%recipient%", reciever.getName());
+            sender.sendMessage(message);
+            reciever.getInventory().addItem(stat.getTracker().getItemStack());
+        };
     }
 }

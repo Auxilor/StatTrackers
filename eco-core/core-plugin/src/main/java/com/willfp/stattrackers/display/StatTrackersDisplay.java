@@ -52,7 +52,7 @@ public class StatTrackersDisplay extends DisplayModule {
         List<String> lore = new ArrayList<>();
 
         for (String s : this.getPlugin().getLangYml().getStrings("tracker-description")) {
-            lore.add(Display.PREFIX + StringUtils.translate(s.replace("%stat%", stat.getColor() + stat.getDescription())));
+            lore.add(Display.PREFIX + StringUtils.format(s.replace("%stat%", stat.getColor() + stat.getDescription())));
         }
 
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);

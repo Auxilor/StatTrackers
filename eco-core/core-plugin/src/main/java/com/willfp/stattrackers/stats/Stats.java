@@ -3,7 +3,7 @@ package com.willfp.stattrackers.stats;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
-import com.willfp.eco.core.config.ConfigUpdater;
+import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.stattrackers.stats.stats.StatArrowsShot;
 import com.willfp.stattrackers.stats.stats.StatBlocksBroken;
 import com.willfp.stattrackers.stats.stats.StatBossesKilled;

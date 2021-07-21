@@ -1,8 +1,7 @@
 package com.willfp.stattrackers.commands;
 
-import com.willfp.eco.core.command.AbstractCommand;
-import com.willfp.eco.core.command.AbstractTabCompleter;
-import com.willfp.eco.core.config.ConfigUpdater;
+import com.willfp.eco.core.command.TabCompleteHandler;
+import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import org.bukkit.Bukkit;
@@ -17,19 +16,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TabCompleterStgive extends AbstractTabCompleter {
+public class TabCompleterStgive implements TabCompleteHandler {
     /**
      * The cached enchantment names.
      */
     private static final List<String> STAT_NAMES = Stats.values().stream().map(Stat::getKey).map(NamespacedKey::getKey).collect(Collectors.toList());
-
-    /**
-     * Instantiate a new tab-completer for /istatsgive.
-     * @param command The command.
-     */
-    public TabCompleterStgive(@NotNull final AbstractCommand command) {
-        super(command);
-    }
 
     /**
      * Called on reload.
@@ -41,16 +32,9 @@ public class TabCompleterStgive extends AbstractTabCompleter {
         STAT_NAMES.add("none");
     }
 
-    /**
-     * The execution of the tabcompleter.
-     *
-     * @param sender The sender of the command.
-     * @param args   The arguments of the command.
-     * @return A list of tab-completions.
-     */
     @Override
-    public List<String> onTab(@NotNull final CommandSender sender,
-                              @NotNull final List<String> args) {
+    public List<String> tabComplete(@NotNull final CommandSender sender,
+                                    @NotNull final List<String> args) {
         List<String> completions = new ArrayList<>();
 
         if (args.isEmpty()) {

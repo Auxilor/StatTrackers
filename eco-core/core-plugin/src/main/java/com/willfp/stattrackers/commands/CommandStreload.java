@@ -1,13 +1,11 @@
 package com.willfp.stattrackers.commands;
 
 import com.willfp.eco.core.EcoPlugin;
-import com.willfp.eco.core.command.AbstractCommand;
-import org.bukkit.command.CommandSender;
+import com.willfp.eco.core.command.CommandHandler;
+import com.willfp.eco.core.command.impl.PluginCommand;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class CommandStreload extends AbstractCommand {
+public class CommandStreload extends PluginCommand {
     /**
      * Instantiate a new /istatsreload command handler.
      *
@@ -17,10 +15,12 @@ public class CommandStreload extends AbstractCommand {
         super(plugin, "streload", "stattrackers.reload", false);
     }
 
+
     @Override
-    public void onExecute(@NotNull final CommandSender sender,
-                          @NotNull final List<String> args) {
-        this.getPlugin().reload();
-        sender.sendMessage(this.getPlugin().getLangYml().getMessage("reloaded"));
+    public CommandHandler getHandler() {
+        return (sender, args) -> {
+            this.getPlugin().reload();
+            sender.sendMessage(this.getPlugin().getLangYml().getMessage("reloaded"));
+        };
     }
 }
