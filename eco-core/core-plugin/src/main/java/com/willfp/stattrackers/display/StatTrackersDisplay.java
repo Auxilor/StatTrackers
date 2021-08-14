@@ -32,7 +32,9 @@ public class StatTrackersDisplay extends DisplayModule {
                            @NotNull final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
 
-        assert meta != null;
+        if (meta == null) {
+            return;
+        }
 
         if (!displayItemMeta(meta)) {
             displayTrackerMeta(meta);
