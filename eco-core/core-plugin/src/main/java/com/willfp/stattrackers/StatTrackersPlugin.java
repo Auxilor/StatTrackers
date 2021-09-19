@@ -29,7 +29,7 @@ public class StatTrackersPlugin extends EcoPlugin {
      * Internal constructor called by bukkit on plugin load.
      */
     public StatTrackersPlugin() {
-        super(88247, 10261, "&d");
+        super(623, 10261, "&d");
         instance = this;
     }
 
