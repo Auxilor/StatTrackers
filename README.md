@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src=https://i.imgur.com/f2tyPyi.png" alt="StatTrackers logo" width="256">
+  <img src="https://i.imgur.com/4VwZh58.png" alt="StatTrackers logo" width="256">
   <br>
 </h1>
 
