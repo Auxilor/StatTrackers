@@ -36,7 +36,7 @@ public class TrackerListener extends PluginDependent<EcoPlugin> implements Liste
             return;
         }
 
-        if (cursor.getType() != Material.COMPASS) {
+        if (!TrackerUtils.trackerMaterials.contains(cursor.getType())) {
             return;
         }
 
@@ -47,6 +47,10 @@ public class TrackerListener extends PluginDependent<EcoPlugin> implements Liste
         }
 
         if (current.getType().getMaxStackSize() > 1) {
+            return;
+        }
+
+        if (StatChecks.getActiveStat(current) == tracked) {
             return;
         }
 

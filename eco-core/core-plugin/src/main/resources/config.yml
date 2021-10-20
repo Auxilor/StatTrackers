@@ -7,6 +7,7 @@ reset-on-apply: false # Reset stat on apply
 
 stat:
   damage_dealt:
+    tracker-material: "COMPASS"
     name: "Damage dealt"
     color: "&b"
     crafting-enabled: true
@@ -24,6 +25,7 @@ stat:
       - iron_sword
 
   criticals_dealt:
+    tracker-material: "COMPASS"
     name: "Criticals dealt"
     color: "&b"
     crafting-enabled: true
@@ -41,6 +43,7 @@ stat:
       - iron_sword
 
   arrows_shot:
+    tracker-material: "COMPASS"
     name: "Arrows shot"
     color: "&b"
     crafting-enabled: true
@@ -58,6 +61,7 @@ stat:
       - air
 
   blocks_broken:
+    tracker-material: "COMPASS"
     name: "Blocks broken"
     color: "&b"
     crafting-enabled: true
@@ -75,6 +79,7 @@ stat:
       - iron_pickaxe
 
   damage_blocked:
+    tracker-material: "COMPASS"
     name: "Damage blocked"
     color: "&b"
     crafting-enabled: true
@@ -92,6 +97,7 @@ stat:
       - air
 
   damage_taken:
+    tracker-material: "COMPASS"
     name: "Damage taken while wearing"
     color: "&b"
     crafting-enabled: true
@@ -109,6 +115,7 @@ stat:
       - air
 
   distance_flown:
+    tracker-material: "COMPASS"
     name: "Distance Flown"
     color: "&b"
     crafting-enabled: true
@@ -126,6 +133,7 @@ stat:
       - air
 
   distance_sneaked:
+    tracker-material: "COMPASS"
     name: "Distance sneaked"
     color: "&b"
     crafting-enabled: true
@@ -143,6 +151,7 @@ stat:
       - air
 
   distance_jumped:
+    tracker-material: "COMPASS"
     name: "Distance jumped"
     color: "&b"
     crafting-enabled: true
@@ -160,6 +169,7 @@ stat:
       - slime_ball
 
   distance_sprinted:
+    tracker-material: "COMPASS"
     name: "Distance sprinted"
     color: "&b"
     crafting-enabled: true
@@ -177,6 +187,7 @@ stat:
       - air
 
   item_damage:
+    tracker-material: "COMPASS"
     name: "Total damage"
     color: "&b"
     crafting-enabled: true
@@ -194,6 +205,7 @@ stat:
       - air
 
   mobs_killed:
+    tracker-material: "COMPASS"
     name: "Mobs killed"
     color: "&b"
     crafting-enabled: true
@@ -211,6 +223,7 @@ stat:
       - air
 
   players_killed:
+    tracker-material: "COMPASS"
     name: "Players killed"
     color: "&b"
     crafting-enabled: true
@@ -228,6 +241,7 @@ stat:
       - diamond_sword
 
   times_jumped:
+    tracker-material: "COMPASS"
     name: "Times jumped while wearing"
     color: "&b"
     crafting-enabled: true
@@ -245,6 +259,7 @@ stat:
       - air
 
   experience_absorbed:
+    tracker-material: "COMPASS"
     name: "Experience gained while wearing"
     color: "&b"
     crafting-enabled: true
@@ -262,6 +277,7 @@ stat:
       - air
 
   bosses_killed:
+    tracker-material: "COMPASS"
     name: "Bosses killed"
     color: "&b"
     crafting-enabled: true
@@ -279,6 +295,7 @@ stat:
       - air
 
   distance_travelled:
+    tracker-material: "COMPASS"
     name: "Distance Travelled"
     color: "&b"
     crafting-enabled: true
@@ -296,6 +313,7 @@ stat:
       - air
 
   headshots:
+    tracker-material: "COMPASS"
     name: "Headshots"
     color: "&b"
     crafting-enabled: true

@@ -5,6 +5,7 @@ import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,8 +13,17 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @UtilityClass
 public class TrackerUtils {
+
+    /**
+     * A list of materials used by trackers.
+     */
+    public static List<Material> trackerMaterials = new ArrayList<>();
+
     /**
      * Legacy stat tracker key.
      */
@@ -65,7 +75,18 @@ public class TrackerUtils {
             }
             return Stats.getByKey(PLUGIN.getNamespacedKeyFactory().create(statKeyName));
         }
-
         return null;
     }
+
+    /**
+     * Register material used by trackers.
+     *
+     * @param material - Material to register
+     */
+    public static void registerMaterial(Material material) {
+        if (!trackerMaterials.contains(material)) {
+            trackerMaterials.add(material);
+        }
+    }
+
 }
