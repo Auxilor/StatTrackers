@@ -50,6 +50,10 @@ public class TrackerListener extends PluginDependent<EcoPlugin> implements Liste
             return;
         }
 
+        if (StatChecks.getActiveStat(current) == tracked) {
+            return;
+        }
+
         StatChecks.setActiveStat(current, tracked);
 
         event.getWhoClicked().setItemOnCursor(new ItemStack(Material.AIR));
