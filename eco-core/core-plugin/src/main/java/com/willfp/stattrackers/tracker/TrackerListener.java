@@ -36,7 +36,7 @@ public class TrackerListener extends PluginDependent<EcoPlugin> implements Liste
             return;
         }
 
-        if (!TrackerUtils.trackerMaterials.contains(cursor.getType())) {
+        if (!TrackerUtils.TRACKER_MATERIALS.contains(cursor.getType())) {
             return;
         }
 

@@ -18,11 +18,10 @@ import java.util.List;
 
 @UtilityClass
 public class TrackerUtils {
-
     /**
      * A list of materials used by trackers.
      */
-    public static List<Material> trackerMaterials = new ArrayList<>();
+    public static final List<Material> TRACKER_MATERIALS = new ArrayList<>();
 
     /**
      * Legacy stat tracker key.
@@ -84,9 +83,8 @@ public class TrackerUtils {
      * @param material - Material to register
      */
     public static void registerMaterial(Material material) {
-        if (!trackerMaterials.contains(material)) {
-            trackerMaterials.add(material);
+        if (!TRACKER_MATERIALS.contains(material)) {
+            TRACKER_MATERIALS.add(material);
         }
     }
-
 }

@@ -70,6 +70,9 @@ public class StatTracker {
         NamespacedKey key = this.getPlugin().getNamespacedKeyFactory().create("stat_tracker");
 
         ItemStack out = Items.lookup(plugin.getConfigYml().getString("stat." + stat.getKey().getKey() + ".tracker-material")).getItem();
+        if (out.getType() == Material.AIR) {
+            out.setType(Material.COMPASS);
+        }
         out.setAmount(1);
         TrackerUtils.registerMaterial(out.getType());
         ItemMeta outMeta = out.getItemMeta();
