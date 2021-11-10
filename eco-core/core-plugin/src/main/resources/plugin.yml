@@ -23,30 +23,29 @@ softdepend:
   - mcMMO
 
 commands:
-  streload:
-    description: Reloads config
-    permission: stattrackers.reload
-  activestat:
-    description: Sets the active stat on an item
-    permission: stattrackers.activestat
-  stgive:
-    description: Gives a player a stat tracker
-    permission: stattrackers.give
+  stattrackers:
+    description: Base plugin config
+    permission: stattrackers.command.stattrackeres
 
 permissions:
   stattrackers.*:
     description: All stattrackers permissions
     default: op
     children:
-      stattrackers.reload: true
-      stattrackers.activestat: true
+      stattrackers.command.reload: true
+      stattrackers.command.activestat: true
+      stattrackers.command.give: true
+      stattrackers.command.stattrackers: true
 
-  stattrackers.reload:
+  stattrackers.command.stattrackers:
+    description: Allows using the base command
+    default: true
+  stattrackers.command.reload:
     description: Allows reloading the config
     default: op
-  stattrackers.activestat:
-    description: Allows the use of /activestat to set the stat displayed on an item
+  stattrackers.command.activestat:
+    description: Allows the use of /stattrackers activestat to set the stat displayed on an item
     default: op
-  stattrackers.give:
-    description: Allows the use of /stgive to give a player a stat tracker
+  stattrackers.command.give:
+    description: Allows the use of /stattrackers give to give a player a stat tracker
     default: op

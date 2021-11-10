@@ -4,6 +4,7 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.command.CommandHandler;
 import com.willfp.eco.core.command.TabCompleteHandler;
 import com.willfp.eco.core.command.impl.PluginCommand;
+import com.willfp.eco.core.command.impl.Subcommand;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import com.willfp.stattrackers.stats.util.StatChecks;
@@ -12,14 +13,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class CommandActivestat extends PluginCommand {
+public class CommandActivestat extends Subcommand {
     /**
-     * Instantiate a new /activestat command handler.
+     * Instantiate a new command handler.
      *
      * @param plugin The plugin for the commands to listen for.
      */
     public CommandActivestat(@NotNull final EcoPlugin plugin) {
-        super(plugin, "activestat", "stattrackers.activestat", true);
+        super(plugin, "activestat", "stattrackers.command.activestat", true);
     }
 
     @Override
