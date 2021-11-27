@@ -4,6 +4,7 @@
 #
 
 reset-on-apply: false # Reset stat on apply
+hide-attributes: true # Add HIDE_ATTRIBUTES flag to all tracker items
 
 stat:
   damage_dealt:

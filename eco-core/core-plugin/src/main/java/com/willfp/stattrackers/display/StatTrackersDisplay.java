@@ -1,6 +1,7 @@
 package com.willfp.stattrackers.display;
 
 import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.display.DisplayPriority;
@@ -25,6 +26,13 @@ public class StatTrackersDisplay extends DisplayModule {
      */
     public StatTrackersDisplay(@NotNull final EcoPlugin plugin) {
         super(plugin, DisplayPriority.HIGHEST);
+    }
+
+    private static boolean hideAttributes;
+
+    @ConfigUpdater
+    public static void update(@NotNull final EcoPlugin plugin) {
+        hideAttributes = plugin.getConfigYml().getBool("hide-attributes");
     }
 
     @Override
@@ -59,6 +67,9 @@ public class StatTrackersDisplay extends DisplayModule {
 
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        if (hideAttributes) {
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        }
 
         List<String> itemLore = getLore(meta);
 
