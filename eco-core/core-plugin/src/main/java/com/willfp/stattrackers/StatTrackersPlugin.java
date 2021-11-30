@@ -4,8 +4,9 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.command.impl.PluginCommand;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.stattrackers.commands.CommandActivestat;
-import com.willfp.stattrackers.commands.CommandStgive;
-import com.willfp.stattrackers.commands.CommandStreload;
+import com.willfp.stattrackers.commands.CommandGive;
+import com.willfp.stattrackers.commands.CommandReload;
+import com.willfp.stattrackers.commands.CommandStatTrackers;
 import com.willfp.stattrackers.display.StatTrackersDisplay;
 import com.willfp.stattrackers.stats.Stats;
 import com.willfp.stattrackers.tracker.TrackerListener;
@@ -52,9 +53,7 @@ public class StatTrackersPlugin extends EcoPlugin {
     @Override
     protected List<PluginCommand> loadPluginCommands() {
         return Arrays.asList(
-                new CommandStreload(this),
-                new CommandActivestat(this),
-                new CommandStgive(this)
+                new CommandStatTrackers(this)
         );
     }
 

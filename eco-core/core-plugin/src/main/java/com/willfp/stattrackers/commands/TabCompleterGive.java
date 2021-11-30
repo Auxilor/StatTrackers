@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TabCompleterStgive implements TabCompleteHandler {
+public class TabCompleterGive implements TabCompleteHandler {
     /**
      * The cached enchantment names.
      */

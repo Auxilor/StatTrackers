@@ -4,25 +4,26 @@ import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.command.CommandHandler;
 import com.willfp.eco.core.command.TabCompleteHandler;
 import com.willfp.eco.core.command.impl.PluginCommand;
+import com.willfp.eco.core.command.impl.Subcommand;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.Stats;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class CommandStgive extends PluginCommand {
+public class CommandGive extends Subcommand {
     /**
-     * Instantiate a new /stgive command handler.
+     * Instantiate a new command handler.
      *
      * @param plugin The plugin for the commands to listen for.
      */
-    public CommandStgive(@NotNull final EcoPlugin plugin) {
-        super(plugin, "stgive", "stattrackers.give", false);
+    public CommandGive(@NotNull final EcoPlugin plugin) {
+        super(plugin, "give", "stattrackers.command.give", false);
     }
 
     @Override
     public TabCompleteHandler getTabCompleter() {
-        return new TabCompleterStgive();
+        return new TabCompleterGive();
     }
 
     @Override
