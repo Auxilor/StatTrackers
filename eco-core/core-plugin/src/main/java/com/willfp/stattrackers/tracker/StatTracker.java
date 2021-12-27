@@ -2,6 +2,7 @@ package com.willfp.stattrackers.tracker;
 
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.display.Display;
+import com.willfp.eco.core.items.CustomItem;
 import com.willfp.eco.core.items.Items;
 import com.willfp.eco.core.recipe.recipes.ShapedCraftingRecipe;
 import com.willfp.eco.util.StringUtils;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class StatTracker {
     /**
@@ -84,6 +86,12 @@ public class StatTracker {
         outMeta.setLore(lore);
         out.setItemMeta(outMeta);
         this.itemStack = out;
+
+        new CustomItem(
+                this.getStat().getKey(),
+                test -> Objects.equals(TrackerUtils.getTrackedStat(test), this.stat),
+                this.itemStack
+        ).register();
 
         if (this.isEnabled()) {
             ShapedCraftingRecipe.Builder builder = ShapedCraftingRecipe.builder(this.getPlugin(), stat.getKey().getKey())
