@@ -74,8 +74,8 @@ public abstract class Stat implements Listener {
      * This can be overridden but may lead to unexpected behavior.
      */
     public void update() {
-        description = this.getPlugin().getConfigYml().getString("stat." + this.getKey().getKey() + ".name");
-        color = this.getPlugin().getConfigYml().getString("stat." + this.getKey().getKey() + ".color");
+        description = this.getPlugin().getConfigYml().getFormattedString("stat." + this.getKey().getKey() + ".name");
+        color = this.getPlugin().getConfigYml().getFormattedString("stat." + this.getKey().getKey() + ".color");
 
         tracker.update();
 
