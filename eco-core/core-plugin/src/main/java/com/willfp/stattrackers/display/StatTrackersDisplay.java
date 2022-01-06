@@ -50,10 +50,10 @@ public class StatTrackersDisplay extends DisplayModule {
             return;
         }
 
-        meta.setDisplayName(this.getPlugin().getLangYml().getString("tracker"));
+        meta.setDisplayName(this.getPlugin().getLangYml().getFormattedString("tracker"));
         List<String> lore = new ArrayList<>();
 
-        for (String s : this.getPlugin().getLangYml().getStrings("tracker-description")) {
+        for (String s : this.getPlugin().getLangYml().getFormattedStrings("tracker-description")) {
             lore.add(Display.PREFIX + StringUtils.format(s.replace("%stat%", stat.getColor() + stat.getDescription())));
         }
 
@@ -76,7 +76,7 @@ public class StatTrackersDisplay extends DisplayModule {
 
         List<String> itemLore = getLore(meta);
 
-        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getString("delimiter") +
+        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getFormattedString("delimiter") +
                 StringUtils.internalToString(StatChecks.getStatOnItemMeta(meta, stat)));
         meta.setLore(itemLore);
 

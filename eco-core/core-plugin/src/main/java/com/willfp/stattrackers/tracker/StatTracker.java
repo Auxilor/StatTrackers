@@ -81,7 +81,7 @@ public class StatTracker {
         assert outMeta != null;
         PersistentDataContainer container = outMeta.getPersistentDataContainer();
         container.set(key, PersistentDataType.STRING, stat.getKey().getKey());
-        List<String> lore = new ArrayList<>(this.getPlugin().getLangYml().getStrings("tracker-description"));
+        List<String> lore = new ArrayList<>(this.getPlugin().getLangYml().getFormattedStrings("tracker-description"));
         lore.replaceAll(string -> Display.PREFIX + StringUtils.format(string));
         outMeta.setLore(lore);
         out.setItemMeta(outMeta);
