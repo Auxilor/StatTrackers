@@ -6,6 +6,7 @@ import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.tracker.StatTracker;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
@@ -35,12 +36,14 @@ public abstract class Stat implements Listener {
      * The description of the stat.
      */
     @Getter
+    @Setter
     private String description;
 
     /**
      * The color of the stat.
      */
     @Getter
+    @Setter
     private String color;
 
     /**
