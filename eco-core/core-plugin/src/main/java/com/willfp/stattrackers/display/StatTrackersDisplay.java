@@ -5,6 +5,7 @@ import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.display.DisplayPriority;
+import com.willfp.eco.util.NumberUtils;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
@@ -61,7 +62,7 @@ public class StatTrackersDisplay extends DisplayModule {
         meta.setDisplayName(this.getPlugin().getLangYml().getFormattedString("tracker"));
         List<String> lore = new ArrayList<>();
 
-        for (String s : this.getPlugin().getLangYml().getFormattedStrings("tracker-description")) {
+        for (String s : this.getPlugin().getLangYml().getFormattedStrings("tracker-description", StringUtils.FormatOption.WITHOUT_PLACEHOLDERS)) {
             lore.add(Display.PREFIX + StringUtils.format(s.replace("%stat%", stat.getColor() + stat.getDescription())));
         }
 
@@ -87,8 +88,12 @@ public class StatTrackersDisplay extends DisplayModule {
 
         List<String> itemLore = getLore(meta);
 
-        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getFormattedString("delimiter") +
-                StringUtils.internalToString(StatChecks.getStatOnItemMeta(meta, stat)));
+        itemLore.add(
+                Display.PREFIX + stat.getColor() + stat.getDescription()
+                        + this.getPlugin().getLangYml().getFormattedString("delimiter")
+                        + NumberUtils.format(StatChecks.getStatOnItemMeta(meta, stat))
+        );
+
         meta.setLore(itemLore);
 
         return true;
