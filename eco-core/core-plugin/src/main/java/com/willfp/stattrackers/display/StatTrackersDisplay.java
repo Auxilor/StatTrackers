@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatTrackersDisplay extends DisplayModule {
+    private static boolean hideAttributes;
+
     /**
      * Create new stat trackers display.
      *
@@ -28,8 +30,6 @@ public class StatTrackersDisplay extends DisplayModule {
         super(plugin, DisplayPriority.HIGHEST);
     }
 
-    private static boolean hideAttributes;
-
     @ConfigUpdater
     public static void update(@NotNull final EcoPlugin plugin) {
         hideAttributes = plugin.getConfigYml().getBool("hide-attributes");
@@ -37,7 +37,7 @@ public class StatTrackersDisplay extends DisplayModule {
 
     @Override
     public void display(@NotNull final ItemStack itemStack,
-                           @NotNull final Object... args) {
+                        @NotNull final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
