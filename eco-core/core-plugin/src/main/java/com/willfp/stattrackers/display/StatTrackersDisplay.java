@@ -1,9 +1,11 @@
 package com.willfp.stattrackers.display;
 
 import com.willfp.eco.core.EcoPlugin;
+import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.eco.core.display.Display;
 import com.willfp.eco.core.display.DisplayModule;
 import com.willfp.eco.core.display.DisplayPriority;
+import com.willfp.eco.util.NumberUtils;
 import com.willfp.eco.util.StringUtils;
 import com.willfp.stattrackers.stats.Stat;
 import com.willfp.stattrackers.stats.util.StatChecks;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatTrackersDisplay extends DisplayModule {
+    private static boolean hideAttributes;
+
     /**
      * Create new stat trackers display.
      *
@@ -27,9 +31,14 @@ public class StatTrackersDisplay extends DisplayModule {
         super(plugin, DisplayPriority.HIGHEST);
     }
 
+    @ConfigUpdater
+    public static void update(@NotNull final EcoPlugin plugin) {
+        hideAttributes = plugin.getConfigYml().getBool("hide-attributes");
+    }
+
     @Override
     public void display(@NotNull final ItemStack itemStack,
-                           @NotNull final Object... args) {
+                        @NotNull final Object... args) {
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -53,12 +62,15 @@ public class StatTrackersDisplay extends DisplayModule {
         meta.setDisplayName(this.getPlugin().getLangYml().getFormattedString("tracker"));
         List<String> lore = new ArrayList<>();
 
-        for (String s : this.getPlugin().getLangYml().getFormattedStrings("tracker-description")) {
+        for (String s : this.getPlugin().getLangYml().getFormattedStrings("tracker-description", StringUtils.FormatOption.WITHOUT_PLACEHOLDERS)) {
             lore.add(Display.PREFIX + StringUtils.format(s.replace("%stat%", stat.getColor() + stat.getDescription())));
         }
 
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        if (hideAttributes) {
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        }
 
         List<String> itemLore = getLore(meta);
 
@@ -76,8 +88,12 @@ public class StatTrackersDisplay extends DisplayModule {
 
         List<String> itemLore = getLore(meta);
 
-        itemLore.add(Display.PREFIX + "§f" + stat.getColor() + stat.getDescription() + this.getPlugin().getLangYml().getFormattedString("delimiter") +
-                StringUtils.internalToString(StatChecks.getStatOnItemMeta(meta, stat)));
+        itemLore.add(
+                Display.PREFIX + stat.getColor() + stat.getDescription()
+                        + this.getPlugin().getLangYml().getFormattedString("delimiter")
+                        + NumberUtils.format(StatChecks.getStatOnItemMeta(meta, stat))
+        );
+
         meta.setLore(itemLore);
 
         return true;

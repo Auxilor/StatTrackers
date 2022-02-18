@@ -2,10 +2,12 @@ package com.willfp.stattrackers.stats;
 
 import com.willfp.eco.core.EcoPlugin;
 import com.willfp.eco.core.Prerequisite;
+import com.willfp.eco.core.config.interfaces.Config;
 import com.willfp.stattrackers.StatTrackersPlugin;
 import com.willfp.stattrackers.tracker.StatTracker;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
@@ -35,12 +37,14 @@ public abstract class Stat implements Listener {
      * The description of the stat.
      */
     @Getter
+    @Setter
     private String description;
 
     /**
      * The color of the stat.
      */
     @Getter
+    @Setter
     private String color;
 
     /**
@@ -48,6 +52,12 @@ public abstract class Stat implements Listener {
      */
     @Getter
     private final StatTracker tracker;
+
+    /**
+     * The stat config.
+     */
+    @Getter
+    private final Config config;
 
     /**
      * Create a new Stat.
@@ -60,6 +70,7 @@ public abstract class Stat implements Listener {
         this.key = this.getPlugin().getNamespacedKeyFactory().create(key);
         this.tracker = new StatTracker(this);
         this.legacyKey = new NamespacedKey("itemstats", key);
+        this.config = this.getPlugin().getConfigYml().getSubsection("stat." + this.getKey().getKey());
 
         if (!Prerequisite.areMet(prerequisites)) {
             return;
@@ -74,8 +85,8 @@ public abstract class Stat implements Listener {
      * This can be overridden but may lead to unexpected behavior.
      */
     public void update() {
-        description = this.getPlugin().getConfigYml().getFormattedString("stat." + this.getKey().getKey() + ".name");
-        color = this.getPlugin().getConfigYml().getFormattedString("stat." + this.getKey().getKey() + ".color");
+        description = this.getConfig().getFormattedString("name");
+        color = this.getConfig().getFormattedString("color");
 
         tracker.update();
 
