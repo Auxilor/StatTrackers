@@ -35,6 +35,9 @@ abstract class Stat(
     var recipe: CraftingRecipe? = null
         private set
 
+    lateinit var targets: Collection<StatTarget>
+        private set
+
     init {
         register()
         update()
@@ -57,6 +60,8 @@ abstract class Stat(
             { it.statTracker == this },
             this.tracker
         ).apply { register() }
+
+        targets = this.config.getStrings("applicable-to").mapNotNull { StatTarget.getByName(it) }
 
         if (this.config.getBool("tracker.craftable")) {
             recipe = Recipes.createAndRegisterRecipe(
