@@ -6,10 +6,11 @@ import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
+import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.util.NumberUtils
 import com.willfp.eco.util.StringUtils
-import com.willfp.stattrackers.stats.trackedStats
 import com.willfp.stattrackers.stats.statTracker
+import com.willfp.stattrackers.stats.trackedStats
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
@@ -32,16 +33,13 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
     private fun displayTrackerMeta(meta: ItemMeta) {
         val stat = meta.statTracker ?: return
 
-        meta.setDisplayName(plugin.langYml.getFormattedString("tracker"))
+        val trackerMeta = stat.tracker.itemMeta ?: return
 
-        val lore: MutableList<String> = ArrayList()
+        meta.setDisplayName(trackerMeta.displayName)
 
-        for (s in plugin.langYml.getFormattedStrings(
-            "tracker-description",
-            StringUtils.FormatOption.WITHOUT_PLACEHOLDERS
-        )) {
-            lore.add(Display.PREFIX + StringUtils.format(s.replace("%stat%", stat.color + stat.description)))
-        }
+        val lore = mutableListOf<String>()
+
+        lore.addAll(FastItemStack.wrap(stat.tracker).lore.map { Display.PREFIX + it })
 
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
@@ -63,9 +61,8 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
 
         for (stat in stats) {
             itemLore.add(
-                Display.PREFIX + stat.stat.color + stat.stat.description
-                        + plugin.langYml.getFormattedString("delimiter")
-                        + NumberUtils.format(stat.value)
+                Display.PREFIX + stat.stat.display
+                    .replace("%value%", NumberUtils.format(stat.value))
             )
         }
 

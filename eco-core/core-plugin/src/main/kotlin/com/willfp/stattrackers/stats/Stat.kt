@@ -23,10 +23,7 @@ abstract class Stat(
 
     val config: Config = this.plugin.configYml.getSubsection("stat." + this.id)
 
-    lateinit var description: String
-        private set
-
-    lateinit var color: String
+    lateinit var display: String
         private set
 
     lateinit var tracker: ItemStack
@@ -48,8 +45,7 @@ abstract class Stat(
     }
 
     private fun update() {
-        description = this.config.getFormattedString("name")
-        color = this.config.getFormattedString("color")
+        display = this.config.getFormattedString("display")
         tracker = ItemStackBuilder(Items.lookup(this.config.getString("tracker.item")))
             .addLoreLines(this.config.getStrings("tracker.lore"))
             .setDisplayName(this.config.getString("tracker.name"))
@@ -62,13 +58,15 @@ abstract class Stat(
             this.tracker
         ).apply { register() }
 
-        recipe = Recipes.createAndRegisterRecipe(
-            plugin,
-            this.id,
-            this.tracker,
-            this.config.getStrings("tracker.recipe"),
-            this.config.getStringOrNull("tracker.recipe-permission")
-        )
+        if (this.config.getBool("tracker.craftable")) {
+            recipe = Recipes.createAndRegisterRecipe(
+                plugin,
+                this.id,
+                this.tracker,
+                this.config.getStrings("tracker.recipe"),
+                this.config.getStringOrNull("tracker.recipe-permission")
+            )
+        }
     }
 
     override fun equals(other: Any?): Boolean {

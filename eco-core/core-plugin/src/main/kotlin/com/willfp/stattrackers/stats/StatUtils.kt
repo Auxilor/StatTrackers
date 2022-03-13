@@ -117,6 +117,12 @@ fun ItemMeta?.getStatValue(stat: Stat): Double {
 }
 
 fun ItemStack?.incrementIfToTrack(stat: Stat, amount: Double) {
+    val meta = this?.itemMeta ?: return
+    meta.incrementIfToTrack(stat, amount)
+    this.itemMeta = meta
+}
+
+fun ItemMeta?.incrementIfToTrack(stat: Stat, amount: Double) {
     if (!this.statsToTrack.contains(stat)) {
         return
     }

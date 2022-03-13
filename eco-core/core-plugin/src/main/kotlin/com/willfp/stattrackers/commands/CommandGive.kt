@@ -43,7 +43,7 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(
         }
 
         val message = plugin.langYml.getMessage("give-success")
-            .replace("%stat%", stat.color + stat.description)
+            .replace("%stat%", stat.id)
             .replace("%recipient%", reciever.name)
 
         sender.sendMessage(message)

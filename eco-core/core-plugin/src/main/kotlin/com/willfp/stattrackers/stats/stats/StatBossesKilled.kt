@@ -1,6 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.eco.core.events.EntityDeathByEntityEvent
+import com.willfp.eco.util.namespacedKeyOf
 import com.willfp.stattrackers.stats.Stat
 import com.willfp.stattrackers.stats.incrementIfToTrack
 import com.willfp.stattrackers.stats.tryAsPlayer
@@ -8,6 +9,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Boss
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.persistence.PersistentDataType
 
 class StatBossesKilled : Stat("bosses_killed") {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -18,7 +20,13 @@ class StatBossesKilled : Stat("bosses_killed") {
             return
         }
 
-        if (event.victim !is Boss) {
+        if (
+            event.victim !is Boss
+            && !event.victim.persistentDataContainer.has(
+                namespacedKeyOf("ecobosses", "boss"),
+                PersistentDataType.STRING
+            )
+        ) {
             return
         }
 

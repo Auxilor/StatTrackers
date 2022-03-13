@@ -8,19 +8,6 @@ load: STARTUP
 depend:
   - eco
   - ProtocolLib
-softdepend:
-  - WorldGuard
-  - GriefPrevention
-  - Towny
-  - FactionsUUID
-  - Lands
-  - Kingdoms
-  - NoCheatPlus
-  - AAC
-  - Matrix
-  - Spartan
-  - PlaceholderAPI
-  - mcMMO
 
 commands:
   stattrackers:
@@ -35,10 +22,9 @@ permissions:
       stattrackers.command.reload: true
       stattrackers.command.give: true
       stattrackers.command.stattrackers: true
-      stattrackers.command.edit: true
 
   stattrackers.command.stattrackers:
-    description: Allows using the base command
+    description: Allows the use of /stattrackers to open the editor
     default: true
   stattrackers.command.reload:
     description: Allows reloading the config
@@ -46,6 +32,3 @@ permissions:
   stattrackers.command.give:
     description: Allows the use of /stattrackers give to give a player a stat tracker
     default: op
-  stattrackers.command.edit:
-    description: Allows the use of /stattrackers edit to open the editor
-    default: true

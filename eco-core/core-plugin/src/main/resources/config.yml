@@ -8,10 +8,14 @@ hide-attributes: true # Add HIDE_ATTRIBUTES flag to all tracker items
 
 stat:
   damage_dealt:
-    name: "Damage dealt"
-    color: "&b"
+    display: "&bDamage Dealt: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Damage Dealt"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of damage dealt"
+      craftable: true
       recipe:
         - iron_sword
         - iron_sword
@@ -26,10 +30,14 @@ stat:
         - iron_sword
 
   criticals_dealt:
-    name: "Criticals dealt"
-    color: "&b"
+    display: "&bCriticals Dealt: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Criticals Dealt"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of criticals dealt"
+      craftable: true
       recipe:
         - iron_sword
         - obsidian
@@ -44,10 +52,14 @@ stat:
         - iron_sword
 
   arrows_shot:
-    name: "Arrows shot"
-    color: "&b"
+    display: "&bArrows Shot: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Arrows Shot"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of arrows shot"
+      craftable: true
       recipe:
         - air
         - arrow
@@ -62,10 +74,14 @@ stat:
         - air
 
   blocks_broken:
-    name: "Blocks broken"
-    color: "&b"
+    display: "&bBlocks Broken: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Blocks Broken"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of blocks broken"
+      craftable: true
       recipe:
         - iron_pickaxe
         - iron_pickaxe
@@ -80,10 +96,14 @@ stat:
         - iron_pickaxe
 
   damage_blocked:
-    name: "Damage blocked"
-    color: "&b"
+    display: "&bDamage Blocked: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Damage Blocked"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of damage blocked"
+      craftable: true
       recipe:
         - air
         - shield
@@ -98,10 +118,14 @@ stat:
         - air
 
   damage_taken:
-    name: "Damage taken while wearing"
-    color: "&b"
+    display: "&bDamage Taken While Wearing: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Damage Taken While Wearing"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of damage taken while wearing"
+      craftable: true
       recipe:
         - air
         - iron_helmet
@@ -116,10 +140,14 @@ stat:
         - air
 
   distance_flown:
-    name: "Distance Flown"
-    color: "&b"
+    display: "&bDistance Flown: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Distance Flown"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the distance flown"
+      craftable: true
       recipe:
         - air
         - phantom_membrane
@@ -134,10 +162,14 @@ stat:
         - air
 
   distance_sneaked:
-    name: "Distance sneaked"
-    color: "&b"
+    display: "&bDistance Sneaked: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Distance Sneaked"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the distance travelled while sneaking"
+      craftable: true
       recipe:
         - air
         - leather_boots
@@ -152,10 +184,14 @@ stat:
         - air
 
   distance_jumped:
-    name: "Distance jumped"
-    color: "&b"
+    display: "&bDistance Jumped: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Distance Jumped"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the distance jumped"
+      craftable: true
       recipe:
         - slime_ball
         - leather_boots
@@ -170,10 +206,14 @@ stat:
         - slime_ball
 
   distance_sprinted:
-    name: "Distance sprinted"
-    color: "&b"
+    display: "&bDistance Sprinted: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Distance Sprinted"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the distance sprinted"
+      craftable: true
       recipe:
         - air
         - golden_boots
@@ -188,10 +228,15 @@ stat:
         - air
 
   item_damage:
-    name: "Total damage"
-    color: "&b"
+    display: "&bTotal Item Damage: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Total Item Damage"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of durability damage"
+        - "&8any item has taken"
+      craftable: true
       recipe:
         - air
         - air
@@ -206,10 +251,14 @@ stat:
         - air
 
   mobs_killed:
-    name: "Mobs killed"
-    color: "&b"
+    display: "&bMobs Killed: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Mobs Killed"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of mobs killed"
+      craftable: true
       recipe:
         - air
         - rotten_flesh
@@ -224,10 +273,14 @@ stat:
         - air
 
   players_killed:
-    name: "Players killed"
-    color: "&b"
+    display: "&bPlayers Killed: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Players Killed"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of players killed"
+      craftable: true
       recipe:
         - diamond_sword
         - diamond_sword
@@ -242,10 +295,14 @@ stat:
         - diamond_sword
 
   times_jumped:
-    name: "Times jumped while wearing"
-    color: "&b"
+    display: "&bTimes Jumped: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Times Jumped"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of times you've jumped"
+      craftable: true
       recipe:
         - air
         - slime_ball
@@ -260,10 +317,15 @@ stat:
         - air
 
   experience_absorbed:
-    name: "Experience gained while wearing"
-    color: "&b"
+    display: "&bExperience Absorbed: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Experience Absorbed"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount experience you've absorbed"
+        - "&8while wearing a piece of armor"
+      craftable: true
       recipe:
         - air
         - emerald
@@ -278,10 +340,14 @@ stat:
         - air
 
   bosses_killed:
-    name: "Bosses killed"
-    color: "&b"
+    display: "&bBosses Killed: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Bosses Killed"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of bosses killed"
+      craftable: true
       recipe:
         - air
         - air
@@ -296,10 +362,14 @@ stat:
         - air
 
   distance_travelled:
-    name: "Distance Travelled"
-    color: "&b"
+    display: "&bDistance Travelled: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Distance Travelled"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the distance you've travelled"
+      craftable: true
       recipe:
         - air
         - paper
@@ -314,10 +384,14 @@ stat:
         - air
 
   headshots:
-    name: "Headshots"
-    color: "&b"
+    display: "&bHeadshots: %value%"
     tracker:
       item: compass
+      name: "&eTracker - Headshots"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of headshots you've hit"
+      craftable: true
       recipe:
         - air
         - bow
