@@ -45,8 +45,7 @@ private fun Stat.toNBTTag(context: PersistentDataAdapterContext): PersistentData
 
 private fun PersistentDataContainer.getStat(): Stat? {
     val id = this.get(statId, PersistentDataType.STRING) ?: return null
-    val stat = Stats.getByID(id) ?: return null
-    return stat
+    return Stats.getByID(id) ?: return null
 }
 
 var ItemStack?.trackedStats: Collection<TrackedStat>

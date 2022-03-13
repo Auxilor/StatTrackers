@@ -14,11 +14,7 @@ import org.bukkit.persistence.PersistentDataType
 class StatBossesKilled : Stat("bosses_killed") {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     fun statListener(event: EntityDeathByEntityEvent) {
-        val player = event.killer.tryAsPlayer()
-
-        if (player == null) {
-            return
-        }
+        val player = event.killer.tryAsPlayer() ?: return
 
         if (
             event.victim !is Boss
