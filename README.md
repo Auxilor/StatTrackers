@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/4VwZh58.png" alt="StatTrackers logo" width="256">
+  <img src="https://i.imgur.com/sdFP8Rb.png" alt="StatTrackers logo" width="256">
   <br>
 </h1>
 
@@ -24,11 +24,7 @@
     </a>
 </p>
 
-
-[![Title](https://i.imgur.com/bXRHwsu.png)]()
-[![Features](https://i.imgur.com/ABEuBMe.png)]()
-[![Docs](https://i.imgur.com/X3zwjGs.png)](https://stattrackers.willfp.com/)
-[![Compatibility](https://i.imgur.com/oRdt6W7.png)]()
+[![Docs](https://i.imgur.com/NpfXKgb.png)](https://plugins.auxilor.io/stattrackers/)
 
 ## License
 *Click here to read [the entire license](https://github.com/Auxilor/StatTrackers/blob/master/LICENSE.md).*
