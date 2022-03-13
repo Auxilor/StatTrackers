@@ -8,7 +8,6 @@ import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.util.NumberUtils
-import com.willfp.eco.util.StringUtils
 import com.willfp.stattrackers.stats.statTracker
 import com.willfp.stattrackers.stats.trackedStats
 import org.bukkit.enchantments.Enchantment
@@ -36,6 +35,10 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         val trackerMeta = stat.tracker.itemMeta ?: return
 
         meta.setDisplayName(trackerMeta.displayName)
+
+        if (trackerMeta.hasCustomModelData()) {
+            meta.setCustomModelData(trackerMeta.customModelData)
+        }
 
         val lore = mutableListOf<String>()
 
