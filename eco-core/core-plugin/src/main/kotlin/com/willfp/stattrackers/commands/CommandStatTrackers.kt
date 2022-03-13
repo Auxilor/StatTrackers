@@ -2,6 +2,7 @@ package com.willfp.stattrackers.commands
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.PluginCommand
+import com.willfp.eco.core.recipe.parts.MaterialTestableItem
 import com.willfp.stattrackers.stats.StatsGUI
 import org.bukkit.Material
 import org.bukkit.command.CommandSender

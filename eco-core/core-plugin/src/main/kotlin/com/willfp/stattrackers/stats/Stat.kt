@@ -2,6 +2,7 @@ package com.willfp.stattrackers.stats
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.config.interfaces.Config
+import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemStackBuilder
@@ -50,7 +51,7 @@ abstract class Stat(
     private fun update() {
         display = this.config.getFormattedString("display")
         tracker = ItemStackBuilder(Items.lookup(this.config.getString("tracker.item")))
-            .addLoreLines(this.config.getStrings("tracker.lore"))
+            .addLoreLines(this.config.getStrings("tracker.lore").map { Display.PREFIX + it })
             .setDisplayName(this.config.getString("tracker.name"))
             .writeMetaKey(plugin.namespacedKeyFactory.create("stat_tracker"), PersistentDataType.STRING, this.id)
             .build()
@@ -61,7 +62,7 @@ abstract class Stat(
             this.tracker
         ).apply { register() }
 
-        targets = this.config.getStrings("applicable-to").mapNotNull { StatTarget.getByName(it) }
+        targets = this.config.getStrings("applicable-to").mapNotNull { StatTargets.getByName(it) }
 
         if (this.config.getBool("tracker.craftable")) {
             recipe = Recipes.createAndRegisterRecipe(

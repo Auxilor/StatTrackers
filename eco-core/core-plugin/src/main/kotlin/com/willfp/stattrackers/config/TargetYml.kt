@@ -11,8 +11,6 @@ class TargetYml(plugin: EcoPlugin) : StaticBaseConfig("target", plugin, ConfigTy
         get() = getKeys(false)
 
     fun getTargetItems(target: String): Set<TestableItem> {
-        val items = mutableSetOf<TestableItem>()
-        this.getStrings(target).forEach { items.add(Items.lookup(it)) }
-        return items
+        return this.getStrings(target).map { Items.lookup(it) }.toSet()
     }
 }

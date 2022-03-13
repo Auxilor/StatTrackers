@@ -39,7 +39,7 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
 
         val lore = mutableListOf<String>()
 
-        lore.addAll(FastItemStack.wrap(stat.tracker).lore.map { Display.PREFIX + it })
+        lore.addAll(FastItemStack.wrap(stat.tracker).lore)
 
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)

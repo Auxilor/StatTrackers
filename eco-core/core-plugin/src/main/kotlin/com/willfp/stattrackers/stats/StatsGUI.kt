@@ -5,6 +5,7 @@ import com.willfp.eco.core.drops.DropQueue
 import com.willfp.eco.core.gui.menu
 import com.willfp.eco.core.gui.menu.Menu
 import com.willfp.eco.core.gui.slot
+import com.willfp.eco.core.recipe.parts.MaterialTestableItem
 import com.willfp.stattrackers.StatTrackersPlugin
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -50,7 +51,7 @@ object StatsGUI {
                         continue
                     }
 
-                    if (stat.targets.none { it.matches(itemStack) }) {
+                    if (stat.targets.none { it.matches(item) }) {
                         player.sendMessage(
                             plugin.langYml.getMessage("cannot-apply")
                                 .replace("%tracker%", meta.displayName)

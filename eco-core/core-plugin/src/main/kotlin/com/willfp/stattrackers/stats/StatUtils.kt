@@ -61,11 +61,15 @@ var ItemMeta?.trackedStats: Collection<TrackedStat>
     get() {
         val container = this?.persistentDataContainer ?: return emptyList()
 
+        this.migrateFromLegacy()
+
         return container.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY)
             ?.filterNotNull()?.mapNotNull { it.toTrackedStat() } ?: emptyList()
     }
     set(value) {
         val container = this?.persistentDataContainer ?: return
+
+        this.migrateFromLegacy()
 
         val filtered = value.distinctBy { it.stat }
 
@@ -184,6 +188,7 @@ fun ItemMeta.migrateFromLegacy() {
     container.remove(legacyActiveKey)
     container.remove(key)
 
+    this.statsToTrack = listOf(stat)
     this.addTrackedStat(TrackedStat(stat, value))
 }
 
