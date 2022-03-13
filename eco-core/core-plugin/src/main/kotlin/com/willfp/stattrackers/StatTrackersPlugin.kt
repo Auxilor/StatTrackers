@@ -1,0 +1,51 @@
+package com.willfp.stattrackers
+
+import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.command.impl.PluginCommand
+import com.willfp.eco.core.display.DisplayModule
+import com.willfp.stattrackers.commands.CommandStatTrackers
+import com.willfp.stattrackers.display.StatTrackersDisplay
+import com.willfp.stattrackers.stats.Stats
+import org.bukkit.event.HandlerList
+import org.bukkit.event.Listener
+
+class StatTrackersPlugin : EcoPlugin(623, 10261, "&d", true) {
+    init {
+        instance = this
+    }
+
+    override fun handleEnable() {
+        logger.info(Stats.values().size.toString() + " Stats Loaded")
+    }
+
+    override fun handleReload() {
+        Stats.values().forEach {
+            HandlerList.unregisterAll(it)
+            scheduler.runLater(1) { eventManager.registerListener(it) }
+        }
+    }
+
+    override fun loadPluginCommands(): List<PluginCommand> {
+        return listOf(
+            CommandStatTrackers(this)
+        )
+    }
+
+    override fun loadListeners(): List<Listener> {
+        return listOf(
+
+        )
+    }
+
+    override fun createDisplayModule(): DisplayModule? {
+        return StatTrackersDisplay(this)
+    }
+
+    companion object {
+        /**
+         * Instance of the plugin.
+         */
+        lateinit var instance: StatTrackersPlugin
+            private set
+    }
+}

@@ -8,325 +8,325 @@ hide-attributes: true # Add HIDE_ATTRIBUTES flag to all tracker items
 
 stat:
   damage_dealt:
-    tracker-material: "COMPASS"
     name: "Damage dealt"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - iron_sword
-      - iron_sword
-      - iron_sword
+    tracker:
+      item: compass
+      recipe:
+        - iron_sword
+        - iron_sword
+        - iron_sword
 
-      - iron_sword
-      - compass
-      - iron_sword
+        - iron_sword
+        - compass
+        - iron_sword
 
-      - iron_sword
-      - iron_sword
-      - iron_sword
+        - iron_sword
+        - iron_sword
+        - iron_sword
 
   criticals_dealt:
-    tracker-material: "COMPASS"
     name: "Criticals dealt"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - iron_sword
-      - obsidian
-      - iron_sword
+    tracker:
+      item: compass
+      recipe:
+        - iron_sword
+        - obsidian
+        - iron_sword
 
-      - obsidian
-      - compass
-      - obsidian
+        - obsidian
+        - compass
+        - obsidian
 
-      - iron_sword
-      - obsidian
-      - iron_sword
+        - iron_sword
+        - obsidian
+        - iron_sword
 
   arrows_shot:
-    tracker-material: "COMPASS"
     name: "Arrows shot"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - arrow
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - arrow
+        - air
 
-      - arrow
-      - compass
-      - arrow
+        - arrow
+        - compass
+        - arrow
 
-      - air
-      - arrow
-      - air
+        - air
+        - arrow
+        - air
 
   blocks_broken:
-    tracker-material: "COMPASS"
     name: "Blocks broken"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - iron_pickaxe
-      - iron_pickaxe
-      - iron_pickaxe
+    tracker:
+      item: compass
+      recipe:
+        - iron_pickaxe
+        - iron_pickaxe
+        - iron_pickaxe
 
-      - iron_pickaxe
-      - compass
-      - iron_pickaxe
+        - iron_pickaxe
+        - compass
+        - iron_pickaxe
 
-      - iron_pickaxe
-      - iron_pickaxe
-      - iron_pickaxe
+        - iron_pickaxe
+        - iron_pickaxe
+        - iron_pickaxe
 
   damage_blocked:
-    tracker-material: "COMPASS"
     name: "Damage blocked"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - shield
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - shield
+        - air
 
-      - shield
-      - compass
-      - shield
+        - shield
+        - compass
+        - shield
 
-      - air
-      - shield
-      - air
+        - air
+        - shield
+        - air
 
   damage_taken:
-    tracker-material: "COMPASS"
     name: "Damage taken while wearing"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - iron_helmet
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - iron_helmet
+        - air
 
-      - iron_chestplate
-      - compass
-      - iron_leggings
+        - iron_chestplate
+        - compass
+        - iron_leggings
 
-      - air
-      - iron_boots
-      - air
+        - air
+        - iron_boots
+        - air
 
   distance_flown:
-    tracker-material: "COMPASS"
     name: "Distance Flown"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - phantom_membrane
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - phantom_membrane
+        - air
 
-      - phantom_membrane
-      - compass
-      - phantom_membrane
+        - phantom_membrane
+        - compass
+        - phantom_membrane
 
-      - air
-      - phantom_membrane
-      - air
+        - air
+        - phantom_membrane
+        - air
 
   distance_sneaked:
-    tracker-material: "COMPASS"
     name: "Distance sneaked"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - leather_boots
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - leather_boots
+        - air
 
-      - leather_boots
-      - compass
-      - leather_boots
+        - leather_boots
+        - compass
+        - leather_boots
 
-      - air
-      - leather_boots
-      - air
+        - air
+        - leather_boots
+        - air
 
   distance_jumped:
-    tracker-material: "COMPASS"
     name: "Distance jumped"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - slime_ball
-      - leather_boots
-      - slime_ball
+    tracker:
+      item: compass
+      recipe:
+        - slime_ball
+        - leather_boots
+        - slime_ball
 
-      - leather_boots
-      - compass
-      - leather_boots
+        - leather_boots
+        - compass
+        - leather_boots
 
-      - slime_ball
-      - leather_boots
-      - slime_ball
+        - slime_ball
+        - leather_boots
+        - slime_ball
 
   distance_sprinted:
-    tracker-material: "COMPASS"
     name: "Distance sprinted"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - golden_boots
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - golden_boots
+        - air
 
-      - golden_boots
-      - compass
-      - golden_boots
+        - golden_boots
+        - compass
+        - golden_boots
 
-      - air
-      - golden_boots
-      - air
+        - air
+        - golden_boots
+        - air
 
   item_damage:
-    tracker-material: "COMPASS"
     name: "Total damage"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - air
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - air
+        - air
 
-      - anvil
-      - compass
-      - anvil
+        - anvil
+        - compass
+        - anvil
 
-      - air
-      - air
-      - air
+        - air
+        - air
+        - air
 
   mobs_killed:
-    tracker-material: "COMPASS"
     name: "Mobs killed"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - rotten_flesh
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - rotten_flesh
+        - air
 
-      - bone
-      - compass
-      - string
+        - bone
+        - compass
+        - string
 
-      - air
-      - gunpowder
-      - air
+        - air
+        - gunpowder
+        - air
 
   players_killed:
-    tracker-material: "COMPASS"
     name: "Players killed"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - diamond_sword
-      - diamond_sword
-      - diamond_sword
+    tracker:
+      item: compass
+      recipe:
+        - diamond_sword
+        - diamond_sword
+        - diamond_sword
 
-      - diamond_sword
-      - compass
-      - diamond_sword
+        - diamond_sword
+        - compass
+        - diamond_sword
 
-      - diamond_sword
-      - diamond_sword
-      - diamond_sword
+        - diamond_sword
+        - diamond_sword
+        - diamond_sword
 
   times_jumped:
-    tracker-material: "COMPASS"
     name: "Times jumped while wearing"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - slime_ball
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - slime_ball
+        - air
 
-      - slime_ball
-      - compass
-      - slime_ball
+        - slime_ball
+        - compass
+        - slime_ball
 
-      - air
-      - slime_ball
-      - air
+        - air
+        - slime_ball
+        - air
 
   experience_absorbed:
-    tracker-material: "COMPASS"
     name: "Experience gained while wearing"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - emerald
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - emerald
+        - air
 
-      - emerald
-      - compass
-      - emerald
+        - emerald
+        - compass
+        - emerald
 
-      - air
-      - emerald
-      - air
+        - air
+        - emerald
+        - air
 
   bosses_killed:
-    tracker-material: "COMPASS"
     name: "Bosses killed"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - air
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - air
+        - air
 
-      - dragon_head
-      - compass
-      - dragon_head
+        - dragon_head
+        - compass
+        - dragon_head
 
-      - air
-      - air
-      - air
+        - air
+        - air
+        - air
 
   distance_travelled:
-    tracker-material: "COMPASS"
     name: "Distance Travelled"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - paper
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - paper
+        - air
 
-      - paper
-      - compass
-      - paper
+        - paper
+        - compass
+        - paper
 
-      - air
-      - paper
-      - air
+        - air
+        - paper
+        - air
 
   headshots:
-    tracker-material: "COMPASS"
     name: "Headshots"
     color: "&b"
-    crafting-enabled: true
-    tracker-recipe:
-      - air
-      - bow
-      - air
+    tracker:
+      item: compass
+      recipe:
+        - air
+        - bow
+        - air
 
-      - bow
-      - compass
-      - bow
+        - bow
+        - compass
+        - bow
 
-      - air
-      - bow
-      - air
+        - air
+        - bow
+        - air
