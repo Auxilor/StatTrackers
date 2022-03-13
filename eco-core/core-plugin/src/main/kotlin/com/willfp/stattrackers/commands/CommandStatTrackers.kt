@@ -13,6 +13,7 @@ class CommandStatTrackers(plugin: EcoPlugin) : PluginCommand(
     init {
         this.addSubcommand(CommandReload(plugin))
             .addSubcommand(CommandGive(plugin))
+            .addSubcommand(CommandEdit(plugin))
     }
 
     override fun onExecute(sender: CommandSender, args: List<String>) {

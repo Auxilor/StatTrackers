@@ -33,9 +33,9 @@ permissions:
     default: op
     children:
       stattrackers.command.reload: true
-      stattrackers.command.activestat: true
       stattrackers.command.give: true
       stattrackers.command.stattrackers: true
+      stattrackers.command.edit: true
 
   stattrackers.command.stattrackers:
     description: Allows using the base command
@@ -43,9 +43,9 @@ permissions:
   stattrackers.command.reload:
     description: Allows reloading the config
     default: op
-  stattrackers.command.activestat:
-    description: Allows the use of /stattrackers activestat to set the stat displayed on an item
-    default: op
   stattrackers.command.give:
     description: Allows the use of /stattrackers give to give a player a stat tracker
     default: op
+  stattrackers.command.edit:
+    description: Allows the use of /stattrackers edit to open the editor
+    default: true

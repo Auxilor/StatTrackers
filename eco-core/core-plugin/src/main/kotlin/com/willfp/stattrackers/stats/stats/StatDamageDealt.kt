@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import com.willfp.stattrackers.stats.tryAsPlayer
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -18,7 +18,7 @@ class StatDamageDealt : Stat("damage_dealt") {
             return
         }
 
-        val itemStack = player.inventory.itemInMainHand ?: return
+        val itemStack = player.inventory.itemInMainHand
 
         if (itemStack.type == Material.AIR) {
             return
@@ -28,6 +28,6 @@ class StatDamageDealt : Stat("damage_dealt") {
             return
         }
 
-        itemStack.incrementStatValue(this, event.damage)
+        itemStack.incrementIfToTrack(this, event.damage)
     }
 }

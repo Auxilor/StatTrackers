@@ -2,7 +2,7 @@ package com.willfp.stattrackers.stats.stats
 
 import com.willfp.eco.core.events.PlayerJumpEvent
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -22,6 +22,6 @@ class StatTimesJumped : Stat("times_jumped") {
             return
         }
 
-        itemStack.incrementStatValue(this, 1.0)
+        itemStack.incrementIfToTrack(this, 1.0)
     }
 }

@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -12,15 +12,12 @@ class StatDistanceTravelled : Stat("distance_travelled") {
     fun statListener(event: PlayerMoveEvent) {
         val player = event.player
 
-        if (event.to == null) {
+        val from = event.from
+        val to = event.to ?: return
+        if (from.world != to.world) {
             return
         }
-
-        if (event.from.world != event.to.world) {
-            return
-        }
-
-        val distance = event.from.distance(event.to)
+        val distance = from.distance(to)
 
         val itemStack = player.inventory.boots ?: return
 
@@ -32,6 +29,6 @@ class StatDistanceTravelled : Stat("distance_travelled") {
             return
         }
 
-        itemStack.incrementStatValue(this, distance)
+        itemStack.incrementIfToTrack(this, distance)
     }
 }

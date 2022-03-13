@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerItemDamageEvent
@@ -14,6 +14,6 @@ class StatItemDamage : Stat("item_damage") {
             return
         }
 
-        itemStack.incrementStatValue(this, event.damage.toDouble())
+        itemStack.incrementIfToTrack(this, event.damage.toDouble())
     }
 }

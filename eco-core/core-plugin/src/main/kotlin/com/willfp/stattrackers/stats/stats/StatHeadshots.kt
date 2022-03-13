@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
@@ -32,6 +32,6 @@ class StatHeadshots : Stat("headshots") {
             return
         }
 
-        itemStack.incrementStatValue(this, 1.0)
+        itemStack.incrementIfToTrack(this, 1.0)
     }
 }

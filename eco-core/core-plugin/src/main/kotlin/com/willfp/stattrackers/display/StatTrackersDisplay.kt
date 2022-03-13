@@ -1,13 +1,14 @@
+@file:Suppress("UsePropertyAccessSyntax")
+
 package com.willfp.stattrackers.display
 
 import com.willfp.eco.core.EcoPlugin
-import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.util.NumberUtils
 import com.willfp.eco.util.StringUtils
-import com.willfp.stattrackers.stats.activeStats
+import com.willfp.stattrackers.stats.trackedStats
 import com.willfp.stattrackers.stats.statTracker
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
@@ -31,7 +32,7 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
     private fun displayTrackerMeta(meta: ItemMeta) {
         val stat = meta.statTracker ?: return
 
-        meta.displayName = plugin.langYml.getFormattedString("tracker")
+        meta.setDisplayName(plugin.langYml.getFormattedString("tracker"))
 
         val lore: MutableList<String> = ArrayList()
 
@@ -45,10 +46,6 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
 
-        if (hideAttributes) {
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-        }
-
         val itemLore = getLore(meta)
 
         lore.addAll(itemLore)
@@ -57,7 +54,7 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
     }
 
     private fun displayItemMeta(meta: ItemMeta): Boolean {
-        val stats = meta.activeStats
+        val stats = meta.trackedStats
         if (stats.isEmpty()) {
             return false
         }
@@ -89,15 +86,5 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         }
 
         return itemLore
-    }
-
-    companion object {
-        private var hideAttributes = false
-
-        @ConfigUpdater
-        @JvmStatic
-        fun update(plugin: EcoPlugin) {
-            hideAttributes = plugin.configYml.getBool("hide-attributes")
-        }
     }
 }

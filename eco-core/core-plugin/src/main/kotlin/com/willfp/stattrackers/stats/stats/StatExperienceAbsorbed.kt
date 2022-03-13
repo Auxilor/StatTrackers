@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -29,7 +29,7 @@ class StatExperienceAbsorbed : Stat("experience_absorbed") {
                 return
             }
 
-            itemStack.incrementStatValue(this, event.amount.toDouble())
+            itemStack.incrementIfToTrack(this, event.amount.toDouble())
         }
     }
 }

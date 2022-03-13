@@ -16,12 +16,9 @@ class StatTrackersPlugin : EcoPlugin(623, 10261, "&d", true) {
 
     override fun handleEnable() {
         logger.info(Stats.values().size.toString() + " Stats Loaded")
-    }
 
-    override fun handleReload() {
-        Stats.values().forEach {
-            HandlerList.unregisterAll(it)
-            scheduler.runLater(1) { eventManager.registerListener(it) }
+        for (stat in Stats.values()) {
+            eventManager.registerListener(stat)
         }
     }
 

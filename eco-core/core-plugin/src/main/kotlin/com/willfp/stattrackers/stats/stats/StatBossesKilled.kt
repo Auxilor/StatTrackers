@@ -2,12 +2,10 @@ package com.willfp.stattrackers.stats.stats
 
 import com.willfp.eco.core.events.EntityDeathByEntityEvent
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import com.willfp.stattrackers.stats.tryAsPlayer
 import org.bukkit.Material
 import org.bukkit.entity.Boss
-import org.bukkit.entity.Player
-import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 
@@ -24,7 +22,7 @@ class StatBossesKilled : Stat("bosses_killed") {
             return
         }
 
-        val itemStack = player.inventory.itemInMainHand ?: return
+        val itemStack = player.inventory.itemInMainHand
 
         if (itemStack.type == Material.AIR) {
             return
@@ -34,6 +32,6 @@ class StatBossesKilled : Stat("bosses_killed") {
             return
         }
 
-        itemStack.incrementStatValue(this, 1.0)
+        itemStack.incrementIfToTrack(this, 1.0)
     }
 }

@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -11,7 +11,7 @@ class StatBlocksBroken : Stat("blocks_broken") {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     fun statListener(event: BlockBreakEvent) {
         val player = event.player
-        val itemStack = player.inventory.itemInMainHand ?: return
+        val itemStack = player.inventory.itemInMainHand
 
         if (itemStack.type == Material.AIR) {
             return
@@ -25,6 +25,6 @@ class StatBlocksBroken : Stat("blocks_broken") {
             return
         }
 
-        itemStack.incrementStatValue(this, 1.0)
+        itemStack.incrementIfToTrack(this, 1.0)
     }
 }

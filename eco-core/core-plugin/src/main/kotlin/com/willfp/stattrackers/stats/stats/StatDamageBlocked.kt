@@ -1,7 +1,7 @@
 package com.willfp.stattrackers.stats.stats
 
 import com.willfp.stattrackers.stats.Stat
-import com.willfp.stattrackers.stats.incrementStatValue
+import com.willfp.stattrackers.stats.incrementIfToTrack
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -38,6 +38,6 @@ class StatDamageBlocked : Stat("damage_blocked") {
             return
         }
 
-        itemStack.incrementStatValue(this, event.damage)
+        itemStack.incrementIfToTrack(this, event.damage)
     }
 }

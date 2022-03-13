@@ -12,6 +12,7 @@ messages:
   invalid-player: "&cInvalid player!"
   needs-stat: "&cYou must specify a stat"
   give-success: "Gave &a%stat% Tracker&r to &a%recipient%"
+  item-cannot-have-trackers: "&cYou must be holding a trackable item!"
 
 delimiter: ": "
 tracker: "&eTracker"

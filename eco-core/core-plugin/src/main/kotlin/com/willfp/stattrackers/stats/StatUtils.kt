@@ -18,6 +18,7 @@ import org.bukkit.persistence.PersistentDataType
 private val plugin: EcoPlugin = StatTrackersPlugin.instance
 private val legacyActiveKey = plugin.namespacedKeyFactory.create("active")
 private val trackedStatsKey = plugin.namespacedKeyFactory.create("tracked_stats")
+private val statsToTrackKey = plugin.namespacedKeyFactory.create("stats_to_track")
 private val statId = plugin.namespacedKeyFactory.create("stat_id")
 private val statValue = plugin.namespacedKeyFactory.create("stat_value")
 private val trackerKey = plugin.namespacedKeyFactory.create("stat_tracker")
@@ -36,20 +37,32 @@ private fun PersistentDataContainer.toTrackedStat(): TrackedStat? {
     return TrackedStat(stat, value)
 }
 
-var ItemStack?.activeStats: Collection<TrackedStat>
-    get() = this?.itemMeta?.activeStats ?: emptyList()
+private fun Stat.toNBTTag(context: PersistentDataAdapterContext): PersistentDataContainer {
+    val container = context.newPersistentDataContainer()
+    container.set(statId, PersistentDataType.STRING, this.id)
+    return container
+}
+
+private fun PersistentDataContainer.getStat(): Stat? {
+    val id = this.get(statId, PersistentDataType.STRING) ?: return null
+    val stat = Stats.getByID(id) ?: return null
+    return stat
+}
+
+var ItemStack?.trackedStats: Collection<TrackedStat>
+    get() = this?.itemMeta?.trackedStats ?: emptyList()
     set(value) {
-        this?.itemMeta?.activeStats = value
+        val meta = this?.itemMeta ?: return
+        meta.trackedStats = value
+        this.itemMeta = meta
     }
 
-var ItemMeta?.activeStats: Collection<TrackedStat>
+var ItemMeta?.trackedStats: Collection<TrackedStat>
     get() {
         val container = this?.persistentDataContainer ?: return emptyList()
 
-        val tracked = container.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY)
-            ?.filterNotNull()?.toMutableList() ?: mutableListOf()
-
-        return tracked.mapNotNull { it.toTrackedStat() }
+        return container.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY)
+            ?.filterNotNull()?.mapNotNull { it.toTrackedStat() } ?: emptyList()
     }
     set(value) {
         val container = this?.persistentDataContainer ?: return
@@ -63,29 +76,71 @@ var ItemMeta?.activeStats: Collection<TrackedStat>
         )
     }
 
+var ItemStack?.statsToTrack: Collection<Stat>
+    get() = this?.itemMeta?.statsToTrack ?: emptyList()
+    set(value) {
+        val meta = this?.itemMeta ?: return
+        meta.statsToTrack = value
+        this.itemMeta = meta
+    }
+
+var ItemMeta?.statsToTrack: Collection<Stat>
+    get() {
+        val container = this?.persistentDataContainer ?: return emptyList()
+
+        return container.get(statsToTrackKey, PersistentDataType.TAG_CONTAINER_ARRAY)
+            ?.filterNotNull()?.mapNotNull { it.getStat() } ?: emptyList()
+    }
+    set(value) {
+        val container = this?.persistentDataContainer ?: return
+
+        this.trackedStats = this.trackedStats.filter { it.stat in value }
+        val trackedStats = this.trackedStats
+        val missing = value.toMutableList().apply { removeIf { stat -> trackedStats.any { it.stat == stat } } }
+        for (stat in missing) {
+            this.addTrackedStat(TrackedStat(stat, 0.0))
+        }
+
+        container.set(
+            statsToTrackKey,
+            PersistentDataType.TAG_CONTAINER_ARRAY,
+            value.map { it.toNBTTag(container.adapterContext) }.toTypedArray()
+        )
+    }
+
 fun ItemStack?.getStatValue(stat: Stat): Double =
     this?.itemMeta?.getStatValue(stat) ?: 0.0
 
 fun ItemMeta?.getStatValue(stat: Stat): Double {
-    val active = this.activeStats
+    val active = this.trackedStats
     return active.firstOrNull { it.stat == stat }?.value ?: 0.0
 }
 
-fun ItemStack?.incrementStatValue(stat: Stat, amount: Double) {
+fun ItemStack?.incrementIfToTrack(stat: Stat, amount: Double) {
+    if (!this.statsToTrack.contains(stat)) {
+        return
+    }
+
     this.setStatValue(stat, this.getStatValue(stat) + amount)
 }
 
-fun ItemStack?.setStatValue(stat: Stat, value: Double) =
-    this?.itemMeta?.setStatValue(stat, value)
+fun ItemStack?.setStatValue(stat: Stat, value: Double) {
+    val meta = this?.itemMeta ?: return
+    meta.setStatValue(stat, value)
+    this.itemMeta = meta
+}
 
 fun ItemMeta?.setStatValue(stat: Stat, value: Double) =
-    this.addActiveStat(TrackedStat(stat, value))
+    this.addTrackedStat(TrackedStat(stat, value))
 
-fun ItemStack?.addActiveStat(stat: TrackedStat) =
-    this?.itemMeta?.addActiveStat(stat)
+fun ItemStack?.addTrackedStat(stat: TrackedStat) {
+    val meta = this?.itemMeta ?: return
+    meta.addTrackedStat(stat)
+    this.itemMeta = meta
+}
 
-fun ItemMeta?.addActiveStat(stat: TrackedStat) {
-    this.activeStats = this.activeStats.toMutableList().apply {
+fun ItemMeta?.addTrackedStat(stat: TrackedStat) {
+    this.trackedStats = this.trackedStats.toMutableList().apply {
         removeIf { it.stat == stat.stat }
         add(stat)
     }
@@ -94,7 +149,9 @@ fun ItemMeta?.addActiveStat(stat: TrackedStat) {
 var ItemStack?.statTracker: Stat?
     get() = this?.itemMeta?.statTracker
     set(value) {
-        this?.itemMeta?.statTracker = value
+        val meta = this?.itemMeta ?: return
+        meta.statTracker = value
+        this.itemMeta = meta
     }
 
 var ItemMeta?.statTracker: Stat?
@@ -113,7 +170,7 @@ var ItemMeta?.statTracker: Stat?
     }
 
 fun ItemMeta.migrateFromLegacy() {
-    val container = this.persistentDataContainer ?: return
+    val container = this.persistentDataContainer
     val statKey = container.get(legacyActiveKey, PersistentDataType.STRING) ?: return
     val key = safeNamespacedKeyOf(statKey) ?: return
     val stat = Stats.getByID(key.key) ?: return
@@ -121,7 +178,7 @@ fun ItemMeta.migrateFromLegacy() {
     container.remove(legacyActiveKey)
     container.remove(key)
 
-    this.addActiveStat(TrackedStat(stat, value))
+    this.addTrackedStat(TrackedStat(stat, value))
 }
 
 fun Entity?.tryAsPlayer(): Player? {
