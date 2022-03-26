@@ -7,6 +7,8 @@ gui:
   rows: 1
   title: "Stats"
 
+display-at-top: false # If the stattrackers should be displayed at the top of lore rather than at the bottom
+
 stat:
   damage_dealt:
     display: "&bDamage Dealt: %value%"

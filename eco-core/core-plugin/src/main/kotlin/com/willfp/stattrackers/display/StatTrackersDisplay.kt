@@ -62,11 +62,19 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
 
         val itemLore = getLore(meta)
 
+        val statLore = mutableListOf<String>()
+
         for (stat in stats) {
-            itemLore.add(
+            statLore.add(
                 Display.PREFIX + stat.stat.display
                     .replace("%value%", NumberUtils.format(stat.value))
             )
+        }
+
+        if (plugin.configYml.getBool("display-at-top")) {
+            itemLore.addAll(0, statLore)
+        } else {
+            itemLore.addAll(statLore)
         }
 
         meta.lore = itemLore
