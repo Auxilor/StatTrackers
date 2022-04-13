@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
-import sun.jvm.hotspot.oops.CellTypeState.value
 
 private val plugin: EcoPlugin = StatTrackersPlugin.instance
 private val legacyActiveKey = plugin.namespacedKeyFactory.create("active")
