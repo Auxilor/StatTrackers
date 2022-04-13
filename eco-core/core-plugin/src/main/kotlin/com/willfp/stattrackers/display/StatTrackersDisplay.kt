@@ -20,19 +20,22 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         itemStack: ItemStack,
         vararg args: Any
     ) {
-        val meta = itemStack.itemMeta ?: return
+        val fis = FastItemStack.wrap(itemStack)
 
-        if (!displayItemMeta(meta)) {
-            displayTrackerMeta(meta)
+        if (!displayRegularItem(fis)) {
+            displayTracker(itemStack, fis)
         }
-
-        itemStack.itemMeta = meta
     }
 
-    private fun displayTrackerMeta(meta: ItemMeta) {
-        val stat = meta.statTracker ?: return
+    private fun displayTracker(
+        itemStack: ItemStack,
+        fis: FastItemStack
+    ) {
+        val stat = fis.persistentDataContainer.statTracker ?: return
 
         val trackerMeta = stat.tracker.itemMeta ?: return
+
+        val meta = itemStack.itemMeta ?: return
 
         meta.setDisplayName(trackerMeta.displayName)
 
@@ -52,15 +55,19 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         lore.addAll(itemLore)
 
         meta.lore = lore
+
+        itemStack.itemMeta = meta
     }
 
-    private fun displayItemMeta(meta: ItemMeta): Boolean {
-        val stats = meta.trackedStats
+    private fun displayRegularItem(fis: FastItemStack): Boolean {
+        val pdc = fis.persistentDataContainer
+
+        val stats = pdc.trackedStats
         if (stats.isEmpty()) {
             return false
         }
 
-        val itemLore = getLore(meta)
+        val itemLore = fis.lore
 
         val statLore = mutableListOf<String>()
 
@@ -77,7 +84,7 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
             itemLore.addAll(statLore)
         }
 
-        meta.lore = itemLore
+        fis.lore = itemLore
 
         return true
     }

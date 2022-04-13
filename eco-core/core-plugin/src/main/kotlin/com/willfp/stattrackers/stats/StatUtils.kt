@@ -3,6 +3,7 @@
 package com.willfp.stattrackers.stats
 
 import com.willfp.eco.core.EcoPlugin
+import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.util.safeNamespacedKeyOf
 import com.willfp.stattrackers.StatTrackersPlugin
 import org.bukkit.entity.Entity
@@ -14,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
+import sun.jvm.hotspot.oops.CellTypeState.value
 
 private val plugin: EcoPlugin = StatTrackersPlugin.instance
 private val legacyActiveKey = plugin.namespacedKeyFactory.create("active")
@@ -49,54 +51,74 @@ private fun PersistentDataContainer.getStat(): Stat? {
 }
 
 var ItemStack?.trackedStats: Collection<TrackedStat>
-    get() = this?.itemMeta?.trackedStats ?: emptyList()
+    get() {
+        this ?: return emptyList()
+        return FastItemStack.wrap(this).persistentDataContainer.trackedStats
+    }
     set(value) {
-        val meta = this?.itemMeta ?: return
-        meta.trackedStats = value
-        this.itemMeta = meta
+        this ?: return
+        FastItemStack.wrap(this).persistentDataContainer.trackedStats = value
     }
 
 var ItemMeta?.trackedStats: Collection<TrackedStat>
     get() {
         val container = this?.persistentDataContainer ?: return emptyList()
 
-        this.migrateFromLegacy()
-
-        return container.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY)
-            ?.filterNotNull()?.mapNotNull { it.toTrackedStat() } ?: emptyList()
+        return container.trackedStats
     }
     set(value) {
         val container = this?.persistentDataContainer ?: return
 
+        container.trackedStats = value
+    }
+
+var PersistentDataContainer.trackedStats: Collection<TrackedStat>
+    get() {
+        this.migrateFromLegacy()
+
+        return this.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY)
+            ?.filterNotNull()?.mapNotNull { it.toTrackedStat() } ?: emptyList()
+    }
+    set(value) {
         this.migrateFromLegacy()
 
         val filtered = value.distinctBy { it.stat }
 
-        container.set(
+        this.set(
             trackedStatsKey,
             PersistentDataType.TAG_CONTAINER_ARRAY,
-            filtered.map { it.toNBTTag(container.adapterContext) }.toTypedArray()
+            filtered.map { it.toNBTTag(this.adapterContext) }.toTypedArray()
         )
     }
 
 var ItemStack?.statsToTrack: Collection<Stat>
-    get() = this?.itemMeta?.statsToTrack ?: emptyList()
+    get() {
+        this ?: return emptyList()
+        return FastItemStack.wrap(this).persistentDataContainer.statsToTrack
+    }
     set(value) {
-        val meta = this?.itemMeta ?: return
-        meta.statsToTrack = value
-        this.itemMeta = meta
+        this ?: return
+        FastItemStack.wrap(this).persistentDataContainer.statsToTrack = value
     }
 
 var ItemMeta?.statsToTrack: Collection<Stat>
     get() {
         val container = this?.persistentDataContainer ?: return emptyList()
 
-        return container.get(statsToTrackKey, PersistentDataType.TAG_CONTAINER_ARRAY)
-            ?.filterNotNull()?.mapNotNull { it.getStat() } ?: emptyList()
+        return container.statsToTrack
     }
     set(value) {
         val container = this?.persistentDataContainer ?: return
 
+        container.statsToTrack = value
+    }
+
+var PersistentDataContainer.statsToTrack: Collection<Stat>
+    get() {
+        return this.get(statsToTrackKey, PersistentDataType.TAG_CONTAINER_ARRAY)
+            ?.filterNotNull()?.mapNotNull { it.getStat() } ?: emptyList()
+    }
+    set(value) {
         this.trackedStats = this.trackedStats.filter { it.stat in value }
         val trackedStats = this.trackedStats
         val missing = value.toMutableList().apply { removeIf { stat -> trackedStats.any { it.stat == stat } } }
@@ -104,25 +126,28 @@ var ItemMeta?.statsToTrack: Collection<Stat>
             this.addTrackedStat(TrackedStat(stat, 0.0))
         }
 
-        container.set(
+        this.set(
             statsToTrackKey,
             PersistentDataType.TAG_CONTAINER_ARRAY,
-            value.map { it.toNBTTag(container.adapterContext) }.toTypedArray()
+            value.map { it.toNBTTag(this.adapterContext) }.toTypedArray()
         )
     }
 
 fun ItemStack?.getStatValue(stat: Stat): Double =
-    this?.itemMeta?.getStatValue(stat) ?: 0.0
+    this?.let { FastItemStack.wrap(it).persistentDataContainer.getStatValue(stat) } ?: 0.0
 
 fun ItemMeta?.getStatValue(stat: Stat): Double {
     val active = this.trackedStats
     return active.firstOrNull { it.stat == stat }?.value ?: 0.0
 }
+fun PersistentDataContainer.getStatValue(stat: Stat): Double {
+    val active = this.trackedStats
+    return active.firstOrNull { it.stat == stat }?.value ?: 0.0
+}
 
 fun ItemStack?.incrementIfToTrack(stat: Stat, amount: Double) {
-    val meta = this?.itemMeta ?: return
-    meta.incrementIfToTrack(stat, amount)
-    this.itemMeta = meta
+    this ?: return
+    FastItemStack.wrap(this).persistentDataContainer.incrementIfToTrack(stat, amount)
 }
 
 fun ItemMeta?.incrementIfToTrack(stat: Stat, amount: Double) {
@@ -133,19 +158,28 @@ fun ItemMeta?.incrementIfToTrack(stat: Stat, amount: Double) {
     this.setStatValue(stat, this.getStatValue(stat) + amount)
 }
 
+fun PersistentDataContainer.incrementIfToTrack(stat: Stat, amount: Double) {
+    if (!this.statsToTrack.contains(stat)) {
+        return
+    }
+
+    this.setStatValue(stat, this.getStatValue(stat) + amount)
+}
+
 fun ItemStack?.setStatValue(stat: Stat, value: Double) {
-    val meta = this?.itemMeta ?: return
-    meta.setStatValue(stat, value)
-    this.itemMeta = meta
+    this ?: return
+    FastItemStack.wrap(this).persistentDataContainer.setStatValue(stat, value)
 }
 
 fun ItemMeta?.setStatValue(stat: Stat, value: Double) =
     this.addTrackedStat(TrackedStat(stat, value))
 
+fun PersistentDataContainer.setStatValue(stat: Stat, value: Double) =
+    this.addTrackedStat(TrackedStat(stat, value))
+
 fun ItemStack?.addTrackedStat(stat: TrackedStat) {
-    val meta = this?.itemMeta ?: return
-    meta.addTrackedStat(stat)
-    this.itemMeta = meta
+    this ?: return
+    FastItemStack.wrap(this).persistentDataContainer.addTrackedStat(stat)
 }
 
 fun ItemMeta?.addTrackedStat(stat: TrackedStat) {
@@ -155,37 +189,53 @@ fun ItemMeta?.addTrackedStat(stat: TrackedStat) {
     }
 }
 
+fun PersistentDataContainer.addTrackedStat(stat: TrackedStat) {
+    this.trackedStats = this.trackedStats.toMutableList().apply {
+        removeIf { it.stat == stat.stat }
+        add(stat)
+    }
+}
+
 var ItemStack?.statTracker: Stat?
-    get() = this?.itemMeta?.statTracker
+    get() {
+        this ?: return null
+        return FastItemStack.wrap(this).persistentDataContainer.statTracker
+    }
     set(value) {
-        val meta = this?.itemMeta ?: return
-        meta.statTracker = value
-        this.itemMeta = meta
+        this ?: return
+        FastItemStack.wrap(this).persistentDataContainer.statTracker = value
     }
 
 var ItemMeta?.statTracker: Stat?
     get() {
         val container = this?.persistentDataContainer ?: return null
-        val tracker = container.get(trackerKey, PersistentDataType.STRING) ?: return null
-        return Stats.getByID(tracker)
+        return container.statTracker
     }
     set(value) {
         val container = this?.persistentDataContainer ?: return
+        container.statTracker = value
+    }
+
+var PersistentDataContainer.statTracker: Stat?
+    get() {
+        val tracker = this.get(trackerKey, PersistentDataType.STRING) ?: return null
+        return Stats.getByID(tracker)
+    }
+    set(value) {
         if (value == null) {
-            container.remove(trackerKey)
+            this.remove(trackerKey)
         } else {
-            container.set(trackerKey, PersistentDataType.STRING, value.id)
+            this.set(trackerKey, PersistentDataType.STRING, value.id)
         }
     }
 
-fun ItemMeta.migrateFromLegacy() {
-    val container = this.persistentDataContainer
-    val statKey = container.get(legacyActiveKey, PersistentDataType.STRING) ?: return
+fun PersistentDataContainer.migrateFromLegacy() {
+    val statKey = this.get(legacyActiveKey, PersistentDataType.STRING) ?: return
     val key = safeNamespacedKeyOf(statKey) ?: return
     val stat = Stats.getByID(key.key) ?: return
-    val value = container.get(key, PersistentDataType.DOUBLE) ?: return
-    container.remove(legacyActiveKey)
-    container.remove(key)
+    val value = this.get(key, PersistentDataType.DOUBLE) ?: return
+    this.remove(legacyActiveKey)
+    this.remove(key)
 
     this.statsToTrack = listOf(stat)
     this.addTrackedStat(TrackedStat(stat, value))

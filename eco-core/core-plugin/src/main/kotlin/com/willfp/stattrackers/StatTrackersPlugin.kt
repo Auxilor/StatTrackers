@@ -40,6 +40,10 @@ class StatTrackersPlugin : EcoPlugin(623, 10261, "&d", true) {
         return StatTrackersDisplay(this)
     }
 
+    override fun getMinimumEcoVersion(): String {
+        return "6.33.0"
+    }
+
     companion object {
         /**
          * Instance of the plugin.
