@@ -25,7 +25,7 @@ object StatsGUI {
                         val toTrack = player.inventory.itemInMainHand.statsToTrack
                         toTrack.toList().getOrNull(column - 1)?.tracker?.clone() ?: ItemStack(Material.AIR)
                     }) {
-                        setCaptive()
+                        setCaptive(true)
                     })
                 }
             }
