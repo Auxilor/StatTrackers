@@ -86,3 +86,6 @@ trident:
 
 shield:
   - "*shield"
+
+fishing_rod:
+  - "*fishing_rod"
