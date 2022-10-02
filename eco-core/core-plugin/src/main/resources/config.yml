@@ -469,3 +469,27 @@ stat:
         - air
         - bow
         - air
+
+  fish_caught:
+    display: "&bFish Caught: %value%"
+    applicable-to:
+      - fishing_rod
+    tracker:
+      item: compass
+      name: "&eTracker - Fish Caught"
+      lore:
+        - "&8Drop this onto an item with /stattrackers"
+        - "&8to display the amount of fish you've caught"
+      craftable: true
+      recipe:
+        - air
+        - fishing_rod
+        - air
+
+        - fishing_rod
+        - compass
+        - fishing_rod
+
+        - air
+        - fishing_rod
+        - air

@@ -26,6 +26,7 @@ object Stats {
     val MOBS_KILLED: Stat = StatMobsKilled()
     val PLAYERS_KILLED: Stat = StatPlayersKilled()
     val TIMES_JUMPED: Stat = StatTimesJumped()
+    val FISH_CAUGHT: Stat = StatFishCaught()
 
     /**
      * Get stat matching id.
