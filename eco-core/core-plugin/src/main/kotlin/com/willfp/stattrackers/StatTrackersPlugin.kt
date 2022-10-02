@@ -41,7 +41,7 @@ class StatTrackersPlugin : EcoPlugin(623, 10261, "&d", true) {
     }
 
     override fun getMinimumEcoVersion(): String {
-        return "6.38.1"
+        return "6.43.0"
     }
 
     companion object {

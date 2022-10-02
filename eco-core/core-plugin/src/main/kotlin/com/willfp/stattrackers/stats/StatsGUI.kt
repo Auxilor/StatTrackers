@@ -29,28 +29,11 @@ object StatsGUI {
                     })
                 }
             }
-
-            onOpen { player, menu ->
-                val type = player.inventory.itemInMainHand.type
-                menu.addState(player, "item", type)
-            }
-
-            onRender { player, menu ->
-                if (menu.getState<Material>(player, "item") != player.inventory.itemInMainHand.type) {
-                    menu.addState(player, "noreturn", true)
-                    player.closeInventory()
-                }
-            }
-
             setTitle(plugin.configYml.getFormattedString("gui.title"))
 
             onClose { event, menu ->
                 val player = event.player as Player
                 val captive = menu.getCaptiveItems(player)
-
-                if (menu.getState<Boolean>(player, "noreturn") == true) {
-                    return@onClose
-                }
 
                 val item = player.inventory.itemInMainHand
 
