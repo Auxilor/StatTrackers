@@ -6,8 +6,8 @@ applicable-to:
 
 counters:
   - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+    conditions:
+      - id: is_falling
 
 tracker:
   item: compass

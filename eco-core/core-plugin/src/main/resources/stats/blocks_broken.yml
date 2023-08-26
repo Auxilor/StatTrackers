@@ -8,9 +8,7 @@ applicable-to:
   - shears
 
 counters:
-  - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+  - trigger: mine_block
 
 tracker:
   item: compass

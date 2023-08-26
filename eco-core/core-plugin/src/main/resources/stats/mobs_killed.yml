@@ -7,9 +7,7 @@ applicable-to:
   - axe
 
 counters:
-  - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+  - trigger: kill
 
 tracker:
   item: compass

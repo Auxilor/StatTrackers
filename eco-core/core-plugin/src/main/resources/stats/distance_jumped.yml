@@ -4,9 +4,18 @@ applicable-to:
   - boots
 
 counters:
-  - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+  - trigger: move
+    conditions:
+      - id: in_air
+      - id: is_gliding
+        args:
+          inverse: true
+      - id: is_swimming
+        args:
+          inverse: true
+      - id: is_flying
+        args:
+          inverse: true
 
 tracker:
   item: compass

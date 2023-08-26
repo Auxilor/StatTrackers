@@ -8,9 +8,7 @@ applicable-to:
   - elytra
 
 counters:
-  - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+  - trigger: gain_xp
 
 tracker:
   item: compass

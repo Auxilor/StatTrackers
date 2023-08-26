@@ -4,9 +4,7 @@ applicable-to:
   - shield
 
 counters:
-  - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+  - trigger: shield_block
 
 tracker:
   item: compass
