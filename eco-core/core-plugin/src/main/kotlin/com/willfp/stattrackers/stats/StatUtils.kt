@@ -2,21 +2,17 @@
 
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.fast.FastItemStack
+import com.willfp.eco.core.fast.fast
 import com.willfp.eco.util.safeNamespacedKeyOf
-import com.willfp.stattrackers.StatTrackersPlugin
-import org.bukkit.entity.Entity
-import org.bukkit.entity.Player
-import org.bukkit.entity.Projectile
-import org.bukkit.entity.Tameable
+import com.willfp.stattrackers.plugin
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
 
-private val plugin: EcoPlugin = StatTrackersPlugin.instance
 private val legacyActiveKey = plugin.namespacedKeyFactory.create("active")
 private val trackedStatsKey = plugin.namespacedKeyFactory.create("tracked_stats")
 private val statsToTrackKey = plugin.namespacedKeyFactory.create("stats_to_track")
@@ -34,7 +30,7 @@ private fun TrackedStat.toNBTTag(context: PersistentDataAdapterContext): Persist
 private fun PersistentDataContainer.toTrackedStat(): TrackedStat? {
     val id = this.get(statId, PersistentDataType.STRING) ?: return null
     val value = this.get(statValue, PersistentDataType.DOUBLE) ?: return null
-    val stat = Stats.getByID(id) ?: return null
+    val stat = Stats[id] ?: return null
     return TrackedStat(stat, value)
 }
 
@@ -46,7 +42,7 @@ private fun Stat.toNBTTag(context: PersistentDataAdapterContext): PersistentData
 
 private fun PersistentDataContainer.getStat(): Stat? {
     val id = this.get(statId, PersistentDataType.STRING) ?: return null
-    return Stats.getByID(id) ?: return null
+    return Stats[id]
 }
 
 var ItemStack?.trackedStats: Collection<TrackedStat>
@@ -93,11 +89,11 @@ var PersistentDataContainer.trackedStats: Collection<TrackedStat>
 var ItemStack?.statsToTrack: Collection<Stat>
     get() {
         this ?: return emptyList()
-        return FastItemStack.wrap(this).persistentDataContainer.statsToTrack
+        return this.fast().persistentDataContainer.statsToTrack
     }
     set(value) {
         this ?: return
-        FastItemStack.wrap(this).persistentDataContainer.statsToTrack = value
+        this.fast().persistentDataContainer.statsToTrack = value
     }
 
 var ItemMeta?.statsToTrack: Collection<Stat>
@@ -133,20 +129,20 @@ var PersistentDataContainer.statsToTrack: Collection<Stat>
     }
 
 fun ItemStack?.getStatValue(stat: Stat): Double =
-    this?.let { FastItemStack.wrap(it).persistentDataContainer.getStatValue(stat) } ?: 0.0
+    this?.let { this.fast().persistentDataContainer.getStatValue(stat) } ?: 0.0
 
 fun ItemMeta?.getStatValue(stat: Stat): Double {
     val active = this.trackedStats
     return active.firstOrNull { it.stat == stat }?.value ?: 0.0
 }
+
 fun PersistentDataContainer.getStatValue(stat: Stat): Double {
     val active = this.trackedStats
     return active.firstOrNull { it.stat == stat }?.value ?: 0.0
 }
 
 fun ItemStack?.incrementIfToTrack(stat: Stat, amount: Double) {
-    this ?: return
-    FastItemStack.wrap(this).persistentDataContainer.incrementIfToTrack(stat, amount)
+    this?.fast()?.persistentDataContainer?.incrementIfToTrack(stat, amount)
 }
 
 fun ItemMeta?.incrementIfToTrack(stat: Stat, amount: Double) {
@@ -167,7 +163,7 @@ fun PersistentDataContainer.incrementIfToTrack(stat: Stat, amount: Double) {
 
 fun ItemStack?.setStatValue(stat: Stat, value: Double) {
     this ?: return
-    FastItemStack.wrap(this).persistentDataContainer.setStatValue(stat, value)
+    this.fast().persistentDataContainer.setStatValue(stat, value)
 }
 
 fun ItemMeta?.setStatValue(stat: Stat, value: Double) =
@@ -178,7 +174,7 @@ fun PersistentDataContainer.setStatValue(stat: Stat, value: Double) =
 
 fun ItemStack?.addTrackedStat(stat: TrackedStat) {
     this ?: return
-    FastItemStack.wrap(this).persistentDataContainer.addTrackedStat(stat)
+    this.fast().persistentDataContainer.addTrackedStat(stat)
 }
 
 fun ItemMeta?.addTrackedStat(stat: TrackedStat) {
@@ -198,11 +194,11 @@ fun PersistentDataContainer.addTrackedStat(stat: TrackedStat) {
 var ItemStack?.statTracker: Stat?
     get() {
         this ?: return null
-        return FastItemStack.wrap(this).persistentDataContainer.statTracker
+        return this.fast().persistentDataContainer.statTracker
     }
     set(value) {
         this ?: return
-        FastItemStack.wrap(this).persistentDataContainer.statTracker = value
+        this.fast().persistentDataContainer.statTracker = value
     }
 
 var ItemMeta?.statTracker: Stat?
@@ -218,7 +214,7 @@ var ItemMeta?.statTracker: Stat?
 var PersistentDataContainer.statTracker: Stat?
     get() {
         val tracker = this.get(trackerKey, PersistentDataType.STRING) ?: return null
-        return Stats.getByID(tracker)
+        return Stats[tracker]
     }
     set(value) {
         if (value == null) {
@@ -231,7 +227,7 @@ var PersistentDataContainer.statTracker: Stat?
 fun PersistentDataContainer.migrateFromLegacy() {
     val statKey = this.get(legacyActiveKey, PersistentDataType.STRING) ?: return
     val key = safeNamespacedKeyOf(statKey) ?: return
-    val stat = Stats.getByID(key.key) ?: return
+    val stat = Stats[key.key] ?: return
     val value = this.get(key, PersistentDataType.DOUBLE) ?: return
     this.remove(legacyActiveKey)
     this.remove(key)
@@ -240,11 +236,5 @@ fun PersistentDataContainer.migrateFromLegacy() {
     this.addTrackedStat(TrackedStat(stat, value))
 }
 
-fun Entity?.tryAsPlayer(): Player? {
-    return when (this) {
-        is Projectile -> this.shooter as? Player
-        is Player -> this
-        is Tameable -> this.owner as? Player
-        else -> null
-    }
-}
+val ItemStack.canTrackStats: Boolean
+    get() = this.type.maxStackSize == 1 && this.type != Material.AIR

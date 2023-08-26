@@ -1,4 +1,4 @@
-package com.willfp.stattrackers.stats
+package com.willfp.stattrackers.util
 
 import com.willfp.eco.core.EcoPlugin
 import org.bukkit.Bukkit
@@ -14,6 +14,7 @@ class DiscoverRecipeListener(private val plugin: EcoPlugin) : Listener {
         if (!plugin.configYml.getBool("discover-recipes")) {
             return
         }
+
         mutableListOf<Recipe>()
             .apply { Bukkit.getServer().recipeIterator().forEachRemaining(this::add) }
             .filterIsInstance<Keyed>().map { it.key }

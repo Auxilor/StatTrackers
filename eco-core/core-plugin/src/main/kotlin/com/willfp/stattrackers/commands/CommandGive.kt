@@ -4,7 +4,6 @@ import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.Subcommand
 import com.willfp.eco.core.drops.DropQueue
 import com.willfp.stattrackers.stats.Stats
-import com.willfp.stattrackers.stats.Stats.getByID
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.util.StringUtil
@@ -26,16 +25,14 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(
             return
         }
 
-        val recieverName = args[0]
-        val reciever = Bukkit.getPlayer(recieverName)
+        val receiver = Bukkit.getPlayer(args[0])
 
-        if (reciever == null) {
+        if (receiver == null) {
             sender.sendMessage(plugin.langYml.getMessage("invalid-player"))
             return
         }
 
-        val statID = args[1]
-        val stat = getByID(statID)
+        val stat = Stats[args[1]]
 
         if (stat == null) {
             sender.sendMessage(plugin.langYml.getMessage("invalid-stat"))
@@ -44,11 +41,11 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(
 
         val message = plugin.langYml.getMessage("give-success")
             .replace("%stat%", stat.id)
-            .replace("%recipient%", reciever.name)
+            .replace("%recipient%", receiver.name)
 
         sender.sendMessage(message)
 
-        DropQueue(reciever)
+        DropQueue(receiver)
             .addItem(stat.tracker)
             .forceTelekinesis()
             .push()
@@ -57,22 +54,14 @@ class CommandGive(plugin: EcoPlugin) : Subcommand(
     override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
         val completions = mutableListOf<String>()
 
-        if (args.isEmpty()) {
-            // Currently, this case is not ever reached
-            return Stats.values().map { it.id }
-        }
-
         if (args.size == 1) {
             StringUtil.copyPartialMatches(args[0], Bukkit.getOnlinePlayers().map { it.name }, completions)
-            return completions
         }
 
         if (args.size == 2) {
             StringUtil.copyPartialMatches(args[1], Stats.values().map { it.id }, completions)
-            completions.sort()
-            return completions
         }
 
-        return emptyList()
+        return completions
     }
 }

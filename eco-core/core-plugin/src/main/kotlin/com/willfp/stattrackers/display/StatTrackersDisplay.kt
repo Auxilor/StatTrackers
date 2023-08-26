@@ -1,5 +1,3 @@
-@file:Suppress("UsePropertyAccessSyntax")
-
 package com.willfp.stattrackers.display
 
 import com.willfp.eco.core.EcoPlugin
@@ -7,20 +5,21 @@ import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
+import com.willfp.eco.core.fast.fast
 import com.willfp.eco.util.NumberUtils
 import com.willfp.stattrackers.stats.statTracker
 import com.willfp.stattrackers.stats.trackedStats
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.ItemMeta
 
+@Suppress("DEPRECATION")
 class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.HIGH) {
     override fun display(
         itemStack: ItemStack,
         vararg args: Any
     ) {
-        val fis = FastItemStack.wrap(itemStack)
+        val fis = itemStack.fast()
 
         if (!displayRegularItem(fis)) {
             displayTracker(itemStack, fis)
@@ -34,7 +33,6 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         val stat = fis.persistentDataContainer.statTracker ?: return
 
         val trackerMeta = stat.tracker.itemMeta ?: return
-
         val meta = itemStack.itemMeta ?: return
 
         meta.setDisplayName(trackerMeta.displayName)
@@ -45,12 +43,12 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
 
         val lore = mutableListOf<String>()
 
-        lore.addAll(FastItemStack.wrap(stat.tracker).lore)
+        lore.addAll(stat.tracker.fast().lore)
 
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
 
-        val itemLore = getLore(meta)
+        val itemLore = meta.lore ?: mutableListOf()
 
         lore.addAll(itemLore)
 
@@ -87,19 +85,5 @@ class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPrio
         fis.lore = itemLore
 
         return true
-    }
-
-    private fun getLore(meta: ItemMeta): MutableList<String> {
-        var itemLore: MutableList<String>? = ArrayList()
-
-        if (meta.hasLore()) {
-            itemLore = meta.lore
-        }
-
-        if (itemLore == null) {
-            itemLore = ArrayList()
-        }
-
-        return itemLore
     }
 }

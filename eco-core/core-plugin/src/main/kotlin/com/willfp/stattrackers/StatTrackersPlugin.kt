@@ -1,28 +1,37 @@
 package com.willfp.stattrackers
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
+import com.willfp.libreforge.loader.LibreforgePlugin
+import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.stattrackers.commands.CommandStatTrackers
-import com.willfp.stattrackers.config.TargetYml
+import com.willfp.stattrackers.config.TargetsYml
 import com.willfp.stattrackers.display.StatTrackersDisplay
-import com.willfp.stattrackers.stats.DiscoverRecipeListener
+import com.willfp.stattrackers.util.DiscoverRecipeListener
+import com.willfp.stattrackers.stats.StatTargets
 import com.willfp.stattrackers.stats.Stats
+import com.willfp.stattrackers.stats.StatsGUI
 import org.bukkit.event.Listener
 
-class StatTrackersPlugin : EcoPlugin(623, 10261, "&d", true) {
-    val targetYml = TargetYml(this)
+internal lateinit var plugin: StatTrackersPlugin
+    private set
+
+class StatTrackersPlugin : LibreforgePlugin() {
+    val targetsYml = TargetsYml(this)
 
     init {
-        instance = this
+        plugin = this
     }
 
-    override fun handleEnable() {
-        logger.info(Stats.values().size.toString() + " Stats Loaded")
+    override fun handleReload() {
+        StatTargets.update(this)
+        StatsGUI.update(this)
+    }
 
-        for (stat in Stats.values()) {
-            eventManager.registerListener(stat)
-        }
+    override fun loadConfigCategories(): List<ConfigCategory> {
+        return listOf(
+            Stats
+        )
     }
 
     override fun loadPluginCommands(): List<PluginCommand> {
@@ -39,17 +48,5 @@ class StatTrackersPlugin : EcoPlugin(623, 10261, "&d", true) {
 
     override fun createDisplayModule(): DisplayModule {
         return StatTrackersDisplay(this)
-    }
-
-    override fun getMinimumEcoVersion(): String {
-        return "6.43.0"
-    }
-
-    companion object {
-        /**
-         * Instance of the plugin.
-         */
-        lateinit var instance: StatTrackersPlugin
-            private set
     }
 }

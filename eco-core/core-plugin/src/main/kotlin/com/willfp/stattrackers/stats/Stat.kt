@@ -7,71 +7,59 @@ import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.recipes.CraftingRecipe
-import com.willfp.stattrackers.StatTrackersPlugin
-import org.bukkit.NamespacedKey
-import org.bukkit.event.Listener
+import com.willfp.eco.core.registry.KRegistrable
+import com.willfp.libreforge.ViolationContext
+import com.willfp.libreforge.counters.Counters
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
+import java.util.Objects
 
-abstract class Stat(
-    val id: String
-) : Listener {
-    private val plugin: EcoPlugin = StatTrackersPlugin.instance
+class Stat(
+    override val id: String,
+    val config: Config,
+    plugin: EcoPlugin
+) : KRegistrable {
+    val display = config.getFormattedString("display")
 
-    val key: NamespacedKey = this.plugin.namespacedKeyFactory.create(id)
+    val tracker: ItemStack = ItemStackBuilder(Items.lookup(this.config.getString("tracker.item")))
+        .addLoreLines(this.config.getStrings("tracker.lore").map { Display.PREFIX + it })
+        .setDisplayName(this.config.getString("tracker.name"))
+        .writeMetaKey(plugin.namespacedKeyFactory.create("stat_tracker"), PersistentDataType.STRING, this.id)
+        .build()
 
-    val config: Config = this.plugin.configYml.getSubsection("stat." + this.id)
+    val trackerCustomItem = CustomItem(
+        plugin.createNamespacedKey(id),
+        { it.statTracker == this },
+        this.tracker
+    ).apply { register() }
 
-    lateinit var display: String
-        private set
+    val recipe = if (this.config.getBool("tracker.craftable")) {
+        Recipes.createAndRegisterRecipe(
+            plugin,
+            this.id,
+            this.tracker,
+            this.config.getStrings("tracker.recipe"),
+            this.config.getStringOrNull("tracker.recipe-permission")
+        )
+    } else null
 
-    lateinit var tracker: ItemStack
-        private set
+    val targets = config.getStrings("applicable-to")
+        .mapNotNull { StatTargets[it] }
 
-    lateinit var trackerCustomItem: CustomItem
-        private set
+    val counters = config.getSubsections("counters")
+        .mapNotNull { Counters.compile(it, ViolationContext(plugin, "stat $id counters")) }
 
-    var recipe: CraftingRecipe? = null
-        private set
+    override fun onRegister() {
+        val accumulator = StatAccumulator(this)
 
-    lateinit var targets: Collection<StatTarget>
-        private set
-
-    init {
-        register()
-        update()
+        for (counter in counters) {
+            counter.bind(accumulator)
+        }
     }
 
-    private fun register() {
-        Stats.addNewStat(this)
-    }
-
-    private fun update() {
-        display = this.config.getFormattedString("display")
-        tracker = ItemStackBuilder(Items.lookup(this.config.getString("tracker.item")))
-            .addLoreLines(this.config.getStrings("tracker.lore").map { Display.PREFIX + it })
-            .setDisplayName(this.config.getString("tracker.name"))
-            .writeMetaKey(plugin.namespacedKeyFactory.create("stat_tracker"), PersistentDataType.STRING, this.id)
-            .build()
-
-        trackerCustomItem = CustomItem(
-            this.key,
-            { it.statTracker == this },
-            this.tracker
-        ).apply { register() }
-
-        targets = this.config.getStrings("applicable-to").mapNotNull { StatTargets.getByName(it) }
-
-        if (this.config.getBool("tracker.craftable")) {
-            recipe = Recipes.createAndRegisterRecipe(
-                plugin,
-                this.id,
-                this.tracker,
-                this.config.getStrings("tracker.recipe"),
-                this.config.getStringOrNull("tracker.recipe-permission")
-            )
+    override fun onRemove() {
+        for (counter in counters) {
+            counter.unbind()
         }
     }
 
@@ -88,13 +76,6 @@ abstract class Stat(
     }
 
     override fun toString(): String {
-        return ("Stat{"
-                + this.key
-                ) + "}"
+        return "Stat(id='$id')"
     }
 }
-
-data class TrackedStat(
-    val stat: Stat,
-    var value: Double
-)

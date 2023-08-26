@@ -1,6 +1,5 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.config.updating.ConfigUpdater
 import com.willfp.eco.core.drops.DropQueue
 import com.willfp.eco.core.gui.menu
 import com.willfp.eco.core.gui.menu.Menu
@@ -13,12 +12,12 @@ import org.bukkit.inventory.ItemStack
 object StatsGUI {
     private lateinit var gui: Menu
 
-    @JvmStatic
-    @ConfigUpdater
-    fun update(plugin: StatTrackersPlugin) {
+    internal fun update(plugin: StatTrackersPlugin) {
         val rows = plugin.configYml.getInt("gui.rows")
 
         gui = menu(rows) {
+            title = plugin.configYml.getFormattedString("gui.title")
+
             for (row in 1..rows) {
                 for (column in (1..9)) {
                     setSlot(row, column, slot({ player, _ ->
@@ -29,7 +28,6 @@ object StatsGUI {
                     })
                 }
             }
-            setTitle(plugin.configYml.getFormattedString("gui.title"))
 
             onClose { event, menu ->
                 val player = event.player as Player
@@ -50,6 +48,7 @@ object StatsGUI {
                     }
 
                     if (stat.targets.none { it.matches(item) }) {
+                        @Suppress("DEPRECATION")
                         player.sendMessage(
                             plugin.langYml.getMessage("cannot-apply")
                                 .replace("%tracker%", meta.displayName)

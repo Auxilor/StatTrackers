@@ -1,43 +1,26 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.config.updating.ConfigUpdater
+import com.willfp.eco.core.registry.Registry
 import com.willfp.stattrackers.StatTrackersPlugin
+import com.willfp.stattrackers.plugin
+import org.bukkit.inventory.ItemStack
 
-object StatTargets {
-    private val ALL = StatTarget("all", mutableSetOf())
-
-    private val REGISTERED: MutableMap<String, StatTarget> = HashMap()
-
+object StatTargets: Registry<StatTarget>() {
     init {
-        REGISTERED["all"] = ALL
-        update(StatTrackersPlugin.instance)
+        update(plugin)
     }
 
-    fun getByName(name: String): StatTarget? {
-        return REGISTERED[name]
+    fun getForItem(item: ItemStack): List<StatTarget> {
+        return values()
+            .filter { !it.id.equals("all", ignoreCase = true) }
+            .filter { it.matches(item) }
     }
 
-    @ConfigUpdater
-    @JvmStatic
-    fun update(plugin: StatTrackersPlugin) {
-        ALL.items.clear()
-        for (id in ArrayList(REGISTERED.keys)) {
-            if (id.equals("all", ignoreCase = true)) {
-                continue
-            }
-            REGISTERED.remove(id)
+    internal fun update(plugin: StatTrackersPlugin) {
+        clear()
+
+        for (config in plugin.targetsYml.getSubsections("targets")) {
+            register(StatTarget(config))
         }
-        for (id in plugin.targetYml.targets) {
-            val target = StatTarget(
-                id,
-                plugin.targetYml.getTargetItems(id).toMutableSet()
-            )
-            REGISTERED[id] = target
-            ALL.items.addAll(target.items)
-        }
-    }
-
-    fun values(): Set<StatTarget> {
-        return REGISTERED.values.toSet()
     }
 }

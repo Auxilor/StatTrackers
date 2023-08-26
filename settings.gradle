@@ -1,5 +1,0 @@
-rootProject.name = 'StatTrackers'
-
-// Core
-include ':eco-core'
-include ':eco-core:core-plugin'
