@@ -1,0 +1,36 @@
+display: "&bBosses Killed: %value%"
+
+applicable-to:
+  - sword
+  - bow
+  - trident
+  - axe
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Bosses Killed"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount of bosses killed"
+
+  craftable: true
+
+  recipe:
+    - air
+    - air
+    - air
+
+    - dragon_head
+    - compass
+    - dragon_head
+
+    - air
+    - air
+    - air

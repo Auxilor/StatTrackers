@@ -49,6 +49,16 @@ class Stat(
     val counters = config.getSubsections("counters")
         .mapNotNull { Counters.compile(it, ViolationContext(plugin, "stat $id counters")) }
 
+    fun canPutOn(itemStack: ItemStack): Boolean {
+        for (target in targets) {
+            if (target.matches(itemStack)) {
+                return true
+            }
+        }
+
+        return false
+    }
+
     override fun onRegister() {
         val accumulator = StatAccumulator(this)
 

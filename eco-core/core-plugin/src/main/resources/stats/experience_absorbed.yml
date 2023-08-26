@@ -1,0 +1,38 @@
+display: "&bExperience Absorbed: %value%"
+
+applicable-to:
+  - helmet
+  - chestplate
+  - leggings
+  - boots
+  - elytra
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Experience Absorbed"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount experience you've absorbed"
+    - "&8while wearing a piece of armor"
+
+  craftable: true
+
+  recipe:
+    - air
+    - emerald
+    - air
+
+    - emerald
+    - compass
+    - emerald
+
+    - air
+    - emerald
+    - air

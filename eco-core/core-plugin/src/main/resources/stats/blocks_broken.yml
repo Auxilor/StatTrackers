@@ -1,0 +1,37 @@
+display: "&bBlocks Broken: %value%"
+
+applicable-to:
+  - pickaxe
+  - axe
+  - shovel
+  - hoe
+  - shears
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Blocks Broken"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount of blocks broken"
+
+  craftable: true
+
+  recipe:
+    - iron_pickaxe
+    - iron_pickaxe
+    - iron_pickaxe
+
+    - iron_pickaxe
+    - compass
+    - iron_pickaxe
+
+    - iron_pickaxe
+    - iron_pickaxe
+    - iron_pickaxe

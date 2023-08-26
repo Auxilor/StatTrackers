@@ -1,0 +1,36 @@
+display: "&bMobs Killed: %value%"
+
+applicable-to:
+  - sword
+  - bow
+  - trident
+  - axe
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Mobs Killed"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount of mobs killed"
+
+  craftable: true
+
+  recipe:
+    - air
+    - rotten_flesh
+    - air
+
+    - bone
+    - compass
+    - string
+
+    - air
+    - gunpowder
+    - air

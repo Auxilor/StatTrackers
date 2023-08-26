@@ -10,12 +10,6 @@ object StatTargets: Registry<StatTarget>() {
         update(plugin)
     }
 
-    fun getForItem(item: ItemStack): List<StatTarget> {
-        return values()
-            .filter { !it.id.equals("all", ignoreCase = true) }
-            .filter { it.matches(item) }
-    }
-
     internal fun update(plugin: StatTrackersPlugin) {
         clear()
 

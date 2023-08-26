@@ -1,0 +1,34 @@
+display: "&bCriticals Dealt: %value%"
+
+applicable-to:
+  - sword
+  - axe
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Criticals Dealt"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount of criticals dealt"
+    -
+  craftable: true
+
+  recipe:
+    - iron_sword
+    - obsidian
+    - iron_sword
+
+    - obsidian
+    - compass
+    - obsidian
+
+    - iron_sword
+    - obsidian
+    - iron_sword

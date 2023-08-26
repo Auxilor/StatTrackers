@@ -1,0 +1,33 @@
+display: "&bTimes Jumped: %value%"
+
+applicable-to:
+  - boots
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Times Jumped"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount of times you've jumped"
+
+  craftable: true
+
+  recipe:
+    - air
+    - slime_ball
+    - air
+
+    - slime_ball
+    - compass
+    - slime_ball
+
+    - air
+    - slime_ball
+    - air

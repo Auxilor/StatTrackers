@@ -1,0 +1,37 @@
+display: "&bDamage Taken While Wearing: %value%"
+
+applicable-to:
+  - helmet
+  - chestplate
+  - leggings
+  - boots
+  - elytra
+
+counters:
+  - trigger: melee_attack
+  - trigger: bow_attack
+  - trigger: trident_attack
+
+tracker:
+  item: compass
+
+  name: "&eTracker - Damage Taken While Wearing"
+
+  lore:
+    - "&8Drop this onto an item with /stattrackers"
+    - "&8to display the amount of damage taken while wearing"
+
+  craftable: true
+
+  recipe:
+    - air
+    - iron_helmet
+    - air
+
+    - iron_chestplate
+    - compass
+    - iron_leggings
+
+    - air
+    - iron_boots
+    - air

@@ -47,7 +47,7 @@ object StatsGUI {
                         continue
                     }
 
-                    if (stat.targets.none { it.matches(item) }) {
+                    if (!stat.canPutOn(itemStack)) {
                         @Suppress("DEPRECATION")
                         player.sendMessage(
                             plugin.langYml.getMessage("cannot-apply")
