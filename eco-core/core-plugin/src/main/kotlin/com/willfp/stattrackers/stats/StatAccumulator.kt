@@ -1,7 +1,6 @@
 package com.willfp.stattrackers.stats
 
 import com.willfp.libreforge.counters.Accumulator
-import org.bukkit.Material
 import org.bukkit.entity.Player
 
 class StatAccumulator(

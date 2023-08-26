@@ -2,7 +2,6 @@ package com.willfp.stattrackers.commands
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.eco.util.NumberUtils
 import com.willfp.eco.util.StringUtils
 import com.willfp.eco.util.toNiceString
 import org.bukkit.command.CommandSender

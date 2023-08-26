@@ -7,10 +7,10 @@ import com.willfp.libreforge.loader.configs.ConfigCategory
 import com.willfp.stattrackers.commands.CommandStatTrackers
 import com.willfp.stattrackers.config.TargetsYml
 import com.willfp.stattrackers.display.StatTrackersDisplay
-import com.willfp.stattrackers.util.DiscoverRecipeListener
 import com.willfp.stattrackers.stats.StatTargets
 import com.willfp.stattrackers.stats.Stats
 import com.willfp.stattrackers.stats.StatsGUI
+import com.willfp.stattrackers.util.DiscoverRecipeListener
 import org.bukkit.event.Listener
 
 internal lateinit var plugin: StatTrackersPlugin
