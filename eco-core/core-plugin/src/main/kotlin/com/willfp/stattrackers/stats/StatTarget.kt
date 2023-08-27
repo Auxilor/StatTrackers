@@ -2,7 +2,6 @@ package com.willfp.stattrackers.stats
 
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.items.Items
-import com.willfp.eco.core.lookup.matches
 import com.willfp.eco.core.recipe.parts.EmptyTestableItem
 import com.willfp.eco.core.registry.KRegistrable
 import com.willfp.libreforge.slot.SlotTypes

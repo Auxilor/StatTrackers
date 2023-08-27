@@ -237,4 +237,6 @@ fun PersistentDataContainer.migrateFromLegacy() {
 }
 
 val ItemStack.canTrackStats: Boolean
-    get() = this.amount == 1 && this.type != Material.AIR
+    get() = this.amount == 1
+            && this.type != Material.AIR
+            && StatTargets.values().any { it.matches(this) }
