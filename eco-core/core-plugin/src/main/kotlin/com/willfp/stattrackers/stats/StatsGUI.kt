@@ -33,34 +33,34 @@ object StatsGUI {
                 val player = event.player as Player
                 val captive = menu.getCaptiveItems(player)
 
-                val item = player.inventory.itemInMainHand
+                val itemInHand = player.inventory.itemInMainHand
 
                 val toApply = mutableListOf<Stat>()
                 val toReturn = mutableListOf<ItemStack>()
 
-                for (itemStack in captive) {
-                    val meta = itemStack.itemMeta
+                for (trackerStack in captive) {
+                    val meta = trackerStack.itemMeta
 
                     val stat = meta.statTracker
                     if (stat == null || meta == null) {
-                        toReturn.add(itemStack)
+                        toReturn.add(trackerStack)
                         continue
                     }
 
-                    if (!stat.canPutOn(itemStack)) {
+                    if (!stat.canPutOn(itemInHand)) {
                         @Suppress("DEPRECATION")
                         player.sendMessage(
                             plugin.langYml.getMessage("cannot-apply")
                                 .replace("%tracker%", meta.displayName)
                         )
-                        toReturn.add(itemStack)
+                        toReturn.add(trackerStack)
                         continue
                     }
 
                     toApply.add(stat)
                 }
 
-                item.statsToTrack = toApply
+                itemInHand.statsToTrack = toApply
 
                 DropQueue(player)
                     .addItems(toReturn)

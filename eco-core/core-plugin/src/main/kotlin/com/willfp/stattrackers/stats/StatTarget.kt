@@ -2,6 +2,7 @@ package com.willfp.stattrackers.stats
 
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.items.Items
+import com.willfp.eco.core.lookup.matches
 import com.willfp.eco.core.recipe.parts.EmptyTestableItem
 import com.willfp.eco.core.registry.KRegistrable
 import com.willfp.libreforge.slot.SlotTypes
@@ -9,7 +10,7 @@ import org.bukkit.inventory.ItemStack
 
 class StatTarget(
     config: Config
-): KRegistrable {
+) : KRegistrable {
     override val id = config.getString("id")
 
     val slot = SlotTypes[config.getString("slot")]
@@ -18,14 +19,13 @@ class StatTarget(
         .map { Items.lookup(it) }
         .filterNot { it is EmptyTestableItem }
 
-    fun matches(itemStack: ItemStack): Boolean {
-        for (item in items) {
-            if (item.matches(itemStack)) {
-                return true
-            }
-        }
 
-        return false
+    fun matches(itemStack: ItemStack): Boolean {
+        return items.any { it.matches(itemStack) }
+    }
+
+    override fun toString(): String {
+        return "StatTarget(id='$id')"
     }
 
     override fun equals(other: Any?): Boolean {
