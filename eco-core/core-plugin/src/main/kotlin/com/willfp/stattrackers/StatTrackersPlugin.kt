@@ -9,7 +9,7 @@ import com.willfp.stattrackers.config.TargetsYml
 import com.willfp.stattrackers.display.StatTrackersDisplay
 import com.willfp.stattrackers.stats.StatTargets
 import com.willfp.stattrackers.stats.Stats
-import com.willfp.stattrackers.stats.StatsGUI
+import com.willfp.stattrackers.stats.StatTrackersGUI
 import com.willfp.stattrackers.util.DiscoverRecipeListener
 import org.bukkit.event.Listener
 
@@ -25,7 +25,7 @@ class StatTrackersPlugin : LibreforgePlugin() {
 
     override fun handleReload() {
         StatTargets.update(this)
-        StatsGUI.update(this)
+        StatTrackersGUI.update(this)
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {

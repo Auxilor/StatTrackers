@@ -9,7 +9,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-object StatsGUI {
+object StatTrackersGUI {
     private lateinit var gui: Menu
 
     internal fun update(plugin: StatTrackersPlugin) {
