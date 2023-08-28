@@ -8,6 +8,7 @@ counters:
   - trigger: melee_attack
     conditions:
       - id: is_falling
+    value: 1
 
 tracker:
   item: compass

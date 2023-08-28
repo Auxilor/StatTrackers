@@ -6,6 +6,7 @@ applicable-to:
 
 counters:
   - trigger: headshot
+    value: 1
 
 tracker:
   item: compass

@@ -10,6 +10,7 @@ counters:
   - trigger: kill
     entities:
       - player
+    value: 1
 
 tracker:
   item: compass
