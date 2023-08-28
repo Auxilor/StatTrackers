@@ -1,7 +1,6 @@
 package com.willfp.stattrackers.stats
 
 import com.willfp.libreforge.counters.Accumulator
-import org.bukkit.Material
 import org.bukkit.entity.Player
 
 class StatAccumulator(
@@ -14,9 +13,7 @@ class StatAccumulator(
             .filter { stat in it.statsToTrack }
 
         for (item in items) {
-            if (item.amount == 1 && item.type != Material.AIR) {
-                item.incrementIfToTrack(stat, count)
-            }
+            item.incrementIfToTrack(stat, count)
         }
     }
 }
