@@ -12,7 +12,7 @@ class StatTarget(
 ) : KRegistrable {
     override val id = config.getString("id")
 
-    val slot = SlotTypes[config.getString("slot")]
+    val slot = SlotTypes[config.getString("slot")]!!
 
     val items = config.getStrings("items")
         .map { Items.lookup(it) }
