@@ -8,8 +8,9 @@ applicable-to:
 
 counters:
   - trigger: kill
-    entities:
-      - player
+    filters:
+      entities:
+        - PLAYER
     value: 1
 
 tracker:
