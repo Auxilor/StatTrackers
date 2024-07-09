@@ -5,41 +5,31 @@
 # _example.yml is not loaded.
 
 # The lore added to items with this tracker
-display: "&bDamage Dealt: %value%"
+display: "&bExample Tracker: %value%"
 
-# Which items the tracker can be applied to, groups are in targets.yml
+# The items that the tracker can be applied to, see targets.yml
 applicable-to:
-  - sword
-  - bow
   - trident
-  - axe
 
 # A counter takes a trigger, a multiplier, conditions, and filters.
-# The multiplier takes the value produced by the trigger and multiplies it
-# by some value to calculate the amount to add to the stat.
+# The 'multiplier' takes the value produced by the trigger and multiplies it
+# Alternatively, you can use 'value' to count a specific number and not a multiplier
 counters:
-  - trigger: melee_attack
-  - trigger: bow_attack
-  - trigger: trident_attack
+  - trigger: trident_attack # See list of triggers: https://plugins.auxilor.io/effects/all-triggers
+    multiplier: 1 # You can also use "value" here (see above comment)
+  conditions: # (Optional) Example of using conditions in counters
+    - id: in_water
 
 # Options for the physical tracker item
 tracker:
-  # The item, read here for options: https://plugins.auxilor.io/all-plugins/the-item-lookup-system
-  item: compass
-
-  # The display name of the tracker
-  name: "&eTracker - Damage Dealt"
-
-  # The lore of the tracker
-  lore:
+  item: compass # The item in-game: https://plugins.auxilor.io/all-plugins/the-item-lookup-system
+  name: "&eTracker - Damage Dealt" # The display name of the tracker
+  lore: # The item lore
     - "&8Drop this onto an item with /stattrackers"
-    - "&8to display the amount of damage dealt"
-
-  # If the tracker should be craftable
-  craftable: true
-
-  # The tracker recipe, read here: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
-  recipe:
+    - "&8to display the amount of damage dealt with Tridents"
+    - "&8whilst in water"
+  craftable: true # If the tracker can be crafted
+  recipe: # The recipe, read here for more: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
     - iron_sword
     - iron_sword
     - iron_sword
