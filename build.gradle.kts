@@ -44,7 +44,7 @@ allprojects {
 
     java {
         withSourcesJar()
-        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
     }
 
     tasks {
@@ -54,7 +54,7 @@ allprojects {
 
         compileKotlin {
             kotlinOptions {
-                jvmTarget = "17"
+                jvmTarget = "21"
             }
         }
 
