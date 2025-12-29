@@ -11,7 +11,7 @@ counters:
   - trigger: mine_block
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Blocks Broken"
 

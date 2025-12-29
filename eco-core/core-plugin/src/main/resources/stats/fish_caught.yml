@@ -8,7 +8,7 @@ counters:
     value: 1
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Fish Caught"
 

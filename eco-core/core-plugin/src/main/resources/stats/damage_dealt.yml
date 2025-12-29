@@ -12,7 +12,7 @@ counters:
   - trigger: trident_attack
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Damage Dealt"
 
