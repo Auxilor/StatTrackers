@@ -9,7 +9,7 @@ counters:
       - id: is_sneaking
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Distance Sneaked"
 

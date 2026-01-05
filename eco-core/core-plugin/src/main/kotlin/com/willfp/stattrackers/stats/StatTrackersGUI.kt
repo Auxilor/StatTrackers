@@ -22,7 +22,7 @@ object StatTrackersGUI {
                 for (column in (1..9)) {
                     setSlot(row, column, slot({ player, _ ->
                         val toTrack = player.inventory.itemInMainHand.statsToTrack
-                        toTrack.toList().getOrNull(column - 1)?.tracker?.clone() ?: ItemStack(Material.AIR)
+                        toTrack.toList().getOrNull(((row - 1) * 9) + (column - 1))?.tracker?.clone() ?: ItemStack(Material.AIR)
                     }) {
                         setCaptive(true)
                     })

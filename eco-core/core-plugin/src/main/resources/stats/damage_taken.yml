@@ -11,7 +11,7 @@ counters:
   - trigger: take_damage
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Damage Taken While Wearing"
 

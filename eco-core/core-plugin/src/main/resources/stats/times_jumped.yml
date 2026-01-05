@@ -7,7 +7,7 @@ counters:
   - trigger: jump
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Times Jumped"
 

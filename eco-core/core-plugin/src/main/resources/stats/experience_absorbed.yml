@@ -11,7 +11,7 @@ counters:
   - trigger: gain_xp
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Experience Absorbed"
 

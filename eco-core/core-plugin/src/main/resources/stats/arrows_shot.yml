@@ -7,7 +7,7 @@ counters:
   - trigger: shoot_bow
 
 tracker:
-  item: compass
+  item: compass max_stack_size:1
 
   name: "&eTracker - Arrows Shot"
 

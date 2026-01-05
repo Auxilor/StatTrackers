@@ -25,7 +25,7 @@ counters:
 # Options for the physical tracker item
 tracker:
   # The item, read here for options: https://plugins.auxilor.io/all-plugins/the-item-lookup-system
-  item: compass
+  item: compass max_stack_size:1
 
   # The display name of the tracker
   name: "&eTracker - Damage Dealt"
