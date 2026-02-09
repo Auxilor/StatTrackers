@@ -13,7 +13,7 @@ object Stats: ConfigCategory("stat", "stats") {
     }
 
     override fun acceptConfig(plugin: LibreforgePlugin, id: String, config: Config) {
-        registry.register(Stat(id, config, plugin))
+        registry.register(Stat(id, config))
     }
 
     operator fun get(id: String?): Stat? {

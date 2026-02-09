@@ -4,7 +4,7 @@ import com.willfp.eco.core.drops.DropQueue
 import com.willfp.eco.core.gui.menu
 import com.willfp.eco.core.gui.menu.Menu
 import com.willfp.eco.core.gui.slot
-import com.willfp.stattrackers.StatTrackersPlugin
+import com.willfp.stattrackers.plugin
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 object StatTrackersGUI {
     private lateinit var gui: Menu
 
-    internal fun update(plugin: StatTrackersPlugin) {
+    internal fun update() {
         val rows = plugin.configYml.getInt("gui.rows")
 
         gui = menu(rows) {

@@ -1,6 +1,5 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.config.interfaces.Config
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.items.CustomItem
@@ -10,14 +9,14 @@ import com.willfp.eco.core.recipe.Recipes
 import com.willfp.eco.core.registry.KRegistrable
 import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.counters.Counters
+import com.willfp.stattrackers.plugin
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.Objects
 
 class Stat(
     override val id: String,
-    val config: Config,
-    plugin: EcoPlugin
+    val config: Config
 ) : KRegistrable {
     val display = config.getFormattedString("display")
 

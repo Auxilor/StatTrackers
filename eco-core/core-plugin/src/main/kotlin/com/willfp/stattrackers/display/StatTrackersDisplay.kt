@@ -1,12 +1,12 @@
 package com.willfp.stattrackers.display
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.display.Display
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.core.fast.fast
 import com.willfp.eco.util.NumberUtils
+import com.willfp.stattrackers.plugin
 import com.willfp.stattrackers.stats.statTracker
 import com.willfp.stattrackers.stats.trackedStats
 import org.bukkit.enchantments.Enchantment
@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
 @Suppress("DEPRECATION")
-class StatTrackersDisplay(plugin: EcoPlugin) : DisplayModule(plugin, DisplayPriority.HIGH) {
+object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
     override fun display(
         itemStack: ItemStack,
         vararg args: Any
