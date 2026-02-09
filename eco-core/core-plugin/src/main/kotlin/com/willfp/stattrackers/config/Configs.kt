@@ -2,6 +2,6 @@ package com.willfp.stattrackers.config
 
 import com.willfp.eco.core.config.BaseConfig
 import com.willfp.eco.core.config.ConfigType
-import com.willfp.stattrackers.plugin
+import com.willfp.stattrackers.StatTrackersPlugin
 
-object TargetsYml : BaseConfig("targets", plugin, true, ConfigType.YAML)
+class TargetsYml(plugin: StatTrackersPlugin) : BaseConfig("targets", plugin, true, ConfigType.YAML)

@@ -17,7 +17,7 @@ internal lateinit var plugin: StatTrackersPlugin
     private set
 
 class StatTrackersPlugin : LibreforgePlugin() {
-    val targetsYml = TargetsYml
+    val targetsYml = TargetsYml(this)
 
     init {
         plugin = this
