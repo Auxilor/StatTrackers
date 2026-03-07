@@ -6,6 +6,7 @@ import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
+import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.KRegistrable
 import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.counters.Counters
@@ -32,15 +33,21 @@ class Stat(
         this.tracker
     ).apply { register() }
 
-    val recipe = if (this.config.getBool("tracker.craftable")) {
-        Recipes.createAndRegisterRecipe(
-            plugin,
-            this.id,
-            this.tracker,
-            this.config.getStrings("tracker.recipe"),
-            this.config.getStringOrNull("tracker.recipe-permission")
-        )
-    } else null
+    val recipe: CraftingRecipe? = config.getBool("tracker.craftable")
+        .takeIf { it }
+        ?.let {
+            val recipeStrings = config.getStrings("tracker.recipe")
+            if (recipeStrings.isEmpty()) return@let null
+
+            Recipes.createAndRegisterRecipe(
+                plugin,
+                id,
+                tracker,
+                recipeStrings,
+                config.getStringOrNull("tracker.recipe-permission"),
+                config.getBool("tracker.shapeless")
+            )
+        }
 
     val targets = config.getStrings("applicable-to")
         .mapNotNull { StatTargets[it] }
