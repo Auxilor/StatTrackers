@@ -35,19 +35,16 @@ tracker:
     - "&8Drop this onto an item with /stattrackers"
     - "&8to display the amount of damage dealt"
 
-  # If the tracker should be craftable
-  craftable: true
-
-  # The tracker recipe, read here: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
-  recipe:
+  craftable: true # If the tracker should be craftable
+  recipe-permission: stattrackers.craft.example_tracker # (Optional) The permission required to craft the tracker
+  shapeless: false # (Optional) Whether the recipe is shapeless, default is false
+  recipe: # The tracker recipe, read here: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
     - iron_sword
     - iron_sword
     - iron_sword
-
     - iron_sword
     - compass
     - iron_sword
-
     - iron_sword
     - iron_sword
     - iron_sword
