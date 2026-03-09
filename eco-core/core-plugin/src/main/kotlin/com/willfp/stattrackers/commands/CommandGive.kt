@@ -1,14 +1,14 @@
 package com.willfp.stattrackers.commands
 
-import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.command.impl.Subcommand
 import com.willfp.eco.core.drops.DropQueue
+import com.willfp.stattrackers.plugin
 import com.willfp.stattrackers.stats.Stats
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.util.StringUtil
 
-class CommandGive(plugin: EcoPlugin) : Subcommand(
+object CommandGive : Subcommand(
     plugin,
     "give",
     "stattrackers.command.give",

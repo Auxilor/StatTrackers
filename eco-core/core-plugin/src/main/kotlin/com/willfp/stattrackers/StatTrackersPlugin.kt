@@ -24,8 +24,8 @@ class StatTrackersPlugin : LibreforgePlugin() {
     }
 
     override fun handleReload() {
-        StatTargets.update(this)
-        StatTrackersGUI.update(this)
+        StatTargets.update()
+        StatTrackersGUI.update()
     }
 
     override fun loadConfigCategories(): List<ConfigCategory> {
@@ -36,17 +36,18 @@ class StatTrackersPlugin : LibreforgePlugin() {
 
     override fun loadPluginCommands(): List<PluginCommand> {
         return listOf(
-            CommandStatTrackers(this)
+            CommandStatTrackers
         )
     }
 
     override fun loadListeners(): List<Listener> {
         return listOf(
-            DiscoverRecipeListener(this)
+            DiscoverRecipeListener
         )
     }
 
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun createDisplayModule(): DisplayModule {
-        return StatTrackersDisplay(this)
+        return StatTrackersDisplay
     }
 }

@@ -1,15 +1,14 @@
 package com.willfp.stattrackers.stats
 
 import com.willfp.eco.core.registry.Registry
-import com.willfp.stattrackers.StatTrackersPlugin
 import com.willfp.stattrackers.plugin
 
 object StatTargets: Registry<StatTarget>() {
     init {
-        update(plugin)
+        update()
     }
 
-    internal fun update(plugin: StatTrackersPlugin) {
+    internal fun update() {
         clear()
 
         for (config in plugin.targetsYml.getSubsections("targets")) {
