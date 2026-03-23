@@ -45,9 +45,4 @@ class StatTrackersPlugin : LibreforgePlugin() {
             DiscoverRecipeListener
         )
     }
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun createDisplayModule(): DisplayModule {
-        return StatTrackersDisplay
-    }
 }
