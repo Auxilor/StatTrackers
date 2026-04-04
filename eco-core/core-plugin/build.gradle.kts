@@ -5,21 +5,35 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
 }
 
+tasks {
+    build {
+        dependsOn(publishToMavenLocal)
+    }
+}
+
 publishing {
     publications {
-        register<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            version = project.version.toString()
-            artifactId = rootProject.name
+        create<MavenPublication>("shadow") {
+            from(components["java"])
+            artifactId = "StatTrackers"
+        }
+    }
 
-            artifact(rootProject.tasks.shadowJar.get().archiveFile)
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Auxilor/eco")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 
     publishing {
         repositories {
             maven {
-                name = "auxilor"
+                name = "Auxilor"
                 url = uri("https://repo.auxilor.io/repository/maven-releases/")
                 credentials {
                     username = System.getenv("MAVEN_USERNAME")
@@ -27,11 +41,5 @@ publishing {
                 }
             }
         }
-    }
-}
-
-tasks {
-    build {
-        dependsOn(publishToMavenLocal)
     }
 }
