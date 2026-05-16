@@ -1,5 +1,6 @@
 package com.willfp.stattrackers
 
+import com.willfp.eco.core.bstats.EcoMetricsChart
 import com.willfp.eco.core.command.impl.PluginCommand
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.libreforge.loader.LibreforgePlugin
@@ -50,5 +51,16 @@ class StatTrackersPlugin : LibreforgePlugin() {
     override fun createDisplayModule(): DisplayModule {
         return StatTrackersDisplay
     }
+
+    override fun getCustomCharts() = listOf(
+        EcoMetricsChart.SingleLine("total_stats") { Stats.values().size },
+        EcoMetricsChart.SingleLine("total_stat_targets") { StatTargets.values().size },
+        EcoMetricsChart.SimplePie("discover_recipes") {
+            if (configYml.getBool("discover-recipes")) "enabled" else "disabled"
+        },
+        EcoMetricsChart.SimplePie("display_at_top") {
+            if (configYml.getBool("display-at-top")) "top" else "bottom"
+        }
+    )
 
 }
