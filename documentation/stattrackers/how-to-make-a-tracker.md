@@ -1,49 +1,77 @@
 ---
-title: "How to make a Stat Tracker"
+title: "How to Make a Stat Tracker"
 sidebar_position: 1
 ---
 
-## How to add stat trackers
-Each stat tracker is its own config file, placed in the `/stats/` folder, and you can add or remove them as you please. There's an example config called `_example.yml` to help you out!
+A **stat tracker** is a craftable item that, once dropped onto a tool, weapon, or armor piece, counts a stat on it and shows the running total in the item's lore. Each tracker is one config file built from a **display**, a set of **counters**, and a **tracker item**. This page takes you from an empty file to a working, craftable tracker.
 
-The ID of the Stat Tracker is the file name. This is what you use in commands and in the [Item Lookup System](https://plugins.auxilor.io/the-item-lookup-system).
-ID's must be lowercase letters, numbers, and underscores only.
+## Quick start
 
-## Example Tracker Config
+1. Open `/plugins/StatTrackers/stats/` and copy `_example.yml` to a new file, e.g. `nether_ores_mined.yml`. The file name is the tracker's ID.
+2. Set `display` to the lore line you want, using `%value%` where the count should appear.
+3. List the items the tracker can attach to under `applicable-to`.
+4. Add one or more `counters` to define what gets counted.
+5. Fill in the `tracker` block: the item, name, lore, and (optionally) a crafting recipe.
+6. Run `/stattrackers reload`, then run `/stattrackers give <player> nether_ores_mined`, drop the tracker onto a matching item, and check the lore updates as you play.
+
+:::tip
+`_example.yml` is included as a reference and is **never loaded**, so copy or rename it to make a real tracker. You can also organise trackers into subfolders inside `stats/`, and they'll still load.
+:::
+
+## Naming and IDs
+
+The file name without `.yml` is the tracker's ID. That ID is what you pass to commands and use in the [Item Lookup System](https://plugins.auxilor.io/the-item-lookup-system).
+
+:::warning ID rules
+IDs may only contain lowercase letters, numbers, and underscores (a-z, 0-9, _). No spaces, capitals, or hyphens, or the tracker will not load.
+:::
+
+## The structure of a tracker
+
+A tracker config has three parts:
+
+| Part | What it controls |
+| --- | --- |
+| **Display** | The lore line shown on the item and which items the tracker can attach to. |
+| **Counters** | What stat is counted and how, using triggers, filters, and conditions. |
+| **Tracker item** | The physical tracker item, its appearance, and its crafting recipe. |
+
+Here is a complete tracker with every part in place:
 
 ```yaml
-display: "&bNether Ores Mined: %value%"
-
-applicable-to:
+# === Display: what the player sees ===
+display: "&bNether Ores Mined: %value%" # Lore line on the item; %value% is the running count
+applicable-to: # Item groups this tracker can attach to, defined in targets.yml
   - sword
   - bow
   - trident
   - axe
 
+# === Counters: what gets counted ===
 counters:
-  - trigger: mine_block
-    value: 1
+  - trigger: mine_block # The event that adds to the count
+    value: 1 # Add a flat 1 per trigger; use 'multiplier' instead to scale the trigger's own value
     filters:
-      blocks:
+      blocks: # Only count these blocks
         - nether_gold_ore
         - ancient_debris
         - nether_quartz_ore
     conditions:
-      - id: in_world
+      - id: in_world # Only count while this condition holds
         args:
           world: world_nether
 
+# === Tracker item: the physical item ===
 tracker:
-  item: compass max_stack_size:1
-  name: "&eTracker - Damage Dealt"
+  item: compass max_stack_size:1 # The base item; see the Item Lookup System for options
+  name: "&eTracker - Nether Ores Mined" # Display name of the tracker item
   lore:
     - "&8Drop this onto an item with /stattrackers"
-    - "&8to display the amount of damage dealt"
-
-  craftable: true 
-  recipe-permission: stattrackers.craft.example_tracker
-  shapeless: false
-  recipe:
+    - "&8to display the nether ores mined"
+  craftable: true # Whether the tracker can be crafted
+  recipe-permission: stattrackers.craft.nether_ores_mined # Optional; permission needed to craft it
+  shapeless: false # Optional; whether the recipe is shapeless, default false
+  recipe: # The crafting grid, read top-left to bottom-right
     - iron_sword
     - iron_sword
     - iron_sword
@@ -55,61 +83,63 @@ tracker:
     - iron_sword
 ```
 
-## Understanding all the sections
+### Display
 
-### The Tracker Info Section
+The `display` line is the lore added to the item, and `applicable-to` controls which items the tracker can attach to.
 
 ```yaml
-# The lore added to items with this tracker
-display: "&bNether Ores Mined: %value%"
-
-# Which items the tracker can be applied to, groups are in targets.yml
-applicable-to:
+display: "&bNether Ores Mined: %value%" # %value% is replaced with the current count
+applicable-to: # Item groups defined in targets.yml (sword, bow, armor, pickaxe, etc.)
   - sword
   - bow
   - trident
   - axe
 ```
 
-### The Counter Section
-This is the section that defines what stat is tracked and how to track it.
+:::info
+Item groups like `sword` and `armor` are defined in `targets.yml`, which also sets the slot each group is tracked in (hand, offhand, armor, or any). Edit that file to change what an existing group matches or to add your own.
+:::
+
+### Counters
+
+A counter defines what stat is tracked: a `trigger` fires on an event, then `value` (a flat amount) or `multiplier` (a scale on the trigger's own value) decides how much to add. Optional `filters` and `conditions` narrow when it counts.
+
 ```yaml
-# A counter takes a trigger, a multiplier, conditions, and filters.
-# The 'multiplier' takes the value produced by the trigger and multiplies it
-# Alternatively, you can use 'value' to count a specific number and not a multiplier
 counters:
-  - trigger: mine_block
-    value: 1 # You can also use `multiplier` here.
+  - trigger: mine_block # Event that fires the counter
+    value: 1 # Flat amount added per trigger; swap for 'multiplier' to scale the trigger's value
     filters:
-      blocks:
+      blocks: # Restrict to specific blocks
         - nether_gold_ore
         - ancient_debris
-        - nether_quartz_ore
     conditions:
-      - id: in_world
+      - id: in_world # Only count while the condition is met
         args:
           world: world_nether
 ```
 
-### The Tracker Item Section
+:::danger Effects are their own system
+Triggers, filters, and conditions are a shared libreforge system used across every eco plugin, documented in full elsewhere.
+
+- [Configuring an Effect](https://plugins.auxilor.io/effects/configuring-an-effect)
+- [Configuring an Effect Chain](https://plugins.auxilor.io/effects/configuring-a-chain)
+:::
+
+### Tracker item
+
+The `tracker` block defines the physical item players drop onto their gear, plus its optional crafting recipe.
+
 ```yaml
-# Options for the physical tracker item
 tracker:
-  # The item, read here for options: https://plugins.auxilor.io/the-item-lookup-system
-  item: compass max_stack_size:1
-
-  # The display name of the tracker
-  name: "&eTracker - Damage Dealt"
-
-  # The lore of the tracker
+  item: compass max_stack_size:1 # Base item; see the Item Lookup System for options
+  name: "&eTracker - Nether Ores Mined" # Display name
   lore:
     - "&8Drop this onto an item with /stattrackers"
-    - "&8to display the amount of damage dealt"
-
-  craftable: true # If the tracker should be craftable
-  recipe-permission: stattrackers.craft.example_tracker # (Optional) The permission required to craft the tracker
-  shapeless: false # (Optional) Whether the recipe is shapeless, default is false
-  recipe: # The tracker recipe, read here: https://plugins.auxilor.io/the-item-lookup-system#crafting-recipes
+    - "&8to display the nether ores mined"
+  craftable: true # Whether it can be crafted
+  recipe-permission: stattrackers.craft.nether_ores_mined # Optional; permission to craft
+  shapeless: false # Optional; whether the recipe is shapeless, default false
+  recipe: # Crafting grid, read top-left to bottom-right
     - iron_sword
     - iron_sword
     - iron_sword
@@ -122,13 +152,28 @@ tracker:
 ```
 
 :::tip
+We support both shaped and shapeless recipes. See [Recipes](https://plugins.auxilor.io/the-item-lookup-system/recipes) for how to configure them.
+:::
 
-We support shaped and shapeless recipes. Check out [Recipes](https://plugins.auxilor.io/the-item-lookup-system/recipes) for more info on how to configure these.
+## Internal placeholders
 
+These placeholders are available inside this config:
+
+| Placeholder | What it returns |
+| --- | --- |
+| `%value%` | The current tracked count, used in the `display` line. |
+
+:::tip Troubleshooting
+- **Tracker won't load?** Check the file name is lowercase letters, numbers, and underscores only, then run `/stattrackers reload`.
+- **Nothing counts when I play?** Make sure the tracker is on an item listed in `applicable-to`, and that the item is in the slot its target group tracks (see `targets.yml`).
+- **The count never goes up?** Check your `filters` and `conditions` aren't excluding the action, e.g. the wrong block or world.
+- **Can't craft the tracker?** Confirm `craftable: true` and that the player has the `recipe-permission`, if you set one.
 :::
 
 <hr/>
 
-## Default configs
-The default configs can be found [here](https://github.com/Auxilor/StatTrackers/tree/master/eco-core/core-plugin/src/main/resources/stats).
-You can find additional user-created configs on [lrcdb](https://lrcdb.auxilor.io/).
+## Where to go next
+
+- **Default trackers:** the shipped configs live [here](https://github.com/Auxilor/StatTrackers/tree/master/eco-core/core-plugin/src/main/resources/stats) and make good starting points.
+- **Community configs:** browse user-made trackers on [lrcdb](https://lrcdb.auxilor.io/).
+- **Triggers and conditions:** [Configuring an Effect](https://plugins.auxilor.io/effects/configuring-an-effect) covers the full counter system.

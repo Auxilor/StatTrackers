@@ -2,9 +2,20 @@
 title: "StatTrackers"
 ---
 
-## What are Stat Trackers?
+## What is StatTrackers?
 
-Stat Trackers are cosmetic upgrades to items that track stats related to specific tools, weapons, and armor pieces. It's perfect as an EULA-Friendly item to put in crates, and can lead to competition between players to have the highest stats on their items.
+StatTrackers adds cosmetic, EULA-friendly upgrades that attach to tools, weapons, and armor and count stats on them, like damage dealt, mobs killed, or blocks broken. Players apply a tracker by holding an item, running `/stattrackers`, and dropping trackers into the GUI.
 
-You can apply stat trackers by holding an item and running `/stattrackers`, and then dropping as many trackers as you want into the GUI!
- 
+## What sets StatTrackers apart?
+
+- Every tracker is a single config file you can add, edit, or remove on the fly, with full control over what it counts and which items it applies to.
+- Trackers are craftable items, so they drop into crates, shops, and rewards without touching your server economy.
+- Counters are built on the same libreforge triggers, filters, and conditions the rest of your eco plugins use, so a tracker can count almost anything.
+
+<hr/>
+
+## Where to go next
+
+- **Make a tracker:** [How to make a Stat Tracker](how-to-make-a-tracker) walks you through building one from scratch.
+- **Commands:** [Commands and Permissions](commands-and-permissions) lists every command and node.
+- **Plugin config:** [Plugin Config](plugin-config) covers the global `config.yml` options.
