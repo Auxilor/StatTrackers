@@ -9,7 +9,8 @@ import com.willfp.eco.util.NumberUtils
 import com.willfp.stattrackers.plugin
 import com.willfp.stattrackers.stats.statTracker
 import com.willfp.stattrackers.stats.trackedStats
-import org.bukkit.enchantments.Enchantment
+import org.bukkit.NamespacedKey
+import org.bukkit.Registry
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
@@ -45,7 +46,7 @@ object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
 
         lore.addAll(stat.tracker.fast().lore)
 
-        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true)
+        meta.addEnchant(Registry.ENCHANTMENT.get(NamespacedKey.minecraft("smite"))!!, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
 
         val itemLore = meta.lore ?: mutableListOf()
