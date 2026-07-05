@@ -20,7 +20,7 @@ A **stat tracker** is a craftable item that, once dropped onto a tool, weapon, o
 
 ## Naming and IDs
 
-The file name without `.yml` is the tracker's ID. That ID is what you pass to commands and use in the [Item Lookup System](https://plugins.auxilor.io/the-item-lookup-system).
+The file name without `.yml` is the tracker's ID. That ID is what you pass to commands and use in the [Item Lookup System](https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system).
 
 :::warning ID rules
 IDs may only contain lowercase letters, numbers, and underscores (a-z, 0-9, _). No spaces, capitals, or hyphens, or the tracker will not load.
@@ -121,8 +121,8 @@ counters:
 :::danger Effects are their own system
 Triggers, filters, and conditions are a shared libreforge system used across every eco plugin, documented in full elsewhere.
 
-- [Configuring an Effect](https://plugins.auxilor.io/effects/configuring-an-effect)
-- [Configuring an Effect Chain](https://plugins.auxilor.io/effects/configuring-a-chain)
+- [Configuring an Effect](https://hub.auxilor.io/wiki/libreforge/configuring-an-effect)
+- [Configuring an Effect Chain](https://hub.auxilor.io/wiki/libreforge/configuring-a-chain)
 :::
 
 ### Tracker item
@@ -152,7 +152,7 @@ tracker:
 ```
 
 :::tip
-We support both shaped and shapeless recipes. See [Recipes](https://plugins.auxilor.io/the-item-lookup-system/recipes) for how to configure them.
+We support both shaped and shapeless recipes. See [Recipes](https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system/recipes) for how to configure them.
 :::
 
 ## Internal placeholders
@@ -176,4 +176,4 @@ These placeholders are available inside this config:
 
 - **Default trackers:** the shipped configs live [here](https://github.com/Auxilor/StatTrackers/tree/master/eco-core/core-plugin/src/main/resources/stats) and make good starting points.
 - **Community configs:** browse user-made trackers on [lrcdb](https://lrcdb.auxilor.io/).
-- **Triggers and conditions:** [Configuring an Effect](https://plugins.auxilor.io/effects/configuring-an-effect) covers the full counter system.
+- **Triggers and conditions:** [Configuring an Effect](https://hub.auxilor.io/wiki/libreforge/configuring-an-effect) covers the full counter system.

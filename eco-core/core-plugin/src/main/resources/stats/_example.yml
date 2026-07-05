@@ -24,7 +24,7 @@ counters:
 
 # Options for the physical tracker item
 tracker:
-  # The item, read here for options: https://plugins.auxilor.io/all-plugins/the-item-lookup-system
+  # The item, read here for options: https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system
   item: compass max_stack_size:1
 
   # The display name of the tracker
@@ -38,7 +38,7 @@ tracker:
   craftable: true # If the tracker should be craftable
   recipe-permission: stattrackers.craft.example_tracker # (Optional) The permission required to craft the tracker
   shapeless: false # (Optional) Whether the recipe is shapeless, default is false
-  recipe: # The tracker recipe, read here: https://plugins.auxilor.io/all-plugins/the-item-lookup-system#crafting-recipes
+  recipe: # The tracker recipe, read here: https://hub.auxilor.io/wiki/eco/the-item-lookup-system-the-item-lookup-system#crafting-recipes
     - iron_sword
     - iron_sword
     - iron_sword
