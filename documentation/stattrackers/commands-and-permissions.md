@@ -8,6 +8,7 @@ Every command StatTrackers adds, along with the permission node that controls it
 | Command | Description | Permission |
 | --- | --- | --- |
 | `/stattrackers` | Opens the StatTrackers apply GUI | `stattrackers.command.stattrackers` |
+| `/stattrackers stats [player] [slot:<n>]` | Views the tracked stats and values on an item | `stattrackers.command.stats` |
 | `/stattrackers give <player> <tracker_id>` | Gives a player a tracker item | `stattrackers.command.give` |
 | `/stattrackers reload` | Reloads the plugin | `stattrackers.command.reload` |
 

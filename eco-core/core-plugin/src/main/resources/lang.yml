@@ -13,3 +13,6 @@ messages:
   give-success: "Gave &a%stat% Tracker&r to &a%recipient%"
   item-cannot-have-trackers: "&cYou must be holding a trackable item!"
   cannot-apply: "&cYou cannot apply %tracker% &cto this item."
+  no-tracked-stats: "&cThat item has no tracked stats!"
+  stats-list-header: "Tracked stats on &a%player%&r's item:"
+  stats-list-entry: "&8 - &r%stat%&r: &a%value%"
