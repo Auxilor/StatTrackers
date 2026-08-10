@@ -22,6 +22,7 @@ permissions:
       stattrackers.command.give: true
       stattrackers.command.stattrackers: true
       stattrackers.command.stats: true
+      stattrackers.command.set: true
 
   stattrackers.command.stattrackers:
     description: Allows the use of /stattrackers to open the editor
@@ -35,3 +36,6 @@ permissions:
   stattrackers.command.stats:
     description: Allows the use of /stattrackers stats to view tracked stats on an item
     default: true
+  stattrackers.command.set:
+    description: Allows the use of /stattrackers set to set a tracked stat's value on an item
+    default: op

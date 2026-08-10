@@ -16,3 +16,7 @@ messages:
   no-tracked-stats: "&cThat item has no tracked stats!"
   stats-list-header: "Tracked stats on &a%player%&r's item:"
   stats-list-entry: "&8 - &r%stat%&r: &a%value%"
+  needs-amount: "&cYou must specify an amount"
+  invalid-amount: "&cInvalid amount!"
+  stat-not-tracked: "&cThat stat isn't tracked on this item!"
+  set-success: "Set &a%stat%&r to &a%value%&r on &a%player%&r's item"
