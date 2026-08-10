@@ -55,17 +55,18 @@ object CommandSet : Subcommand(
 
         val amount = remaining[1].toDoubleOrNull()
 
-        if (amount == null) {
+        if (amount == null || !amount.isFinite()) {
             sender.sendMessage(plugin.langYml.getMessage("invalid-amount"))
             return
         }
 
-        item.setStatValue(stat, amount)
+        val clampedAmount = amount.coerceAtLeast(0.0)
+        item.setStatValue(stat, clampedAmount)
 
         sender.sendMessage(
             plugin.langYml.getMessage("set-success")
                 .replace("%stat%", stat.id)
-                .replace("%value%", amount.toString())
+                .replace("%value%", clampedAmount.toString())
                 .replace("%player%", player.name)
         )
     }
