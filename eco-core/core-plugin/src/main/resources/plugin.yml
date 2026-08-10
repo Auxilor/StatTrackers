@@ -24,6 +24,7 @@ permissions:
       stattrackers.command.stats: true
       stattrackers.command.set: true
       stattrackers.command.add: true
+      stattrackers.command.subtract: true
 
   stattrackers.command.stattrackers:
     description: Allows the use of /stattrackers to open the editor
@@ -42,4 +43,7 @@ permissions:
     default: op
   stattrackers.command.add:
     description: Allows the use of /stattrackers add to add to a tracked stat's value on an item
+    default: op
+  stattrackers.command.subtract:
+    description: Allows the use of /stattrackers subtract to subtract from a tracked stat's value on an item
     default: op

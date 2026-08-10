@@ -21,3 +21,4 @@ messages:
   stat-not-tracked: "&cThat stat isn't tracked on this item!"
   set-success: "Set &a%stat%&r to &a%value%&r on &a%player%&r's item"
   add-success: "Added &a%amount%&r to &a%stat%&r on &a%player%&r's item (new total: &a%new%&r)"
+  subtract-success: "Subtracted &a%amount%&r from &a%stat%&r on &a%player%&r's item (new total: &a%new%&r)"

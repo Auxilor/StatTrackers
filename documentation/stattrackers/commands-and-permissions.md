@@ -12,6 +12,7 @@ Every command StatTrackers adds, along with the permission node that controls it
 | `/stattrackers give <player> <tracker_id>` | Gives a player a tracker item | `stattrackers.command.give` |
 | `/stattrackers set [player] [slot:<n>] <stat> <amount>` | Sets a tracked stat's value on an item | `stattrackers.command.set` |
 | `/stattrackers add [player] [slot:<n>] <stat> <amount>` | Adds to a tracked stat's value on an item | `stattrackers.command.add` |
+| `/stattrackers subtract [player] [slot:<n>] <stat> <amount>` | Subtracts from a tracked stat's value on an item | `stattrackers.command.subtract` |
 | `/stattrackers reload` | Reloads the plugin | `stattrackers.command.reload` |
 
 <hr/>
