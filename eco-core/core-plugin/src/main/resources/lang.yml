@@ -8,7 +8,6 @@ messages:
   invalid-stat: "&cCould not find stat maching name!"
   needs-player: "&cYou must specify a player"
   invalid-player: "&cInvalid player!"
-  invalid-slot: "&cInvalid slot! Use a slot index (0-40), mainhand, or offhand."
   needs-stat: "&cYou must specify a stat"
   give-success: "Gave &a%stat% Tracker&r to &a%recipient%"
   item-cannot-have-trackers: "&cYou must be holding a trackable item!"

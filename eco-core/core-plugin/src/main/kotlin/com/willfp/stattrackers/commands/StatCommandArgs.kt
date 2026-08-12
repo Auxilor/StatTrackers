@@ -1,14 +1,15 @@
 package com.willfp.stattrackers.commands
 
 import com.willfp.stattrackers.stats.Stats
+import com.willfp.stattrackers.stats.getStatValue
+import com.willfp.stattrackers.stats.statsToTrack
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 object StatCommandArgs {
-    val SLOT_COMPLETIONS = listOf("slot:mainhand", "slot:offhand")
+    val AMOUNT_COMPLETIONS = listOf("1", "5", "10", "25", "50", "100")
 
     sealed class TargetResult {
         data class Success(
@@ -21,19 +22,17 @@ object StatCommandArgs {
     }
 
     /**
-     * Resolves an optional leading `[player] [slot:<n>]` from [args] against [sender].
+     * Resolves an optional leading `[player]` from [args] against [sender].
+     * The target's mainhand item is always used.
      *
-     * - If the first token isn't a `slot:` token and isn't a known stat id, it's treated
-     *   as a player name.
+     * - If the first token isn't a known stat id, it's treated as a player name.
      * - Otherwise the target is [sender] (which must be a player).
-     * - After the optional player token, a `slot:` token (mainhand/offhand/0-40) is
-     *   consumed if present; defaults to the target's main hand.
      */
     fun resolveTarget(sender: CommandSender, args: List<String>): TargetResult {
         var index = 0
         var targetPlayer: Player? = null
 
-        if (index < args.size && !args[index].startsWith("slot:") && Stats[args[index]] == null) {
+        if (index < args.size && Stats[args[index]] == null) {
             targetPlayer = Bukkit.getPlayer(args[index]) ?: return TargetResult.Failure("invalid-player")
             index++
         }
@@ -45,31 +44,46 @@ object StatCommandArgs {
             targetPlayer = sender
         }
 
-        var slot = targetPlayer.inventory.heldItemSlot
-
-        if (index < args.size && args[index].startsWith("slot:")) {
-            val slotArg = args[index].removePrefix("slot:")
-            slot = when (slotArg) {
-                "mainhand" -> targetPlayer.inventory.heldItemSlot
-                "offhand" -> 40
-                else -> slotArg.toIntOrNull()?.takeIf { it in 0..40 }
-                    ?: return TargetResult.Failure("invalid-slot")
-            }
-            index++
-        }
-
-        val item = targetPlayer.inventory.getItem(slot) ?: ItemStack(Material.AIR)
+        val item = targetPlayer.inventory.itemInMainHand
 
         return TargetResult.Success(targetPlayer, item, args.drop(index))
     }
 
-    fun tabCompleteTarget(args: List<String>): List<String> {
-        val statIds = Stats.values().map { it.id }
+    /**
+     * Suggests completions for the token currently being typed, given the
+     * already-committed tokens preceding it (`args` minus the last element).
+     *
+     * Stages: `[player] <stat> <amount>`. Stat suggestions are limited to
+     * the stats actually tracked on the resolved target's mainhand item.
+     */
+    fun tabCompleteTarget(sender: CommandSender, args: List<String>): List<String> {
+        val committed = args.dropLast(1)
 
-        return when (args.size) {
-            0, 1 -> Bukkit.getOnlinePlayers().map { it.name } + SLOT_COMPLETIONS + statIds
-            2 -> SLOT_COMPLETIONS + statIds
-            else -> statIds
+        var index = 0
+        if (index < committed.size && Stats[committed[index]] == null) {
+            index++
         }
+
+        val remainingCount = committed.size - index
+
+        if (committed.isNotEmpty() && remainingCount > 1) {
+            return emptyList()
+        }
+
+        val result = resolveTarget(sender, committed.take(index))
+
+        if (remainingCount == 1) {
+            val stat = Stats[committed[index]] ?: return emptyList()
+            val current = (result as? TargetResult.Success)?.item?.getStatValue(stat)
+
+            return if (current != null) listOf(current.toString()) + AMOUNT_COMPLETIONS else AMOUNT_COMPLETIONS
+        }
+
+        val statIds = when (result) {
+            is TargetResult.Success -> result.item.statsToTrack.map { it.id }
+            is TargetResult.Failure -> Stats.values().map { it.id }
+        }
+
+        return if (committed.isEmpty()) Bukkit.getOnlinePlayers().map { it.name } + statIds else statIds
     }
 }

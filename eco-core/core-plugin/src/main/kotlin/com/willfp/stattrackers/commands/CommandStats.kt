@@ -53,8 +53,7 @@ object CommandStats : Subcommand(
         val completions = mutableListOf<String>()
 
         val candidates = when (args.size) {
-            0, 1 -> org.bukkit.Bukkit.getOnlinePlayers().map { it.name } + StatCommandArgs.SLOT_COMPLETIONS
-            2 -> StatCommandArgs.SLOT_COMPLETIONS
+            0, 1 -> org.bukkit.Bukkit.getOnlinePlayers().map { it.name }
             else -> emptyList()
         }
 

@@ -75,7 +75,7 @@ object CommandAdd : Subcommand(
 
     override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
         val completions = mutableListOf<String>()
-        StringUtil.copyPartialMatches(args.lastOrNull() ?: "", StatCommandArgs.tabCompleteTarget(args), completions)
+        StringUtil.copyPartialMatches(args.lastOrNull() ?: "", StatCommandArgs.tabCompleteTarget(sender, args), completions)
         return completions
     }
 }
