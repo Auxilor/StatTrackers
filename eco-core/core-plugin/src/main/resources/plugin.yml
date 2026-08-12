@@ -21,6 +21,10 @@ permissions:
       stattrackers.command.reload: true
       stattrackers.command.give: true
       stattrackers.command.stattrackers: true
+      stattrackers.command.stats: true
+      stattrackers.command.set: true
+      stattrackers.command.add: true
+      stattrackers.command.subtract: true
 
   stattrackers.command.stattrackers:
     description: Allows the use of /stattrackers to open the editor
@@ -30,4 +34,16 @@ permissions:
     default: op
   stattrackers.command.give:
     description: Allows the use of /stattrackers give to give a player a stat tracker
+    default: op
+  stattrackers.command.stats:
+    description: Allows the use of /stattrackers stats to view tracked stats on an item
+    default: true
+  stattrackers.command.set:
+    description: Allows the use of /stattrackers set to set a tracked stat's value on an item
+    default: op
+  stattrackers.command.add:
+    description: Allows the use of /stattrackers add to add to a tracked stat's value on an item
+    default: op
+  stattrackers.command.subtract:
+    description: Allows the use of /stattrackers subtract to subtract from a tracked stat's value on an item
     default: op

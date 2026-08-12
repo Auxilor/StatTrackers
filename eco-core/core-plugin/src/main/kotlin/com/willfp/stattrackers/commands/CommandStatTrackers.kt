@@ -16,6 +16,10 @@ object CommandStatTrackers : PluginCommand(
     init {
         this.addSubcommand(CommandReload)
             .addSubcommand(CommandGive)
+            .addSubcommand(CommandStats)
+            .addSubcommand(CommandSet)
+            .addSubcommand(CommandAdd)
+            .addSubcommand(CommandSubtract)
     }
 
     override fun onExecute(sender: CommandSender, args: List<String>) {
