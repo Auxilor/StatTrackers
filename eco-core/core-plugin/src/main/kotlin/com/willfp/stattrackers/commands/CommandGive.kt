@@ -39,16 +39,16 @@ object CommandGive : Subcommand(
             return
         }
 
+        DropQueue(receiver)
+            .addItem(stat.tracker)
+            .forceTelekinesis()
+            .push()
+
         val message = plugin.langYml.getMessage("give-success")
             .replace("%stat%", stat.id)
             .replace("%recipient%", receiver.name)
 
         sender.sendMessage(message)
-
-        DropQueue(receiver)
-            .addItem(stat.tracker)
-            .forceTelekinesis()
-            .push()
     }
 
     override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {

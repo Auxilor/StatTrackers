@@ -1,12 +1,10 @@
 package com.willfp.stattrackers.util
 
 import com.willfp.stattrackers.plugin
-import org.bukkit.Bukkit
-import org.bukkit.Keyed
+import com.willfp.stattrackers.stats.Stats
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.inventory.Recipe
 
 object DiscoverRecipeListener : Listener {
     @EventHandler
@@ -15,11 +13,8 @@ object DiscoverRecipeListener : Listener {
             return
         }
 
-        mutableListOf<Recipe>()
-            .apply { Bukkit.getServer().recipeIterator().forEachRemaining(this::add) }
-            .filterIsInstance<Keyed>().map { it.key }
-            .filter { it.namespace == plugin.name.lowercase() }
-            .filter { !it.key.contains("displayed") }
-            .forEach { event.player.discoverRecipe(it) }
+        for (stat in Stats.values()) {
+            event.player.discoverRecipe(stat.recipe?.key ?: continue)
+        }
     }
 }

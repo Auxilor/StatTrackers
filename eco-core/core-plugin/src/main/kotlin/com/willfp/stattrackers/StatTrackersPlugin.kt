@@ -47,9 +47,10 @@ class StatTrackersPlugin : LibreforgePlugin() {
         )
     }
 
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun createDisplayModule(): DisplayModule {
-        return StatTrackersDisplay
+    override fun loadDisplayModules(): List<DisplayModule> {
+        return listOf(
+            StatTrackersDisplay
+        )
     }
 
     override fun getCustomCharts() = listOf(

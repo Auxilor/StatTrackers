@@ -40,9 +40,13 @@ object StatTrackersGUI {
 
                 for (trackerStack in captive) {
                     val meta = trackerStack.itemMeta
+                    if (meta == null) {
+                        toReturn.add(trackerStack)
+                        continue
+                    }
 
                     val stat = meta.statTracker
-                    if (stat == null || meta == null) {
+                    if (stat == null) {
                         toReturn.add(trackerStack)
                         continue
                     }
