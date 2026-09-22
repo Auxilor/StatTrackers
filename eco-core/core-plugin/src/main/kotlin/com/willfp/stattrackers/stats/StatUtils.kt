@@ -69,6 +69,7 @@ var ItemMeta?.trackedStats: Collection<TrackedStat>
 
 var PersistentDataContainer.trackedStats: Collection<TrackedStat>
     get() {
+        // Migrates legacy items on read; safe to re-enter as the legacy key is removed first.
         this.migrateFromLegacy()
 
         return this.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY)
@@ -146,11 +147,7 @@ fun ItemStack?.incrementIfToTrack(stat: Stat, amount: Double) {
 }
 
 fun ItemMeta?.incrementIfToTrack(stat: Stat, amount: Double) {
-    if (!this.statsToTrack.contains(stat)) {
-        return
-    }
-
-    this.setStatValue(stat, this.getStatValue(stat) + amount)
+    this?.persistentDataContainer?.incrementIfToTrack(stat, amount)
 }
 
 fun PersistentDataContainer.incrementIfToTrack(stat: Stat, amount: Double) {
@@ -158,7 +155,9 @@ fun PersistentDataContainer.incrementIfToTrack(stat: Stat, amount: Double) {
         return
     }
 
-    this.setStatValue(stat, this.getStatValue(stat) + amount)
+    val trackedStats = this.trackedStats
+    this.trackedStats = trackedStats.filter { it.stat != stat } +
+            TrackedStat(stat, (trackedStats.firstOrNull { it.stat == stat }?.value ?: 0.0) + amount)
 }
 
 fun ItemStack?.setStatValue(stat: Stat, value: Double) {
