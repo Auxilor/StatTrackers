@@ -1,11 +1,14 @@
 package com.willfp.stattrackers.display
 
 import com.willfp.eco.core.display.Display
+import com.willfp.eco.core.display.DisplayContext
+import com.willfp.eco.core.display.DisplayLore
 import com.willfp.eco.core.display.DisplayModule
 import com.willfp.eco.core.display.DisplayPriority
 import com.willfp.eco.core.fast.FastItemStack
 import com.willfp.eco.core.fast.fast
 import com.willfp.eco.util.NumberUtils
+import com.willfp.eco.util.toComponent
 import com.willfp.stattrackers.plugin
 import com.willfp.stattrackers.stats.statTracker
 import com.willfp.stattrackers.stats.trackedStats
@@ -16,74 +19,54 @@ import org.bukkit.inventory.ItemStack
 
 @Suppress("DEPRECATION")
 object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
-    override fun display(
-        itemStack: ItemStack,
-        vararg args: Any
-    ) {
-        val fis = itemStack.fast()
+    override fun display(context: DisplayContext) {
+        val fis = context.itemStack.fast()
 
-        if (!displayRegularItem(fis)) {
-            displayTracker(itemStack, fis)
+        if (!displayRegularItem(fis, context.lore)) {
+            displayTracker(context.itemStack, fis, context.lore)
         }
     }
 
     private fun displayTracker(
         itemStack: ItemStack,
-        fis: FastItemStack
+        fis: FastItemStack,
+        lore: DisplayLore
     ) {
         val stat = fis.persistentDataContainer.statTracker ?: return
-
         val trackerMeta = stat.tracker.itemMeta ?: return
         val meta = itemStack.itemMeta ?: return
 
         meta.setDisplayName(trackerMeta.displayName)
-
         if (trackerMeta.hasCustomModelData()) {
             meta.setCustomModelData(trackerMeta.customModelData)
         }
 
-        val lore = mutableListOf<String>()
-
-        lore.addAll(stat.tracker.fast().lore)
-
         meta.addEnchant(Registry.ENCHANTMENT.get(NamespacedKey.minecraft("smite"))!!, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
-
-        val itemLore = meta.lore ?: mutableListOf()
-
-        lore.addAll(itemLore)
-
-        meta.lore = lore
-
         itemStack.itemMeta = meta
+
+        lore.prepend(stat.tracker.fast().loreComponents.map { Display.stripDisplayMarker(it) })
     }
 
-    private fun displayRegularItem(fis: FastItemStack): Boolean {
-        val pdc = fis.persistentDataContainer
+    private fun displayRegularItem(
+        fis: FastItemStack,
+        lore: DisplayLore
+    ): Boolean {
+        val stats = fis.persistentDataContainer.trackedStats
 
-        val stats = pdc.trackedStats
         if (stats.isEmpty()) {
             return false
         }
 
-        val itemLore = fis.lore
-
-        val statLore = mutableListOf<String>()
-
-        for (stat in stats) {
-            statLore.add(
-                Display.PREFIX + stat.stat.display
-                    .replace("%value%", NumberUtils.format(stat.value))
-            )
+        val statLore = stats.map {
+            it.stat.display.replace("%value%", NumberUtils.format(it.value)).toComponent()
         }
 
         if (plugin.configYml.getBool("display-at-top")) {
-            itemLore.addAll(0, statLore)
+            lore.prepend(statLore)
         } else {
-            itemLore.addAll(statLore)
+            lore.append(statLore)
         }
-
-        fis.lore = itemLore
 
         return true
     }
