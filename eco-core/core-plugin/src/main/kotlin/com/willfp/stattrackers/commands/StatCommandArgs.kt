@@ -1,12 +1,12 @@
 package com.willfp.stattrackers.commands
 
+import com.willfp.eco.core.Eco
 import com.willfp.stattrackers.stats.Stats
 import com.willfp.stattrackers.stats.getStatValue
 import com.willfp.stattrackers.stats.statsToTrack
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 
 object StatCommandArgs {
     val AMOUNT_COMPLETIONS = listOf("1", "5", "10", "25", "50", "100")
@@ -14,7 +14,6 @@ object StatCommandArgs {
     sealed class TargetResult {
         data class Success(
             val player: Player,
-            val item: ItemStack,
             val remainingArgs: List<String>
         ) : TargetResult()
 
@@ -44,9 +43,7 @@ object StatCommandArgs {
             targetPlayer = sender
         }
 
-        val item = targetPlayer.inventory.itemInMainHand
-
-        return TargetResult.Success(targetPlayer, item, args.drop(index))
+        return TargetResult.Success(targetPlayer, args.drop(index))
     }
 
     /**
@@ -72,17 +69,18 @@ object StatCommandArgs {
 
         val result = resolveTarget(sender, committed.take(index))
 
+        val item = (result as? TargetResult.Success)?.player
+            ?.takeIf { Eco.get().isOwnedByCurrentRegion(it) }
+            ?.inventory?.itemInMainHand
+
         if (remainingCount == 1) {
             val stat = Stats[committed[index]] ?: return emptyList()
-            val current = (result as? TargetResult.Success)?.item?.getStatValue(stat)
+            val current = item?.getStatValue(stat)
 
             return if (current != null) listOf(current.toString()) + AMOUNT_COMPLETIONS else AMOUNT_COMPLETIONS
         }
 
-        val statIds = when (result) {
-            is TargetResult.Success -> result.item.statsToTrack.map { it.id }
-            is TargetResult.Failure -> Stats.values().map { it.id }
-        }
+        val statIds = item?.statsToTrack?.map { it.id } ?: Stats.values().map { it.id }
 
         return if (committed.isEmpty()) Bukkit.getOnlinePlayers().map { it.name } + statIds else statIds
     }

@@ -2,9 +2,11 @@ package com.willfp.stattrackers.commands
 
 import com.willfp.eco.core.command.impl.Subcommand
 import com.willfp.stattrackers.plugin
+import com.willfp.stattrackers.runOwned
 import com.willfp.stattrackers.stats.canTrackStats
 import com.willfp.stattrackers.stats.trackedStats
 import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 import org.bukkit.util.StringUtil
 
 object CommandStats : Subcommand(
@@ -16,13 +18,19 @@ object CommandStats : Subcommand(
     override fun onExecute(sender: CommandSender, args: List<String>) {
         val result = StatCommandArgs.resolveTarget(sender, args)
 
-        val (player, item) = when (result) {
+        val player = when (result) {
             is StatCommandArgs.TargetResult.Failure -> {
                 sender.sendMessage(plugin.langYml.getMessage(result.errorKey))
                 return
             }
-            is StatCommandArgs.TargetResult.Success -> result.player to result.item
+            is StatCommandArgs.TargetResult.Success -> result.player
         }
+
+        player.runOwned { execute(sender, player) }
+    }
+
+    private fun execute(sender: CommandSender, player: Player) {
+        val item = player.inventory.itemInMainHand
 
         if (!item.canTrackStats) {
             sender.sendMessage(plugin.langYml.getMessage("item-cannot-have-trackers"))

@@ -3,6 +3,7 @@ package com.willfp.stattrackers.commands
 import com.willfp.eco.core.command.impl.Subcommand
 import com.willfp.eco.core.drops.DropQueue
 import com.willfp.stattrackers.plugin
+import com.willfp.stattrackers.runOwned
 import com.willfp.stattrackers.stats.Stats
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
@@ -39,16 +40,18 @@ object CommandGive : Subcommand(
             return
         }
 
-        DropQueue(receiver)
-            .addItem(stat.tracker)
-            .forceTelekinesis()
-            .push()
+        receiver.runOwned {
+            DropQueue(receiver)
+                .addItem(stat.tracker)
+                .forceTelekinesis()
+                .push()
 
-        val message = plugin.langYml.getMessage("give-success")
-            .replace("%stat%", stat.id)
-            .replace("%recipient%", receiver.name)
+            val message = plugin.langYml.getMessage("give-success")
+                .replace("%stat%", stat.id)
+                .replace("%recipient%", receiver.name)
 
-        sender.sendMessage(message)
+            sender.sendMessage(message)
+        }
     }
 
     override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
