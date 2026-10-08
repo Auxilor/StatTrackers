@@ -10,6 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 object StatTrackersGUI {
+    @Volatile
     private lateinit var gui: Menu
 
     internal fun update() {
