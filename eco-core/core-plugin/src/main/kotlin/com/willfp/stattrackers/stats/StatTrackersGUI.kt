@@ -5,13 +5,28 @@ import com.willfp.eco.core.gui.menu
 import com.willfp.eco.core.gui.menu.Menu
 import com.willfp.eco.core.gui.slot
 import com.willfp.stattrackers.plugin
+import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.inventory.ClickType
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.ItemStack
 
-object StatTrackersGUI {
+object StatTrackersGUI : Listener {
     @Volatile
     private lateinit var gui: Menu
+
+    private val openSessions = ConcurrentHashMap<UUID, HeldItemSession>()
+
+    private class HeldItemSession(
+        val slot: Int,
+        val type: Material,
+        val stats: Set<Stat>
+    )
 
     internal fun update() {
         val rows = plugin.configYml.getInt("gui.rows")
@@ -35,6 +50,16 @@ object StatTrackersGUI {
                 val captive = menu.getCaptiveItems(player)
 
                 val itemInHand = player.inventory.itemInMainHand
+
+                val session = openSessions.remove(player.uniqueId)
+
+                if (session == null || !session.matches(player)) {
+                    DropQueue(player)
+                        .addItems(captive.filter { it.itemMeta?.statTracker !in (session?.stats ?: emptySet()) })
+                        .forceTelekinesis()
+                        .push()
+                    return@onClose
+                }
 
                 val toApply = mutableListOf<Stat>()
                 val toReturn = mutableListOf<ItemStack>()
@@ -75,7 +100,42 @@ object StatTrackersGUI {
         }
     }
 
+    private fun HeldItemSession.matches(player: Player): Boolean {
+        val itemInHand = player.inventory.itemInMainHand
+
+        return player.inventory.heldItemSlot == slot
+                && itemInHand.type == type
+                && itemInHand.canTrackStats
+                && itemInHand.statsToTrack.toSet() == stats
+    }
+
     fun open(player: Player) {
+        openSessions[player.uniqueId] = HeldItemSession(
+            player.inventory.heldItemSlot,
+            player.inventory.itemInMainHand.type,
+            player.inventory.itemInMainHand.statsToTrack.toSet()
+        )
+
         gui.open(player)
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun preventHeldItemClick(event: InventoryClickEvent) {
+        val session = openSessions[event.whoClicked.uniqueId] ?: return
+
+        if ((event.clickedInventory == event.view.bottomInventory && event.slot == session.slot)
+            || (event.click == ClickType.NUMBER_KEY && event.hotbarButton == session.slot)
+        ) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    fun preventHeldItemDrag(event: InventoryDragEvent) {
+        val session = openSessions[event.whoClicked.uniqueId] ?: return
+
+        if (event.rawSlots.any { event.view.getInventory(it) == event.view.bottomInventory && event.view.convertSlot(it) == session.slot }) {
+            event.isCancelled = true
+        }
     }
 }

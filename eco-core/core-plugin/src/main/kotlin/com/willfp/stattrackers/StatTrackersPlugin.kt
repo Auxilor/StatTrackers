@@ -43,7 +43,8 @@ class StatTrackersPlugin : LibreforgePlugin() {
 
     override fun loadListeners(): List<Listener> {
         return listOf(
-            DiscoverRecipeListener
+            DiscoverRecipeListener,
+            StatTrackersGUI
         )
     }
 
