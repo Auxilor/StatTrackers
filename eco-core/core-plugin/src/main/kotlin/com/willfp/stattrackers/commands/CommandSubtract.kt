@@ -74,7 +74,7 @@ object CommandSubtract : Subcommand(
 
         sender.sendMessage(
             plugin.langYml.getMessage("subtract-success")
-                .replace("%stat%", stat.id)
+                .replace("%stat%", stat.name)
                 .replace("%amount%", amount.toString())
                 .replace("%new%", newValue.toString())
                 .replace("%player%", player.name)

@@ -73,7 +73,7 @@ object CommandSet : Subcommand(
 
         sender.sendMessage(
             plugin.langYml.getMessage("set-success")
-                .replace("%stat%", stat.id)
+                .replace("%stat%", stat.name)
                 .replace("%value%", clampedAmount.toString())
                 .replace("%player%", player.name)
         )
