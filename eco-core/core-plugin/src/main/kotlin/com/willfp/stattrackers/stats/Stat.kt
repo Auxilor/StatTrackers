@@ -6,11 +6,14 @@ import com.willfp.eco.core.items.CustomItem
 import com.willfp.eco.core.items.Items
 import com.willfp.eco.core.items.builder.ItemStackBuilder
 import com.willfp.eco.core.recipe.Recipes
+import com.willfp.eco.core.recipe.parts.EmptyTestableItem
+import com.willfp.eco.core.recipe.parts.MaterialTestableItem
 import com.willfp.eco.core.recipe.recipes.CraftingRecipe
 import com.willfp.eco.core.registry.KRegistrable
 import com.willfp.libreforge.ViolationContext
 import com.willfp.libreforge.counters.Counters
 import com.willfp.stattrackers.plugin
+import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.Objects
@@ -21,7 +24,12 @@ class Stat(
 ) : KRegistrable {
     val display = config.getFormattedString("display")
 
-    val tracker: ItemStack = ItemStackBuilder(Items.lookup(this.config.getString("tracker.item")))
+    val tracker: ItemStack = ItemStackBuilder(
+        Items.lookup(this.config.getString("tracker.item")).takeUnless { it is EmptyTestableItem }
+            ?: MaterialTestableItem(Material.COMPASS).also {
+                plugin.logger.warning("Stat $id has invalid tracker item ${config.getString("tracker.item")}, using compass")
+            }
+    )
         .addLoreLines(this.config.getStrings("tracker.lore").map { Display.PREFIX + it })
         .setDisplayName(this.config.getString("tracker.name"))
         .writeMetaKey(plugin.namespacedKeyFactory.create("stat_tracker"), PersistentDataType.STRING, this.id)
