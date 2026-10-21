@@ -87,6 +87,15 @@ object StatTrackersGUI : Listener {
                         continue
                     }
 
+                    if (stat in toApply) {
+                        toReturn.add(trackerStack)
+                        continue
+                    }
+
+                    if (trackerStack.amount > 1) {
+                        toReturn.add(trackerStack.clone().apply { amount -= 1 })
+                    }
+
                     toApply.add(stat)
                 }
 
