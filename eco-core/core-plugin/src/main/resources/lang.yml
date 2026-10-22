@@ -5,7 +5,7 @@ messages:
   invalid-command: "&cUnknown subcommand!"
   reloaded: "Reloaded in %time%ms! Loaded %count% trackers."
 
-  invalid-stat: "&cCould not find stat maching name!"
+  invalid-stat: "&cCould not find stat matching name!"
   needs-player: "&cYou must specify a player"
   invalid-player: "&cInvalid player!"
   needs-stat: "&cYou must specify a stat"

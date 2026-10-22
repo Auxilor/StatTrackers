@@ -168,6 +168,8 @@ These placeholders are available inside this config:
 - **Nothing counts when I play?** Make sure the tracker is on an item listed in `applicable-to`, and that the item is in the slot its target group tracks (see `targets.yml`).
 - **The count never goes up?** Check your `filters` and `conditions` aren't excluding the action, e.g. the wrong block or world.
 - **Can't craft the tracker?** Confirm `craftable: true` and that the player has the `recipe-permission`, if you set one.
+- **Tracker shows as a plain compass?** The `tracker.item` could not be found, so a compass is used and the console logs a warning naming the stat. Check the item against the Item Lookup System.
+- **A target group does nothing?** Its `slot` in `targets.yml` is not valid, so the group is skipped and the console logs a warning listing the valid slots.
 :::
 
 <hr/>
