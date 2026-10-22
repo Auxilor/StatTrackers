@@ -51,7 +51,7 @@ object CommandStats : Subcommand(
         for (trackedStat in tracked) {
             sender.sendMessage(
                 plugin.langYml.getMessage("stats-list-entry")
-                    .replace("%stat%", trackedStat.stat.id)
+                    .replace("%stat%", trackedStat.stat.name)
                     .replace("%value%", trackedStat.value.toString())
             )
         }

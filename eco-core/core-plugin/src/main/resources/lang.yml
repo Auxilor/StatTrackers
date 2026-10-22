@@ -9,7 +9,7 @@ messages:
   needs-player: "&cYou must specify a player"
   invalid-player: "&cInvalid player!"
   needs-stat: "&cYou must specify a stat"
-  give-success: "Gave &a%stat% Tracker&r to &a%recipient%"
+  give-success: "Gave %stat%&r to &a%recipient%"
   item-cannot-have-trackers: "&cYou must be holding a trackable item!"
   cannot-apply: "&cYou cannot apply %tracker% &cto this item."
   no-tracked-stats: "&cThat item has no tracked stats!"

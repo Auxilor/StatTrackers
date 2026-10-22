@@ -22,6 +22,8 @@ class Stat(
     override val id: String,
     val config: Config
 ) : KRegistrable {
+    val name = config.getFormattedString("tracker.name")
+
     val display = config.getFormattedString("display")
 
     val tracker: ItemStack = ItemStackBuilder(

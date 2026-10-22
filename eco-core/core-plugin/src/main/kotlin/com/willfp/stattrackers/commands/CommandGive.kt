@@ -47,7 +47,7 @@ object CommandGive : Subcommand(
                 .push()
 
             val message = plugin.langYml.getMessage("give-success")
-                .replace("%stat%", stat.id)
+                .replace("%stat%", stat.name)
                 .replace("%recipient%", receiver.name)
 
             sender.sendMessage(message)
