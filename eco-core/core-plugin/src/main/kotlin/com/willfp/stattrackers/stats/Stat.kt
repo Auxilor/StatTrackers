@@ -27,7 +27,9 @@ class Stat(
     val tracker: ItemStack = ItemStackBuilder(
         Items.lookup(this.config.getString("tracker.item")).takeUnless { it is EmptyTestableItem }
             ?: MaterialTestableItem(Material.COMPASS).also {
-                plugin.logger.warning("Stat $id has invalid tracker item ${config.getString("tracker.item")}, using compass")
+                plugin.logger.warning(
+                    "Stat $id has invalid tracker item ${config.getString("tracker.item")}, using compass"
+                )
             }
     )
         .addLoreLines(this.config.getStrings("tracker.lore").map { Display.PREFIX + it })
