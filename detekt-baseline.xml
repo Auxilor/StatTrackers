@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>AbstractClassCanBeInterface:StatCommandArgs.kt:StatCommandArgs.TargetResult$TargetResult</ID>
+    <ID>BracesOnWhenStatements:CommandAdd.kt:CommandAdd$when</ID>
+    <ID>BracesOnWhenStatements:CommandSet.kt:CommandSet$when</ID>
+    <ID>BracesOnWhenStatements:CommandStats.kt:CommandStats$when</ID>
+    <ID>BracesOnWhenStatements:CommandSubtract.kt:CommandSubtract$when</ID>
+    <ID>CascadingCallWrapping:StatCommandArgs.kt:StatCommandArgs$itemInMainHand</ID>
+    <ID>CascadingCallWrapping:StatUtils.kt:mapNotNull { it.getStat() }</ID>
+    <ID>CascadingCallWrapping:StatUtils.kt:mapNotNull { it.toTrackedStat() }</ID>
+    <ID>CognitiveComplexMethod:StatTrackersGUI.kt:StatTrackersGUI$internal fun update</ID>
+    <ID>ComplexCondition:StatTrackersGUI.kt:StatTrackersGUI$(event.clickedInventory == event.view.bottomInventory &amp;&amp; event.slot == session.slot) || (event.click == ClickType.NUMBER_KEY &amp;&amp; event.hotbarButton == session.slot)</ID>
+    <ID>ExpressionBodySyntax:Stat.kt:Stat$return "Stat(id='$id')"</ID>
+    <ID>ExpressionBodySyntax:Stat.kt:Stat$return Objects.hash(this.id)</ID>
+    <ID>ExpressionBodySyntax:Stat.kt:Stat$return targets.any { it.matches(itemStack) }</ID>
+    <ID>ExpressionBodySyntax:StatTarget.kt:StatTarget$return "StatTarget(id='$id')"</ID>
+    <ID>ExpressionBodySyntax:StatTarget.kt:StatTarget$return items.any { it.matches(itemStack) }</ID>
+    <ID>ExpressionBodySyntax:StatTarget.kt:StatTarget$return other is StatTarget &amp;&amp; this.id == other.id</ID>
+    <ID>ExpressionBodySyntax:StatTarget.kt:StatTarget$return this.id.hashCode()</ID>
+    <ID>IC002:StatUtils.kt:// Migrates legacy items on read; safe to re-enter as the legacy key is removed first.</ID>
+    <ID>IM002:CommandStats.kt:CommandStats$org.bukkit.Bukkit.getOnlinePlayers().map { it.name }</ID>
+    <ID>ImplicitUnitReturnType:StatUtils.kt:fun ItemMeta?.setStatValue</ID>
+    <ID>ImplicitUnitReturnType:StatUtils.kt:fun PersistentDataContainer.setStatValue</ID>
+    <ID>LabeledExpression:Stat.kt:Stat$@let</ID>
+    <ID>LabeledExpression:StatTrackersGUI.kt:StatTrackersGUI$@onClose</ID>
+    <ID>LoopWithTooManyJumpStatements:StatTrackersGUI.kt:StatTrackersGUI$for</ID>
+    <ID>MagicNumber:StatTrackersGUI.kt:StatTrackersGUI$9</ID>
+    <ID>MatchingDeclarationName:Configs.kt:TargetsYml : BaseConfig</ID>
+    <ID>MaxLineLength:CommandAdd.kt:CommandAdd$StringUtil.copyPartialMatches(args.lastOrNull() ?: "", StatCommandArgs.tabCompleteTarget(sender, args), completions)</ID>
+    <ID>MaxLineLength:CommandSet.kt:CommandSet$StringUtil.copyPartialMatches(args.lastOrNull() ?: "", StatCommandArgs.tabCompleteTarget(sender, args), completions)</ID>
+    <ID>MaxLineLength:CommandSubtract.kt:CommandSubtract$StringUtil.copyPartialMatches(args.lastOrNull() ?: "", StatCommandArgs.tabCompleteTarget(sender, args), completions)</ID>
+    <ID>MaxLineLength:StatTrackersGUI.kt:StatTrackersGUI$if</ID>
+    <ID>MaxLineLength:StatTrackersGUI.kt:StatTrackersGUI$toTrack.toList().getOrNull(((row - 1) * 9) + (column - 1))?.tracker?.clone() ?: ItemStack(Material.AIR)</ID>
+    <ID>PF012:DiscoverRecipeListener.kt:DiscoverRecipeListener$values()</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatCommandArgs.kt:StatCommandArgs$(result as? TargetResult.Success)?.player ?.takeIf { Eco.get().isOwnedByCurrentRegion(it) } ?.inventory?.itemInMainHand</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatCommandArgs.kt:StatCommandArgs$item?.statsToTrack?.map { it.id }</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatTrackersGUI.kt:StatTrackersGUI$toTrack.toList().getOrNull(((row - 1) * 9) + (column - 1))?.tracker?.clone()</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatUtils.kt:this.get(statsToTrackKey, PersistentDataType.TAG_CONTAINER_ARRAY) ?.filterNotNull()?.mapNotNull { it.getStat() }</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatUtils.kt:this.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY) ?.filterNotNull()?.mapNotNull { it.toTrackedStat() }</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatUtils.kt:this?.fast()?.persistentDataContainer?.incrementIfToTrack(stat, amount)</ID>
+    <ID>ReplaceSafeCallChainWithRun:StatUtils.kt:this?.persistentDataContainer?.incrementIfToTrack(stat, amount)</ID>
+    <ID>ReturnCount:CommandAdd.kt:CommandAdd$private fun execute</ID>
+    <ID>ReturnCount:CommandGive.kt:CommandGive$override fun onExecute</ID>
+    <ID>ReturnCount:CommandSet.kt:CommandSet$private fun execute</ID>
+    <ID>ReturnCount:CommandSubtract.kt:CommandSubtract$private fun execute</ID>
+    <ID>ReturnCount:StatCommandArgs.kt:StatCommandArgs$fun resolveTarget: TargetResult</ID>
+    <ID>ReturnCount:StatCommandArgs.kt:StatCommandArgs$fun tabCompleteTarget: List&lt;String&gt;</ID>
+    <ID>ReturnCount:StatTrackersDisplay.kt:StatTrackersDisplay$private fun displayTracker</ID>
+    <ID>ReturnCount:StatUtils.kt:fun PersistentDataContainer.migrateFromLegacy</ID>
+    <ID>ReturnCount:StatUtils.kt:private fun PersistentDataContainer.toTrackedStat: TrackedStat?</ID>
+    <ID>TooManyFunctions:StatUtils.kt:com.willfp.stattrackers.stats.StatUtils.kt</ID>
+    <ID>UnnamedParameterUse:CommandAdd.kt:CommandAdd$replace</ID>
+    <ID>UnnamedParameterUse:CommandGive.kt:CommandGive$replace</ID>
+    <ID>UnnamedParameterUse:CommandReload.kt:CommandReload$replace</ID>
+    <ID>UnnamedParameterUse:CommandSet.kt:CommandSet$replace</ID>
+    <ID>UnnamedParameterUse:CommandStats.kt:CommandStats$replace</ID>
+    <ID>UnnamedParameterUse:CommandSubtract.kt:CommandSubtract$replace</ID>
+    <ID>UnnamedParameterUse:StatTrackersDisplay.kt:StatTrackersDisplay$replace</ID>
+    <ID>UnnamedParameterUse:StatTrackersGUI.kt:StatTrackersGUI$replace</ID>
+    <ID>UnnecessaryParentheses:StatTrackersGUI.kt:StatTrackersGUI$((row - 1) * 9)</ID>
+    <ID>UnnecessaryParentheses:StatTrackersGUI.kt:StatTrackersGUI$(1..9)</ID>
+    <ID>UnnecessaryParentheses:StatTrackersGUI.kt:StatTrackersGUI$(event.click == ClickType.NUMBER_KEY &amp;&amp; event.hotbarButton == session.slot)</ID>
+    <ID>UnnecessaryParentheses:StatTrackersGUI.kt:StatTrackersGUI$(event.clickedInventory == event.view.bottomInventory &amp;&amp; event.slot == session.slot)</ID>
+    <ID>UnnecessaryParentheses:StatTrackersGUI.kt:StatTrackersGUI$(session?.stats ?: emptySet())</ID>
+    <ID>UnsafeCallOnNullableType:StatTarget.kt:StatTarget$SlotTypes[config.getString("slot")]!!</ID>
+    <ID>UnsafeCallOnNullableType:StatTrackersDisplay.kt:StatTrackersDisplay$Registry.ENCHANTMENT.get(NamespacedKey.minecraft("smite"))!!</ID>
+    <ID>UseOrEmpty:CommandAdd.kt:CommandAdd$args.lastOrNull() ?: ""</ID>
+    <ID>UseOrEmpty:CommandSet.kt:CommandSet$args.lastOrNull() ?: ""</ID>
+    <ID>UseOrEmpty:CommandStats.kt:CommandStats$args.lastOrNull() ?: ""</ID>
+    <ID>UseOrEmpty:CommandSubtract.kt:CommandSubtract$args.lastOrNull() ?: ""</ID>
+    <ID>UseOrEmpty:StatTrackersGUI.kt:StatTrackersGUI$session?.stats ?: emptySet()</ID>
+    <ID>UseOrEmpty:StatUtils.kt:this.get(statsToTrackKey, PersistentDataType.TAG_CONTAINER_ARRAY) ?.filterNotNull()?.mapNotNull { it.getStat() } ?: emptyList()</ID>
+    <ID>UseOrEmpty:StatUtils.kt:this.get(trackedStatsKey, PersistentDataType.TAG_CONTAINER_ARRAY) ?.filterNotNull()?.mapNotNull { it.toTrackedStat() } ?: emptyList()</ID>
+  </CurrentIssues>
+</SmellBaseline>
