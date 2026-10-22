@@ -1,6 +1,7 @@
 package com.willfp.stattrackers.stats
 
 import com.willfp.eco.core.drops.DropQueue
+import com.willfp.eco.core.fast.fast
 import com.willfp.eco.core.gui.menu
 import com.willfp.eco.core.gui.menu.Menu
 import com.willfp.eco.core.gui.slot
@@ -69,18 +70,16 @@ object StatTrackersGUI : Listener {
         val toReturn = mutableListOf<ItemStack>()
 
         for (trackerStack in captive) {
-            val meta = trackerStack.itemMeta
-            val stat = meta?.statTracker
+            val stat = trackerStack.itemMeta?.statTracker
 
             when {
-                meta == null || stat == null || stat in toApply -> {
+                stat == null || stat in toApply -> {
                     toReturn.add(trackerStack)
                 }
                 !stat.canPutOn(itemInHand) -> {
-                    @Suppress("DEPRECATION")
                     player.sendMessage(
                         plugin.langYml.getMessage("cannot-apply")
-                            .replace("%tracker%", meta.displayName)
+                            .replace("%tracker%", trackerStack.fast().displayName)
                     )
                     toReturn.add(trackerStack)
                 }
