@@ -47,66 +47,58 @@ object StatTrackersGUI : Listener {
 
             onClose { event, menu ->
                 val player = event.player as Player
-                val captive = menu.getCaptiveItems(player)
+                applyTrackers(player, menu.getCaptiveItems(player))
+            }
+        }
+    }
 
-                val itemInHand = player.inventory.itemInMainHand
+    private fun applyTrackers(player: Player, captive: List<ItemStack>) {
+        val itemInHand = player.inventory.itemInMainHand
 
-                val session = openSessions.remove(player.uniqueId)
+        val session = openSessions.remove(player.uniqueId)
 
-                if (session == null || !session.matches(player)) {
-                    DropQueue(player)
-                        .addItems(captive.filter { it.itemMeta?.statTracker !in (session?.stats ?: emptySet()) })
-                        .forceTelekinesis()
-                        .push()
-                    return@onClose
+        if (session == null || !session.matches(player)) {
+            DropQueue(player)
+                .addItems(captive.filter { it.itemMeta?.statTracker !in (session?.stats ?: emptySet()) })
+                .forceTelekinesis()
+                .push()
+            return
+        }
+
+        val toApply = linkedSetOf<Stat>()
+        val toReturn = mutableListOf<ItemStack>()
+
+        for (trackerStack in captive) {
+            val meta = trackerStack.itemMeta
+            val stat = meta?.statTracker
+
+            when {
+                meta == null || stat == null || stat in toApply -> {
+                    toReturn.add(trackerStack)
                 }
-
-                val toApply = mutableListOf<Stat>()
-                val toReturn = mutableListOf<ItemStack>()
-
-                for (trackerStack in captive) {
-                    val meta = trackerStack.itemMeta
-                    if (meta == null) {
-                        toReturn.add(trackerStack)
-                        continue
-                    }
-
-                    val stat = meta.statTracker
-                    if (stat == null) {
-                        toReturn.add(trackerStack)
-                        continue
-                    }
-
-                    if (!stat.canPutOn(itemInHand)) {
-                        @Suppress("DEPRECATION")
-                        player.sendMessage(
-                            plugin.langYml.getMessage("cannot-apply")
-                                .replace("%tracker%", meta.displayName)
-                        )
-                        toReturn.add(trackerStack)
-                        continue
-                    }
-
-                    if (stat in toApply) {
-                        toReturn.add(trackerStack)
-                        continue
-                    }
-
+                !stat.canPutOn(itemInHand) -> {
+                    @Suppress("DEPRECATION")
+                    player.sendMessage(
+                        plugin.langYml.getMessage("cannot-apply")
+                            .replace("%tracker%", meta.displayName)
+                    )
+                    toReturn.add(trackerStack)
+                }
+                else -> {
                     if (trackerStack.amount > 1) {
                         toReturn.add(trackerStack.clone().apply { amount -= 1 })
                     }
-
                     toApply.add(stat)
                 }
-
-                itemInHand.statsToTrack = toApply
-
-                DropQueue(player)
-                    .addItems(toReturn)
-                    .forceTelekinesis()
-                    .push()
             }
         }
+
+        itemInHand.statsToTrack = toApply
+
+        DropQueue(player)
+            .addItems(toReturn)
+            .forceTelekinesis()
+            .push()
     }
 
     private fun HeldItemSession.matches(player: Player): Boolean {
