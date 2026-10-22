@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "code": "U003",
+      "path": "eco-core/core-plugin/src/main/kotlin/com/willfp/stattrackers/stats/Stat.kt",
+      "message": "Unused property `trackerCustomItem`"
+    },
+    {
+      "code": "U002",
+      "path": "eco-core/core-plugin/src/main/kotlin/com/willfp/stattrackers/stats/StatUtils.kt",
+      "message": "Unused function `getStatValue`"
+    },
+    {
+      "code": "U002",
+      "path": "eco-core/core-plugin/src/main/kotlin/com/willfp/stattrackers/stats/StatUtils.kt",
+      "message": "Unused function `incrementIfToTrack`"
+    },
+    {
+      "code": "U002",
+      "path": "eco-core/core-plugin/src/main/kotlin/com/willfp/stattrackers/stats/StatUtils.kt",
+      "message": "Unused function `setStatValue`"
+    },
+    {
+      "code": "U003",
+      "path": "eco-core/core-plugin/src/main/kotlin/com/willfp/stattrackers/stats/StatUtils.kt",
+      "message": "Unused property `statsToTrack`"
+    }
+  ]
+}
