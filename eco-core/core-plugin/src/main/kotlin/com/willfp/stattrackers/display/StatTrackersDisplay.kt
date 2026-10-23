@@ -41,7 +41,7 @@ object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
             meta.setCustomModelData(trackerMeta.customModelData)
         }
 
-        meta.addEnchant(Registry.ENCHANTMENT.get(NamespacedKey.minecraft("smite"))!!, 1, true)
+        Registry.ENCHANTMENT.get(NamespacedKey.minecraft("smite"))?.let { meta.addEnchant(it, 1, true) }
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         itemStack.itemMeta = meta
 
