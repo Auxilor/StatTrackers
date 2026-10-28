@@ -17,6 +17,8 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.ItemStack
 
+private const val SLOTS_PER_ROW = 9
+
 object StatTrackersGUI : Listener {
     @Volatile
     private lateinit var gui: Menu
@@ -26,7 +28,8 @@ object StatTrackersGUI : Listener {
     private class HeldItemSession(
         val slot: Int,
         val type: Material,
-        val stats: Set<Stat>
+        val stats: Set<Stat>,
+        val hiddenStats: List<Stat>
     )
 
     internal fun update() {
@@ -92,6 +95,8 @@ object StatTrackersGUI : Listener {
             }
         }
 
+        toApply.addAll(session.hiddenStats)
+
         itemInHand.statsToTrack = toApply
 
         DropQueue(player)
@@ -110,10 +115,13 @@ object StatTrackersGUI : Listener {
     }
 
     fun open(player: Player) {
+        val stats = player.inventory.itemInMainHand.statsToTrack
+
         openSessions[player.uniqueId] = HeldItemSession(
             player.inventory.heldItemSlot,
             player.inventory.itemInMainHand.type,
-            player.inventory.itemInMainHand.statsToTrack.toSet()
+            stats.toSet(),
+            stats.drop(plugin.configYml.getInt("gui.rows") * SLOTS_PER_ROW)
         )
 
         gui.open(player)
