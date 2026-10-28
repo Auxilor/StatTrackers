@@ -29,7 +29,8 @@ object StatTrackersGUI : Listener {
         val slot: Int,
         val type: Material,
         val stats: Set<Stat>,
-        val hiddenStats: List<Stat>
+        val hiddenStats: Set<Stat>,
+        val shownValues: Map<Stat, Double>
     )
 
     internal fun update() {
@@ -80,7 +81,7 @@ object StatTrackersGUI : Listener {
             val stat = trackerStack.itemMeta?.statTracker
 
             when {
-                stat == null || stat in toApply -> {
+                stat == null || stat in toApply || stat in session.hiddenStats -> {
                     toReturn.add(trackerStack)
                 }
                 !stat.canPutOn(itemInHand) -> {
@@ -95,7 +96,9 @@ object StatTrackersGUI : Listener {
                         toReturn.add(trackerStack.clone().apply { amount -= 1 })
                     }
                     toApply.add(stat)
-                    carriedValues[stat] = trackerStack.trackerValue
+                    if (session.shownValues[stat] != trackerStack.trackerValue) {
+                        carriedValues[stat] = trackerStack.trackerValue
+                    }
                 }
             }
         }
@@ -105,9 +108,7 @@ object StatTrackersGUI : Listener {
         itemInHand.statsToTrack = toApply
 
         for ((stat, value) in carriedValues) {
-            if (value > 0) {
-                itemInHand.setStatValue(stat, value)
-            }
+            itemInHand.setStatValue(stat, value)
         }
 
         DropQueue(player)
@@ -117,7 +118,7 @@ object StatTrackersGUI : Listener {
     }
 
     private fun ItemStack.withValue(value: Double): ItemStack {
-        if (value > 0) {
+        if (value != 0.0) {
             this.trackerValue = value
         }
 
@@ -134,13 +135,15 @@ object StatTrackersGUI : Listener {
     }
 
     fun open(player: Player) {
-        val stats = player.inventory.itemInMainHand.statsToTrack
+        val itemInHand = player.inventory.itemInMainHand
+        val stats = itemInHand.statsToTrack
 
         openSessions[player.uniqueId] = HeldItemSession(
-            player.inventory.heldItemSlot,
-            player.inventory.itemInMainHand.type,
-            stats.toSet(),
-            stats.drop(plugin.configYml.getInt("gui.rows") * SLOTS_PER_ROW)
+            slot = player.inventory.heldItemSlot,
+            type = itemInHand.type,
+            stats = stats.toSet(),
+            hiddenStats = stats.drop(plugin.configYml.getInt("gui.rows") * SLOTS_PER_ROW).toSet(),
+            shownValues = stats.associateWith { itemInHand.getStatValue(it) }
         )
 
         gui.open(player)
