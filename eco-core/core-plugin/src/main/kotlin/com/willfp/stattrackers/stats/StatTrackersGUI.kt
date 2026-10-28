@@ -41,8 +41,11 @@ object StatTrackersGUI : Listener {
             for (row in 1..rows) {
                 for (column in (1..9)) {
                     setSlot(row, column, slot({ player, _ ->
-                        val toTrack = player.inventory.itemInMainHand.statsToTrack
-                        toTrack.toList().getOrNull(((row - 1) * 9) + (column - 1))?.tracker?.clone() ?: ItemStack(Material.AIR)
+                        val itemInHand = player.inventory.itemInMainHand
+                        val stat = itemInHand.statsToTrack.toList().getOrNull(((row - 1) * 9) + (column - 1))
+                        stat?.run {
+                            tracker.clone().withValue(itemInHand.getStatValue(this))
+                        } ?: ItemStack(Material.AIR)
                     }) {
                         setCaptive(true)
                     })
@@ -70,6 +73,7 @@ object StatTrackersGUI : Listener {
         }
 
         val toApply = linkedSetOf<Stat>()
+        val carriedValues = mutableMapOf<Stat, Double>()
         val toReturn = mutableListOf<ItemStack>()
 
         for (trackerStack in captive) {
@@ -91,6 +95,7 @@ object StatTrackersGUI : Listener {
                         toReturn.add(trackerStack.clone().apply { amount -= 1 })
                     }
                     toApply.add(stat)
+                    carriedValues[stat] = trackerStack.trackerValue
                 }
             }
         }
@@ -99,10 +104,24 @@ object StatTrackersGUI : Listener {
 
         itemInHand.statsToTrack = toApply
 
+        for ((stat, value) in carriedValues) {
+            if (value > 0) {
+                itemInHand.setStatValue(stat, value)
+            }
+        }
+
         DropQueue(player)
             .addItems(toReturn)
             .forceTelekinesis()
             .push()
+    }
+
+    private fun ItemStack.withValue(value: Double): ItemStack {
+        if (value > 0) {
+            this.trackerValue = value
+        }
+
+        return this
     }
 
     private fun HeldItemSession.matches(player: Player): Boolean {

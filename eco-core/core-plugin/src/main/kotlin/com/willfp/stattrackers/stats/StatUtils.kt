@@ -19,6 +19,7 @@ private val statsToTrackKey = plugin.namespacedKeyFactory.create("stats_to_track
 private val statId = plugin.namespacedKeyFactory.create("stat_id")
 private val statValue = plugin.namespacedKeyFactory.create("stat_value")
 private val trackerKey = plugin.namespacedKeyFactory.create("stat_tracker")
+private val trackerValueKey = plugin.namespacedKeyFactory.create("stat_tracker_value")
 
 private fun TrackedStat.toNBTTag(context: PersistentDataAdapterContext): PersistentDataContainer {
     val container = context.newPersistentDataContainer()
@@ -221,6 +222,15 @@ var PersistentDataContainer.statTracker: Stat?
         } else {
             this.set(trackerKey, PersistentDataType.STRING, value.id)
         }
+    }
+
+/**
+ * The value a tracker carries after being taken off an item, restored when it is applied again.
+ */
+var ItemStack.trackerValue: Double
+    get() = this.fast().persistentDataContainer.get(trackerValueKey, PersistentDataType.DOUBLE) ?: 0.0
+    set(value) {
+        this.fast().persistentDataContainer.set(trackerValueKey, PersistentDataType.DOUBLE, value)
     }
 
 fun PersistentDataContainer.migrateFromLegacy() {
