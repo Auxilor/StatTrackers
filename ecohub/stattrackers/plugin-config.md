@@ -9,7 +9,7 @@ The global settings for StatTrackers live in `/plugins/StatTrackers/config.yml`.
 
 ```yaml
 gui:
-  rows: 1 # Number of rows in the /stattrackers apply GUI
+  rows: 1 # Number of rows in the /stattrackers apply GUI. An item with more trackers than fit keeps the ones not shown.
   title: "Stats" # Title shown at the top of the GUI
 
 discover-recipes: true # Whether players auto-unlock tracker recipes in their recipe book
