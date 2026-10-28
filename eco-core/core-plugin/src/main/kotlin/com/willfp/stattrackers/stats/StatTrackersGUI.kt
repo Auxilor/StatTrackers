@@ -29,7 +29,7 @@ object StatTrackersGUI : Listener {
         val slot: Int,
         val type: Material,
         val stats: Set<Stat>,
-        val hiddenStats: List<Stat>
+        val hiddenStats: Set<Stat>
     )
 
     internal fun update() {
@@ -76,7 +76,7 @@ object StatTrackersGUI : Listener {
             val stat = trackerStack.itemMeta?.statTracker
 
             when {
-                stat == null || stat in toApply -> {
+                stat == null || stat in toApply || stat in session.hiddenStats -> {
                     toReturn.add(trackerStack)
                 }
                 !stat.canPutOn(itemInHand) -> {
@@ -118,10 +118,10 @@ object StatTrackersGUI : Listener {
         val stats = player.inventory.itemInMainHand.statsToTrack
 
         openSessions[player.uniqueId] = HeldItemSession(
-            player.inventory.heldItemSlot,
-            player.inventory.itemInMainHand.type,
-            stats.toSet(),
-            stats.drop(plugin.configYml.getInt("gui.rows") * SLOTS_PER_ROW)
+            slot = player.inventory.heldItemSlot,
+            type = player.inventory.itemInMainHand.type,
+            stats = stats.toSet(),
+            hiddenStats = stats.drop(plugin.configYml.getInt("gui.rows") * SLOTS_PER_ROW).toSet()
         )
 
         gui.open(player)
