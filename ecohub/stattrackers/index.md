@@ -4,7 +4,7 @@ title: "StatTrackers"
 
 ## What is StatTrackers?
 
-StatTrackers adds cosmetic, EULA-friendly upgrades that attach to tools, weapons, and armor and count stats on them, like damage dealt, mobs killed, or blocks broken. Players apply a tracker by holding an item, running `/stattrackers`, and dropping trackers into the GUI.
+StatTrackers adds cosmetic, EULA-friendly upgrades that attach to tools, weapons, and armor and count stats on them, like damage dealt, mobs killed, or blocks broken. Players apply a tracker by holding an item, running `/stattrackers`, and dropping trackers into the GUI. Taking a tracker back out keeps its count on the tracker, and the count returns when the tracker is applied again.
 
 ## What sets StatTrackers apart?
 
