@@ -20,10 +20,10 @@ import wiki.ecohub.ui.text.toComponent
 @Suppress("DEPRECATION")
 object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
     override fun display(context: DisplayContext) {
-        val fis = context.itemStack.fast()
+        val fis = context.getItemStack().fast()
 
-        if (!displayRegularItem(fis, context.lore)) {
-            displayTracker(context.itemStack, fis, context.lore)
+        if (!displayRegularItem(fis, context.getLore())) {
+            displayTracker(context.getItemStack(), fis, context.getLore())
         }
     }
 
@@ -45,7 +45,7 @@ object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         itemStack.itemMeta = meta
 
-        lore.prepend(stat.tracker.fast().loreComponents.map { Display.stripDisplayMarker(it) })
+        lore.prepend(stat.tracker.fast().getLoreComponents().map { Display.stripDisplayMarker(it) })
     }
 
     private fun displayRegularItem(

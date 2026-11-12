@@ -14,7 +14,7 @@ object DiscoverRecipeListener : Listener {
         }
 
         for (stat in Stats.values()) {
-            event.player.discoverRecipe(stat.recipe?.key ?: continue)
+            event.player.discoverRecipe(stat.recipe?.getKey() ?: continue)
         }
     }
 }
