@@ -1,13 +1,6 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.drops.DropQueue
-import com.willfp.eco.core.fast.fast
-import com.willfp.eco.core.gui.menu
-import com.willfp.eco.core.gui.menu.Menu
-import com.willfp.eco.core.gui.slot
 import com.willfp.stattrackers.plugin
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -16,6 +9,13 @@ import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.inventory.ItemStack
+import wiki.ecohub.game.drop.DropQueue
+import wiki.ecohub.game.item.fast
+import wiki.ecohub.modules.menus.menu
+import wiki.ecohub.modules.menus.menu.Menu
+import wiki.ecohub.modules.menus.slot
+import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 private const val SLOTS_PER_ROW = 9
 

@@ -1,13 +1,13 @@
 package com.willfp.stattrackers.commands
 
 import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.eco.core.drops.DropQueue
 import com.willfp.stattrackers.plugin
 import com.willfp.stattrackers.runOwned
 import com.willfp.stattrackers.stats.Stats
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.util.StringUtil
+import wiki.ecohub.game.drop.DropQueue
 
 object CommandGive : Subcommand(
     plugin,
