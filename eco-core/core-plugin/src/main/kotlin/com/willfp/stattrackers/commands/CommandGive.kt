@@ -1,44 +1,22 @@
 package com.willfp.stattrackers.commands
 
-import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.stattrackers.plugin
-import com.willfp.stattrackers.runOwned
 import com.willfp.stattrackers.stats.Stats
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
-import org.bukkit.util.StringUtil
+import wiki.ecohub.core.command.CommandBuilder
 import wiki.ecohub.game.drop.DropQueue
+import wiki.ecohub.game.entity.runOwned
 
-object CommandGive : Subcommand(
-    plugin,
-    "give",
-    "stattrackers.command.give",
-    false
+internal fun CommandBuilder<CommandSender>.giveCommand() = subcommand(
+    name = "give",
+    permission = "stattrackers.command.give"
 ) {
-    override fun onExecute(sender: CommandSender, args: List<String>) {
-        if (args.isEmpty()) {
-            sender.sendMessage(plugin.langYml.getMessage("needs-player"))
-            return
-        }
+    executes {
+        val receiverName = argument(0, "needs-player")
+        val statId = argument(1, "needs-stat")
 
-        if (args.size == 1) {
-            sender.sendMessage(plugin.langYml.getMessage("needs-stat"))
-            return
-        }
-
-        val receiver = Bukkit.getPlayer(args[0])
-
-        if (receiver == null) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-player"))
-            return
-        }
-
-        val stat = Stats[args[1]]
-
-        if (stat == null) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-stat"))
-            return
-        }
+        val receiver = Bukkit.getPlayer(receiverName) ?: fail("invalid-player")
+        val stat = Stats[statId] ?: fail("invalid-stat")
 
         receiver.runOwned {
             DropQueue(receiver)
@@ -46,25 +24,15 @@ object CommandGive : Subcommand(
                 .forceTelekinesis()
                 .push()
 
-            val message = plugin.langYml.getMessage("give-success")
-                .replace("%stat%", stat.name)
-                .replace("%recipient%", receiver.name)
-
-            sender.sendMessage(message)
+            reply("give-success", "stat" to stat.name, "recipient" to receiver.name)
         }
     }
 
-    override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
-        val completions = mutableListOf<String>()
-
-        if (args.size == 1) {
-            StringUtil.copyPartialMatches(args[0], Bukkit.getOnlinePlayers().map { it.name }, completions)
+    completes {
+        when (args.size) {
+            1 -> playerNames()
+            2 -> Stats.values().map { it.id }
+            else -> emptyList()
         }
-
-        if (args.size == 2) {
-            StringUtil.copyPartialMatches(args[1], Stats.values().map { it.id }, completions)
-        }
-
-        return completions
     }
 }
