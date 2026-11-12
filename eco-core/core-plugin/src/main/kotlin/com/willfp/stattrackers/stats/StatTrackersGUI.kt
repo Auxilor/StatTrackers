@@ -37,7 +37,7 @@ object StatTrackersGUI : Listener {
         val rows = plugin.configYml.getInt("gui.rows")
 
         gui = menu(rows) {
-            title = plugin.configYml.getFormattedString("gui.title")
+            setTitle(plugin.configYml.getFormattedString("gui.title"))
 
             for (row in 1..rows) {
                 for (column in (1..9)) {
@@ -87,7 +87,7 @@ object StatTrackersGUI : Listener {
                 !stat.canPutOn(itemInHand) -> {
                     player.sendMessage(
                         plugin.langYml.getMessage("cannot-apply")
-                            .replace("%tracker%", trackerStack.fast().displayName)
+                            .replace("%tracker%", trackerStack.fast().getDisplayName())
                     )
                     toReturn.add(trackerStack)
                 }
