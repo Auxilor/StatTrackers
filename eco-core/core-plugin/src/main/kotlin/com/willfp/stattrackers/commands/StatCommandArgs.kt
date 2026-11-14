@@ -1,12 +1,12 @@
 package com.willfp.stattrackers.commands
 
-import com.willfp.eco.core.Eco
 import com.willfp.stattrackers.stats.Stats
 import com.willfp.stattrackers.stats.getStatValue
 import com.willfp.stattrackers.stats.statsToTrack
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import wiki.ecohub.core.Eco
 
 object StatCommandArgs {
     val AMOUNT_COMPLETIONS = listOf("1", "5", "10", "25", "50", "100")

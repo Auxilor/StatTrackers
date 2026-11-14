@@ -1,9 +1,9 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.libreforge.counters.Accumulator
-import com.willfp.stattrackers.runOwned
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import wiki.ecohub.game.entity.runOwned
+import wiki.ecohub.rules.counter.Accumulator
 
 class StatAccumulator(
     private val stat: Stat

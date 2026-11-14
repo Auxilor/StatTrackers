@@ -1,72 +1,47 @@
 package com.willfp.stattrackers.commands
 
-import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.stattrackers.plugin
-import com.willfp.stattrackers.runOwned
 import com.willfp.stattrackers.stats.canTrackStats
 import com.willfp.stattrackers.stats.trackedStats
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
-import org.bukkit.util.StringUtil
+import wiki.ecohub.core.command.CommandBuilder
+import wiki.ecohub.game.entity.runOwned
 
-object CommandStats : Subcommand(
-    plugin,
-    "stats",
-    "stattrackers.command.stats",
-    false
+internal fun CommandBuilder<CommandSender>.statsCommand() = subcommand(
+    name = "stats",
+    permission = "stattrackers.command.stats"
 ) {
-    override fun onExecute(sender: CommandSender, args: List<String>) {
-        val result = StatCommandArgs.resolveTarget(sender, args)
+    executes {
+        val (player, _) = resolveTarget()
 
-        val player = when (result) {
-            is StatCommandArgs.TargetResult.Failure -> {
-                sender.sendMessage(plugin.langYml.getMessage(result.errorKey))
-                return
+        player.runOwned {
+            val item = player.inventory.itemInMainHand
+            val tracked = item.trackedStats
+
+            when {
+                !item.canTrackStats -> {
+                    reply("item-cannot-have-trackers")
+                }
+
+                tracked.isEmpty() -> {
+                    reply("no-tracked-stats")
+                }
+
+                else -> {
+                    reply("stats-list-header", "player" to player.name)
+
+                    for (trackedStat in tracked) {
+                        reply("stats-list-entry", "stat" to trackedStat.stat.name, "value" to trackedStat.value)
+                    }
+                }
             }
-            is StatCommandArgs.TargetResult.Success -> result.player
-        }
-
-        player.runOwned { execute(sender, player) }
-    }
-
-    private fun execute(sender: CommandSender, player: Player) {
-        val item = player.inventory.itemInMainHand
-
-        if (!item.canTrackStats) {
-            sender.sendMessage(plugin.langYml.getMessage("item-cannot-have-trackers"))
-            return
-        }
-
-        val tracked = item.trackedStats
-
-        if (tracked.isEmpty()) {
-            sender.sendMessage(plugin.langYml.getMessage("no-tracked-stats"))
-            return
-        }
-
-        sender.sendMessage(
-            plugin.langYml.getMessage("stats-list-header").replace("%player%", player.name)
-        )
-
-        for (trackedStat in tracked) {
-            sender.sendMessage(
-                plugin.langYml.getMessage("stats-list-entry")
-                    .replace("%stat%", trackedStat.stat.name)
-                    .replace("%value%", trackedStat.value.toString())
-            )
         }
     }
 
-    override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
-        val completions = mutableListOf<String>()
-
-        val candidates = when (args.size) {
-            0, 1 -> org.bukkit.Bukkit.getOnlinePlayers().map { it.name }
-            else -> emptyList()
+    completes {
+        if (args.size == 1) {
+            playerNames()
+        } else {
+            emptyList()
         }
-
-        StringUtil.copyPartialMatches(args.lastOrNull() ?: "", candidates, completions)
-
-        return completions
     }
 }

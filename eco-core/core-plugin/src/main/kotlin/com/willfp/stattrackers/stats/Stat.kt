@@ -1,21 +1,21 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.display.Display
-import com.willfp.eco.core.items.CustomItem
-import com.willfp.eco.core.items.Items
-import com.willfp.eco.core.items.builder.ItemStackBuilder
-import com.willfp.eco.core.recipe.Recipes
-import com.willfp.eco.core.recipe.parts.EmptyTestableItem
-import com.willfp.eco.core.recipe.parts.MaterialTestableItem
-import com.willfp.eco.core.recipe.recipes.CraftingRecipe
-import com.willfp.eco.core.registry.KRegistrable
-import com.willfp.libreforge.ViolationContext
-import com.willfp.libreforge.counters.Counters
 import com.willfp.stattrackers.plugin
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.config.Config
+import wiki.ecohub.config.ViolationContext
+import wiki.ecohub.core.registry.KRegistrable
+import wiki.ecohub.game.item.CustomItem
+import wiki.ecohub.game.item.Items
+import wiki.ecohub.game.item.builder.ItemStackBuilder
+import wiki.ecohub.game.item.lookup.EmptyTestableItem
+import wiki.ecohub.game.item.lookup.MaterialTestableItem
+import wiki.ecohub.modules.recipe.Recipes
+import wiki.ecohub.modules.recipe.crafting.CraftingRecipe
+import wiki.ecohub.rules.counter.Counters
+import wiki.ecohub.ui.display.Display
 import java.util.Objects
 
 class Stat(

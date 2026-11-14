@@ -1,14 +1,5 @@
 package com.willfp.stattrackers.display
 
-import com.willfp.eco.core.display.Display
-import com.willfp.eco.core.display.DisplayContext
-import com.willfp.eco.core.display.DisplayLore
-import com.willfp.eco.core.display.DisplayModule
-import com.willfp.eco.core.display.DisplayPriority
-import com.willfp.eco.core.fast.FastItemStack
-import com.willfp.eco.core.fast.fast
-import com.willfp.eco.util.NumberUtils
-import com.willfp.eco.util.toComponent
 import com.willfp.stattrackers.plugin
 import com.willfp.stattrackers.stats.statTracker
 import com.willfp.stattrackers.stats.trackedStats
@@ -16,14 +7,23 @@ import org.bukkit.NamespacedKey
 import org.bukkit.Registry
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import wiki.ecohub.game.item.FastItemStack
+import wiki.ecohub.game.item.fast
+import wiki.ecohub.math.NumberUtils
+import wiki.ecohub.ui.display.Display
+import wiki.ecohub.ui.display.DisplayContext
+import wiki.ecohub.ui.display.DisplayModule
+import wiki.ecohub.ui.display.DisplayPriority
+import wiki.ecohub.ui.display.lore.DisplayLore
+import wiki.ecohub.ui.text.toComponent
 
 @Suppress("DEPRECATION")
 object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
     override fun display(context: DisplayContext) {
-        val fis = context.itemStack.fast()
+        val fis = context.getItemStack().fast()
 
-        if (!displayRegularItem(fis, context.lore)) {
-            displayTracker(context.itemStack, fis, context.lore)
+        if (!displayRegularItem(fis, context.getLore())) {
+            displayTracker(context.getItemStack(), fis, context.getLore())
         }
     }
 
@@ -45,7 +45,7 @@ object StatTrackersDisplay : DisplayModule(plugin, DisplayPriority.HIGH) {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         itemStack.itemMeta = meta
 
-        lore.prepend(stat.tracker.fast().loreComponents.map { Display.stripDisplayMarker(it) })
+        lore.prepend(stat.tracker.fast().getLoreComponents().map { Display.stripDisplayMarker(it) })
     }
 
     private fun displayRegularItem(
