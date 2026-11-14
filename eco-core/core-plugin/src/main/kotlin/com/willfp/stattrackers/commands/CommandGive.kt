@@ -43,7 +43,7 @@ object CommandGive : Subcommand(
         receiver.runOwned {
             DropQueue(receiver)
                 .addItem(stat.tracker)
-                .forceTelekinesis()
+                .giveDirectly()
                 .push()
 
             val message = plugin.langYml.getMessage("give-success")
