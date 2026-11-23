@@ -21,7 +21,7 @@ internal fun CommandBuilder<CommandSender>.giveCommand() = subcommand(
         receiver.runOwned {
             DropQueue(receiver)
                 .addItem(stat.tracker)
-                .forceTelekinesis()
+                .giveDirectly()
                 .push()
 
             reply("give-success", "stat" to stat.name, "recipient" to receiver.name)

@@ -68,7 +68,7 @@ object StatTrackersGUI : Listener {
         if (session == null || !session.matches(player)) {
             DropQueue(player)
                 .addItems(captive.filter { it.itemMeta?.statTracker !in (session?.stats ?: emptySet()) })
-                .forceTelekinesis()
+                .giveDirectly()
                 .push()
             return
         }
@@ -113,7 +113,7 @@ object StatTrackersGUI : Listener {
 
         DropQueue(player)
             .addItems(toReturn)
-            .forceTelekinesis()
+            .giveDirectly()
             .push()
     }
 
