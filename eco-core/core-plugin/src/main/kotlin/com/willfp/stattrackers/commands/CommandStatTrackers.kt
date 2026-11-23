@@ -1,35 +1,30 @@
 package com.willfp.stattrackers.commands
 
-import com.willfp.eco.core.command.impl.PluginCommand
-import com.willfp.stattrackers.plugin
+import com.willfp.stattrackers.StatTrackersPlugin
 import com.willfp.stattrackers.stats.StatTrackersGUI
 import com.willfp.stattrackers.stats.canTrackStats
-import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import wiki.ecohub.core.command.command
 
-object CommandStatTrackers : PluginCommand(
-    plugin,
-    "stattrackers",
-    "stattrackers.command.stattrackers",
-    true
+/**
+ * The GUI needs a player; the subcommands can also run from the console.
+ */
+internal fun StatTrackersPlugin.statTrackersCommand() = command(
+    name = "stattrackers",
+    permission = "stattrackers.command.stattrackers"
 ) {
-    init {
-        this.addSubcommand(CommandReload)
-            .addSubcommand(CommandGive)
-            .addSubcommand(CommandStats)
-            .addSubcommand(CommandSet)
-            .addSubcommand(CommandAdd)
-            .addSubcommand(CommandSubtract)
-    }
+    reloadCommand()
+    giveCommand()
+    statsCommand()
+    setCommand()
+    addCommand()
+    subtractCommand()
 
-    override fun onExecute(sender: CommandSender, args: List<String>) {
-        val player = sender as Player
+    executes {
+        val player = sender as? Player ?: fail("not-player")
 
-        val item = player.inventory.itemInMainHand
-
-        if (!item.canTrackStats) {
-            player.sendMessage(plugin.langYml.getMessage("item-cannot-have-trackers"))
-            return
+        if (!player.inventory.itemInMainHand.canTrackStats) {
+            fail("item-cannot-have-trackers")
         }
 
         StatTrackersGUI.open(player)

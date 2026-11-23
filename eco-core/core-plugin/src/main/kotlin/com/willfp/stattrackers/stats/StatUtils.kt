@@ -2,9 +2,6 @@
 
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.fast.FastItemStack
-import com.willfp.eco.core.fast.fast
-import com.willfp.eco.util.safeNamespacedKeyOf
 import com.willfp.stattrackers.plugin
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -12,6 +9,9 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
+import wiki.ecohub.core.platform.safeNamespacedKeyOf
+import wiki.ecohub.game.item.FastItemStack
+import wiki.ecohub.game.item.fast
 
 private val legacyActiveKey = plugin.namespacedKeyFactory.create("active")
 private val trackedStatsKey = plugin.namespacedKeyFactory.create("tracked_stats")

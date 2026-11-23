@@ -1,11 +1,6 @@
 package com.willfp.stattrackers
 
-import com.willfp.eco.core.bstats.EcoMetricsChart
-import com.willfp.eco.core.command.impl.PluginCommand
-import com.willfp.eco.core.display.DisplayModule
-import com.willfp.libreforge.loader.LibreforgePlugin
-import com.willfp.libreforge.loader.configs.ConfigCategory
-import com.willfp.stattrackers.commands.CommandStatTrackers
+import com.willfp.stattrackers.commands.statTrackersCommand
 import com.willfp.stattrackers.config.TargetsYml
 import com.willfp.stattrackers.display.StatTrackersDisplay
 import com.willfp.stattrackers.stats.StatTargets
@@ -13,11 +8,16 @@ import com.willfp.stattrackers.stats.StatTrackersGUI
 import com.willfp.stattrackers.stats.Stats
 import com.willfp.stattrackers.util.DiscoverRecipeListener
 import org.bukkit.event.Listener
+import wiki.ecohub.config.category.NativeConfigCategory
+import wiki.ecohub.core.command.EcoCommand
+import wiki.ecohub.core.plugin.EcoPlugin
+import wiki.ecohub.provider.metrics.EcoMetricsChart
+import wiki.ecohub.ui.display.DisplayModule
 
 internal lateinit var plugin: StatTrackersPlugin
     private set
 
-class StatTrackersPlugin : LibreforgePlugin() {
+class StatTrackersPlugin : EcoPlugin() {
     val targetsYml = TargetsYml(this)
 
     init {
@@ -29,15 +29,15 @@ class StatTrackersPlugin : LibreforgePlugin() {
         StatTrackersGUI.update()
     }
 
-    override fun loadConfigCategories(): List<ConfigCategory> {
+    override fun loadConfigCategories(): List<NativeConfigCategory> {
         return listOf(
             Stats
         )
     }
 
-    override fun loadPluginCommands(): List<PluginCommand> {
+    override fun loadPluginCommands(): List<EcoCommand> {
         return listOf(
-            CommandStatTrackers
+            statTrackersCommand()
         )
     }
 

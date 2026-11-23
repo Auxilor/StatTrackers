@@ -1,11 +1,11 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.config.interfaces.Config
-import com.willfp.eco.core.items.Items
-import com.willfp.eco.core.recipe.parts.EmptyTestableItem
-import com.willfp.eco.core.registry.KRegistrable
-import com.willfp.libreforge.slot.SlotTypes
 import org.bukkit.inventory.ItemStack
+import wiki.ecohub.config.Config
+import wiki.ecohub.core.registry.KRegistrable
+import wiki.ecohub.game.item.Items
+import wiki.ecohub.game.item.lookup.EmptyTestableItem
+import wiki.ecohub.rules.holder.slot.SlotTypes
 
 class StatTarget(
     config: Config

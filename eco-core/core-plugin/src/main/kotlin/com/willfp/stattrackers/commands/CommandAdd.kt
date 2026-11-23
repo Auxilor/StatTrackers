@@ -1,89 +1,30 @@
 package com.willfp.stattrackers.commands
 
-import com.willfp.eco.core.command.impl.Subcommand
-import com.willfp.stattrackers.plugin
-import com.willfp.stattrackers.runOwned
-import com.willfp.stattrackers.stats.Stats
-import com.willfp.stattrackers.stats.canTrackStats
 import com.willfp.stattrackers.stats.getStatValue
 import com.willfp.stattrackers.stats.setStatValue
-import com.willfp.stattrackers.stats.statsToTrack
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
-import org.bukkit.util.StringUtil
+import wiki.ecohub.core.command.CommandBuilder
 
-object CommandAdd : Subcommand(
-    plugin,
-    "add",
-    "stattrackers.command.add",
-    false
+internal fun CommandBuilder<CommandSender>.addCommand() = subcommand(
+    name = "add",
+    permission = "stattrackers.command.add"
 ) {
-    override fun onExecute(sender: CommandSender, args: List<String>) {
-        val result = StatCommandArgs.resolveTarget(sender, args)
+    executes {
+        changeTrackedStat { player, item, stat, amount ->
+            val newValue = (item.getStatValue(stat) + amount).coerceAtLeast(0.0)
+            item.setStatValue(stat, newValue)
 
-        val (player, remaining) = when (result) {
-            is StatCommandArgs.TargetResult.Failure -> {
-                sender.sendMessage(plugin.langYml.getMessage(result.errorKey))
-                return
-            }
-            is StatCommandArgs.TargetResult.Success -> result.player to result.remainingArgs
+            reply(
+                "add-success",
+                "stat" to stat.name,
+                "amount" to amount,
+                "new" to newValue,
+                "player" to player.name
+            )
         }
-
-        player.runOwned { execute(sender, player, remaining) }
     }
 
-    private fun execute(sender: CommandSender, player: Player, remaining: List<String>) {
-        val item = player.inventory.itemInMainHand
-
-        if (!item.canTrackStats) {
-            sender.sendMessage(plugin.langYml.getMessage("item-cannot-have-trackers"))
-            return
-        }
-
-        if (remaining.isEmpty()) {
-            sender.sendMessage(plugin.langYml.getMessage("needs-stat"))
-            return
-        }
-
-        if (remaining.size < 2) {
-            sender.sendMessage(plugin.langYml.getMessage("needs-amount"))
-            return
-        }
-
-        val stat = Stats[remaining[0]]
-
-        if (stat == null) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-stat"))
-            return
-        }
-
-        if (stat !in item.statsToTrack) {
-            sender.sendMessage(plugin.langYml.getMessage("stat-not-tracked"))
-            return
-        }
-
-        val amount = remaining[1].toDoubleOrNull()
-
-        if (amount == null || !amount.isFinite()) {
-            sender.sendMessage(plugin.langYml.getMessage("invalid-amount"))
-            return
-        }
-
-        val newValue = (item.getStatValue(stat) + amount).coerceAtLeast(0.0)
-        item.setStatValue(stat, newValue)
-
-        sender.sendMessage(
-            plugin.langYml.getMessage("add-success")
-                .replace("%stat%", stat.name)
-                .replace("%amount%", amount.toString())
-                .replace("%new%", newValue.toString())
-                .replace("%player%", player.name)
-        )
-    }
-
-    override fun tabComplete(sender: CommandSender, args: List<String>): List<String> {
-        val completions = mutableListOf<String>()
-        StringUtil.copyPartialMatches(args.lastOrNull() ?: "", StatCommandArgs.tabCompleteTarget(sender, args), completions)
-        return completions
+    completes {
+        StatCommandArgs.tabCompleteTarget(sender, args)
     }
 }

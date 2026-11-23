@@ -1,8 +1,8 @@
 package com.willfp.stattrackers.stats
 
-import com.willfp.eco.core.registry.Registry
-import com.willfp.libreforge.slot.SlotTypes
 import com.willfp.stattrackers.plugin
+import wiki.ecohub.core.registry.Registry
+import wiki.ecohub.rules.holder.slot.SlotTypes
 
 object StatTargets: Registry<StatTarget>() {
     init {
